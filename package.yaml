@@ -35,6 +35,11 @@ ghc-options:
 
 library:
   source-dirs: src
+  ghc-options:
+  - -threaded
+  - -rtsopts
+  dependencies:
+  - accelerate
 
 executables:
   accelerate-ann-exe:
