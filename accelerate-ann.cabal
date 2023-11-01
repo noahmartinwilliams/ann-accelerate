@@ -28,6 +28,7 @@ library
       ML.ANN.ActFuncs
       ML.ANN.Mat
       ML.ANN.Vect
+      ML.ANN.Layer
   other-modules:
       Paths_accelerate_ann
   hs-source-dirs:
