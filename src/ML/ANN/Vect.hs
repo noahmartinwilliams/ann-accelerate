@@ -15,6 +15,7 @@ instance Show (Vect a) where
 
 vaddv :: Vect a -> Vect a -> Vect a
 vaddv (VectI a) (VectI b) = VectI (A.zipWith (+) a b)
+vaddv (VectO a) (VectO b) = VectO (A.zipWith (+) a b)
 
 mmulv :: Mat a b -> Vect b -> Vect a
 mmulv (MatIO mat) (VectO vect) = do
@@ -44,3 +45,4 @@ takeV (VectO a) i = A.take i (A.transpose a)
 dropV :: Vect a -> Exp Int -> Acc (Matrix Double)
 dropV (VectI a) i = A.drop i a
 dropV (VectO a) i = A.drop i a
+

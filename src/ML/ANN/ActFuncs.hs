@@ -1,5 +1,5 @@
 {-# LANGUAGE GADTs, TypeFamilies, DataKinds #-}
-module ML.ANN.ActFuncs (sigmoid, ActFunc(..)) where
+module ML.ANN.ActFuncs (sigmoid, ActFunc(..), applyActFuncs) where
 
 import Data.Array.Accelerate as A
 import Prelude as P
