@@ -1,5 +1,5 @@
 {-# LANGUAGE GADTs, DataKinds, KindSignatures, TypeOperators #-}
-module ML.ANN.Mat ( Mat(..), InputSize, OutputSize, maddm, transp ) where
+module ML.ANN.Mat ( Mat(..), InputSize, OutputSize, maddm, transp, extractMat ) where
 
 import Data.Array.Accelerate as A
 import Prelude as P
@@ -22,3 +22,7 @@ maddm (MatOI a) (MatOI b) = MatOI (A.zipWith (\x -> \y -> x + y) a b)
 transp :: Mat a b -> Mat b a
 transp (MatIO a) = MatOI (A.transpose a)
 transp (MatOI a) = MatIO (A.transpose a)
+
+extractMat :: Mat a b -> Acc (Matrix Double)
+extractMat (MatIO m) = m
+extractMat (MatOI m) = m

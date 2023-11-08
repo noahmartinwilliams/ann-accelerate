@@ -1,5 +1,5 @@
 {-# LANGUAGE GADTs, DataKinds, KindSignatures, TypeOperators #-}
-module ML.ANN.Vect ( Vect(..), vaddv, mmulv, extract, takeV, dropV) where
+module ML.ANN.Vect ( Vect(..), vaddv, mmulv, extractVect, takeV, dropV) where
 
 import ML.ANN.Mat
 import Data.Array.Accelerate as A
@@ -34,9 +34,9 @@ mmulv (MatOI mat) (VectI vect) = do
         retVect = A.sum (A.zipWith (+) mat transposed)
     VectO ((A.replicate (constant (Z:.All:.(1::Int))) retVect) :: Acc (Matrix Double))
 
-extract :: Vect a -> Acc (Matrix Double)
-extract (VectI a) = a
-extract (VectO a) = a
+extractVect :: Vect a -> Acc (Matrix Double)
+extractVect (VectI a) = a
+extractVect (VectO a) = a
 
 takeV :: Vect a -> Exp Int -> Acc (Matrix Double)
 takeV (VectI a) i = A.take i (A.transpose a)

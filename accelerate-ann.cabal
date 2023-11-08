@@ -29,6 +29,9 @@ library
       ML.ANN.Mat
       ML.ANN.Vect
       ML.ANN.Layer
+      ML.ANN.Network
+      ML.ANN.Block
+      ML.ANN.Optim
   other-modules:
       Paths_accelerate_ann
   hs-source-dirs:
