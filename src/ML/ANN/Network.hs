@@ -18,10 +18,10 @@ mkNetwork g lspec (SGD lr) = do
     SGDNetwork (internSGD rands lspec numInputs numInputs) lr where
         internSGD :: [Double] -> [LSpec] -> Int -> Int -> [Layer]
         internSGD _ [] _ _ = []
-        internSGD randoms [lspec] numInputs numOutputs = do
-            [(mkSGDLayer randoms lspec numInputs numOutputs)]
-        internSGD randoms (lspec : rest) numInputs numOutputs = do
-            (mkSGDLayer randoms lspec numInputs numOutputs) : (internSGD randoms rest numOutputs (lspecGetNumOutputs (rest P.!! 0)))
+        internSGD rands [lspec2] numInputs numOutputs = do
+            [(mkSGDLayer rands lspec2 numInputs numOutputs)]
+        internSGD rands (lspec2 : rest) numInputs numOutputs = do
+            (mkSGDLayer rands lspec2 numInputs numOutputs) : (internSGD rands rest numOutputs (lspecGetNumOutputs (rest P.!! 0)))
                 
     
 calcNetwork :: Network -> Acc (Vector Double) -> Acc (Vector Double)

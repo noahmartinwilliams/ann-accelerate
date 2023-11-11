@@ -1,4 +1,4 @@
-module ML.ANN.Block(BLInfo(..), BlockInfo(..), BlockA, BlockV, layer2block, block2layer, network2block) where
+module ML.ANN.Block(BLInfo(..), BlockInfo(..), BlockA, BlockV, layer2block, block2layer, network2block, block2network) where
 
 import ML.ANN.Network
 import ML.ANN.Mat
@@ -44,13 +44,33 @@ network2block :: Network -> (BlockInfo, BlockA)
 network2block (SGDNetwork layers lr) = do
     let lr2 = A.reshape (constant (Z:.1)) (A.unit lr)
         (blinfo, retblock) = layers2block layers
-    (BlockInfo (SGD lr) blinfo, retblock) where
+        (vint, vdouble) = A.unlift retblock :: (Acc (Vector Int), Acc (Vector Double))
+        vdouble2 = lr2 A.++ vdouble
+        retblock2 = A.lift (vint, vdouble2)
+    (BlockInfo (SGD lr) blinfo, retblock2) where
+
         layers2block :: [Layer] -> ([BLInfo], BlockA)
         layers2block [] = let emptyi = use (fromList (Z:.0) []) in let emptyd = use (fromList (Z:.0) []) in ([], A.lift (emptyi, emptyd))
-        layers2block (head : tail) = do
-            let (info, intdoubles) = layer2block head
+        layers2block (h : t) = do
+            let (info, intdoubles) = layer2block h
                 (integers, doubles) = A.unlift intdoubles
-                (infoRest, intdoublesRest) = layers2block tail
+                (infoRest, intdoublesRest) = layers2block t
                 (integersRest, doublesRest) = A.unlift intdoublesRest
                 ret = A.lift ((integers A.++ integersRest), (doubles A.++ doublesRest))
             (info : infoRest, ret)
+
+block2network :: (BlockInfo, BlockA) -> Network
+block2network (BlockInfo (SGD _) blinfos, blocka) = do
+    let (integers, doubles) = A.unlift blocka :: (Acc (Vector Int), Acc (Vector Double))
+        lr = A.take (constant 1) doubles
+        lr2 = A.the (A.reshape (constant Z) lr)
+        restDoubles = A.drop (constant 1) doubles
+        restV = A.lift (integers, restDoubles) :: Acc (Vector Int, Vector Double)
+    SGDNetwork (intern blinfos restV) lr2 where
+
+        intern :: [BLInfo] -> BlockA -> [Layer]
+        intern [] _ = []
+        intern (h : rest) blockA = do
+            let (layer, blockRest) = block2layer (h, blockA)
+            layer : (intern rest blockRest)
+            
