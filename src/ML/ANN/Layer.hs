@@ -1,5 +1,5 @@
 {-# LANGUAGE GADTs, DataKinds, KindSignatures, TypeOperators #-}
-module ML.ANN.Layer (Layer(..), LSpec(), calcLayer, lspecGetNumOutputs, layerGetNumInputs, mkSGDLayer) where
+module ML.ANN.Layer (Layer(..), LLayer(..), LSpec(), calcLayer, lspecGetNumOutputs, layerGetNumInputs, mkSGDLayer, learnLayer) where
 
 import Data.Array.Accelerate as A
 import Prelude as P
@@ -12,6 +12,8 @@ type LSpec = [ActFunc]
 
 data Layer = SGDLayer Int (Mat OutputSize InputSize) (Vect OutputSize) LSpec deriving (Show) -- NumInputs weights bias lspec
 
+data LLayer = LSGDLayer Layer (Vect InputSize) deriving(Show)
+
 mkSGDLayer :: [Double] -> LSpec -> Int -> Int -> Layer
 mkSGDLayer randoms lspec numInputs numOutputs = do
     let weightsM = use (fromList (Z:.numOutputs:.numInputs) randoms)
@@ -23,6 +25,12 @@ calcLayer (SGDLayer _ weights bias lspec) x = do
     let x2 = VectI x
         (VectO output) = applyActFuncs lspec ((weights `mmulv` x2 ) `vaddv` bias)
     output
+
+learnLayer :: Layer -> Acc (Matrix Double) -> (LLayer, Acc (Matrix Double))
+learnLayer (SGDLayer numInputs weights biases lspec) input = do
+    let x = VectI input
+        output = applyActFuncs lspec ((weights `mmulv` x) `vaddv` biases)
+    ((LSGDLayer (SGDLayer numInputs weights biases lspec) x), (extractVect output))
 
 lspecGetNumOutputs :: LSpec -> Int
 lspecGetNumOutputs [] = 0
