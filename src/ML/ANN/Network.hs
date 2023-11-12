@@ -1,5 +1,5 @@
-{-# LANGUAGE GADTs, DataKinds, KindSignatures, TypeOperators #-}
-module ML.ANN.Network (Network(..), LNetwork(..), calcNetwork, mkNetwork, learnNetwork) where
+{-# LANGUAGE GADTs, DataKinds, KindSignatures, TypeOperators, FlexibleContexts #-}
+module ML.ANN.Network (Network(..), LNetwork(..), calcNetwork, mkNetwork, learnNetwork, backpropNetwork) where
 
 import Data.Array.Accelerate as A
 import Prelude as P
@@ -8,6 +8,7 @@ import Data.Random.Normal
 
 import ML.ANN.Layer
 import ML.ANN.Optim
+import ML.ANN.ActFuncs
 
 data Network = SGDNetwork [Layer] (Exp Double) deriving(Show)
 data LNetwork = LSGDNetwork [LLayer] (Exp Double) deriving(Show)
@@ -45,3 +46,16 @@ learnNetwork (SGDNetwork layers lr) input = do
             let (llayer, output) =  learnLayer h input2
                 (restllayer, output2) = intern t output
             (llayer : restllayer, output2)
+
+backpropNetwork :: LNetwork -> Acc (Vector Double) -> (Network, Acc (Vector Double))
+backpropNetwork (LSGDNetwork llayers lr) backProp = do
+    let backProp2 = A.replicate (A.lift (Z:.All:.(1::Int))) backProp
+        (layers, retbp) = intern llayers (SGD lr) backProp2
+    ((SGDNetwork layers lr), (A.flatten retbp)) where
+        
+        intern :: [LLayer] -> Optim -> Acc (Matrix Double) -> ([Layer], Acc (Matrix Double))
+        intern [] _ x = ([], x)
+        intern ( h : t ) optim bp = do
+            let (restLayer, bp2) = intern t optim bp
+                (layer, bp3) = backpropLayer h optim bp2
+            (layer : restLayer, bp3)
