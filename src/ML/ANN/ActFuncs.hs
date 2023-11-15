@@ -6,36 +6,49 @@ import Prelude as P
 import ML.ANN.Vect
 import ML.ANN.Mat
 
-data ActFunc = Sigmoid Int deriving(Show, P.Eq)
+data ActFunc = Sigmoid Int | Relu Int deriving(Show, P.Eq)
 
-sigmoid :: Exp Double -> Exp Double
-sigmoid x = let one = constant 1.0 in one / (one + (exp (-x)))
+getInt :: ActFunc -> Int -- TODO: Find a better way to do this.
+getInt (Sigmoid i) = i
+getInt (Relu i) = i
 
-dsigmoid :: Exp Double -> Exp Double
-dsigmoid x = let one = constant 1.0 in let e = exp (-x) in e / ((e + one) * (e + one))
+sigmoid :: (Acc (Matrix Double) -> Acc (Matrix Double))
+sigmoid = let func = (\x -> let one = constant 1.0 in one / (one + (exp (-x)))) in A.map func
+
+dsigmoid :: (Acc (Matrix Double) -> Acc (Matrix Double))
+dsigmoid = let func = (\x -> let one = constant 1.0 in let e = exp (-x) in e / ((e + one) * (e + one))) in A.map func 
+
+relu :: (Acc (Matrix Double) -> Acc (Matrix Double))
+relu = A.map (\y -> A.max (constant 0.0) y)
+
+drelu :: (Acc (Matrix Double) -> Acc (Matrix Double))
+drelu = A.map (\y -> A.fromIntegral (boolToInt (y A.>= (constant 0.0 :: Exp Double))) :: Exp Double)
+
+getFunc :: ActFunc -> (Acc (Matrix Double) -> Acc (Matrix Double))
+getFunc (Sigmoid _) = sigmoid
+getFunc (Relu _) = relu
+
+dgetFunc :: ActFunc -> (Acc (Matrix Double) -> Acc (Matrix Double))
+dgetFunc (Sigmoid _) = dsigmoid
+dgetFunc (Relu _) = drelu
 
 applyActFuncs :: [ActFunc] -> Vect OutputSize -> Vect OutputSize
 applyActFuncs [] x = x
-applyActFuncs [Sigmoid _] x = do
-    let (VectO v) = x
-    VectO (A.map (sigmoid) v)
-applyActFuncs ( ( Sigmoid i ) : rest ) x = do
-    let piece = takeV x (constant i)
-        result = A.map (sigmoid) piece
+applyActFuncs ( afunc : rest ) x = do
+    let i = getInt afunc
+        piece = takeV x (constant i)
+        result = (getFunc afunc) piece
         restV = dropV x (constant i)
         (VectO rest2) = applyActFuncs rest (VectO (A.transpose restV))
         rest3 = A.transpose rest2
     VectO (A.transpose (result A.++ rest3))
 
 dapplyActFuncs :: [ActFunc] -> Vect OutputSize -> Vect OutputSize
-dapplyActFuncs [Sigmoid i] x = do
-    let (VectO v) = x
-    VectO (A.map (dsigmoid) v)
-
 dapplyActFuncs [] x = x
-dapplyActFuncs ( ( Sigmoid i ) : rest ) x = do
-    let piece = takeV x (constant i)
-        result = A.map dsigmoid piece
+dapplyActFuncs ( afunc : rest ) x = do
+    let i = getInt afunc
+        piece = takeV x (constant i)
+        result = (dgetFunc afunc) piece
         restV = dropV x (constant i)
         (VectO rest2) = dapplyActFuncs rest (VectO (A.transpose restV))
         rest3 = A.transpose rest2

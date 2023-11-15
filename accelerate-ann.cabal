@@ -23,6 +23,15 @@ source-repository head
   type: git
   location: https://github.com/githubuser/accelerate-ann
 
+executable app
+  hs-source-dirs: app/
+  main-is: Main.hs
+  build-depends:
+      accelerate,
+      base, 
+      normaldistribution,
+      accelerate-ann,
+      random
 library
   exposed-modules:
       ML.ANN.ActFuncs

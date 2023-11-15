@@ -21,8 +21,9 @@ data LLayer = LSGDLayer Layer (Vect InputSize) deriving(Show)
 
 mkSGDLayer :: [Double] -> LSpec -> Int -> Int -> Layer
 mkSGDLayer randoms lspec numInputs numOutputs = do
-    let weightsM = use (fromList (Z:.numOutputs:.numInputs) randoms)
-        biasesM = use (fromList (Z:.numOutputs:.1) randoms)
+    let randoms2 = P.map (\x -> x * (sqrt (2.0 / (P.fromIntegral numInputs :: Double)))) randoms :: [Double]
+    let weightsM = use (fromList (Z:.numOutputs:.numInputs) randoms2)
+        biasesM = use (fromList (Z:.numOutputs:.1) randoms2)
     SGDLayer numInputs (MatOI weightsM) (VectO biasesM) lspec
 
 calcLayer :: Layer -> Acc (Matrix Double) -> Acc (Matrix Double)
@@ -52,6 +53,7 @@ backpropLayer (LSGDLayer layer x) (SGD lr) bp = do
 lspecGetNumOutputs :: LSpec -> Int
 lspecGetNumOutputs [] = 0
 lspecGetNumOutputs ((Sigmoid x) : rest) = x + (lspecGetNumOutputs rest)
+lspecGetNumOutputs ((Relu x) : rest) = x + (lspecGetNumOutputs rest)
 
 layerGetNumInputs :: Layer -> Int
 layerGetNumInputs (SGDLayer num _ _ _ ) = num
