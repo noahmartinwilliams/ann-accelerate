@@ -73,4 +73,3 @@ block2network (BlockInfo (SGD _) blinfos, blocka) = do
         intern (h : rest) blockA = do
             let (layer, blockRest) = block2layer (h, blockA)
             layer : (intern rest blockRest)
-            

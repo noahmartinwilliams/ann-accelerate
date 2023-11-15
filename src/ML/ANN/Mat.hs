@@ -34,3 +34,4 @@ extractMat (MatOI m) = m
 smulm :: Exp Double -> Mat a b -> Mat a b
 smulm s (MatIO m) = MatIO (A.map (\x -> x * s) m)
 smulm s (MatOI m) = MatOI (A.map (\x -> x * s) m)
+

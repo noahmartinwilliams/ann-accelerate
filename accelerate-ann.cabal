@@ -32,6 +32,8 @@ library
       ML.ANN.Network
       ML.ANN.Block
       ML.ANN.Optim
+      ML.ANN.Costs
+      ML.ANN
   other-modules:
       Paths_accelerate_ann
   hs-source-dirs:
@@ -42,6 +44,8 @@ library
     , base >=4.7 && <5
     , normaldistribution >= 1.1
     , random >= 1.2
+    , accelerate-llvm
+    , accelerate-llvm-ptx
   default-language: Haskell2010
 
 

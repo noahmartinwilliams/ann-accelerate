@@ -16,6 +16,9 @@ dsigmoid x = let one = constant 1.0 in let e = exp (-x) in e / ((e + one) * (e +
 
 applyActFuncs :: [ActFunc] -> Vect OutputSize -> Vect OutputSize
 applyActFuncs [] x = x
+applyActFuncs [Sigmoid _] x = do
+    let (VectO v) = x
+    VectO (A.map (sigmoid) v)
 applyActFuncs ( ( Sigmoid i ) : rest ) x = do
     let piece = takeV x (constant i)
         result = A.map (sigmoid) piece
@@ -25,6 +28,10 @@ applyActFuncs ( ( Sigmoid i ) : rest ) x = do
     VectO (A.transpose (result A.++ rest3))
 
 dapplyActFuncs :: [ActFunc] -> Vect OutputSize -> Vect OutputSize
+dapplyActFuncs [Sigmoid i] x = do
+    let (VectO v) = x
+    VectO (A.map (dsigmoid) v)
+
 dapplyActFuncs [] x = x
 dapplyActFuncs ( ( Sigmoid i ) : rest ) x = do
     let piece = takeV x (constant i)

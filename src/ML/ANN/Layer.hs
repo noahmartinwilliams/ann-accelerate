@@ -8,6 +8,10 @@ import ML.ANN.Mat
 import ML.ANN.Vect
 import ML.ANN.ActFuncs
 import ML.ANN.Optim
+import System.Random
+import System.IO
+import Data.Random.Normal
+import Data.Array.Accelerate.Interpreter
 
 type LSpec = [ActFunc]
 
@@ -40,7 +44,7 @@ backpropLayer (LSGDLayer layer x) (SGD lr) bp = do
         deriv = dapplyActFuncs lspec ((weights `mmulv` x) `vaddv` biases)
         weights2 = weights `msubm` (lr `smulm` (x `vxv` (deriv `vmulv` bp2 ) ))
         biases2 = biases `vsubv` (lr `smulv` (deriv `vmulv` bp2))
-        bp3 = ((transp weights) `mmulv` (deriv `vmulv` bp2))
+        bp3 = ((transp weights) `mmulv`  (deriv `vmulv` bp2))
         (VectI bp4) = bp3
     ((SGDLayer numInputs weights2 biases2 lspec), bp4)
         
