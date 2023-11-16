@@ -11,7 +11,6 @@ import ML.ANN.Optim
 import System.Random
 import System.IO
 import Data.Random.Normal
-import Data.Array.Accelerate.Interpreter
 
 type LSpec = [ActFunc]
 
@@ -39,8 +38,9 @@ learnLayer (SGDLayer numInputs weights biases lspec) input = do
     ((LSGDLayer (SGDLayer numInputs weights biases lspec) x), (extractVect output))
 
 backpropLayer :: LLayer -> Optim -> Acc (Matrix Double) -> (Layer, Acc (Matrix Double))
-backpropLayer (LSGDLayer layer x) (SGD lr) bp = do
-    let (SGDLayer numInputs weights biases lspec) = layer
+backpropLayer (LSGDLayer layer x) (SGD learnRate) bp = do
+    let lr = constant learnRate
+        (SGDLayer numInputs weights biases lspec) = layer
         bp2 = VectO bp
         deriv = dapplyActFuncs lspec ((weights `mmulv` x) `vaddv` biases)
         weights2 = weights `msubm` (lr `smulm` (x `vxv` (deriv `vmulv` bp2 ) ))

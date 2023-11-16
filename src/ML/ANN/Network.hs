@@ -10,14 +10,14 @@ import ML.ANN.Layer
 import ML.ANN.Optim
 import ML.ANN.ActFuncs
 
-data Network = SGDNetwork [Layer] (Exp Double) deriving(Show)
-data LNetwork = LSGDNetwork [LLayer] (Exp Double) deriving(Show)
+data Network = SGDNetwork [Layer] Optim deriving(Show)
+data LNetwork = LSGDNetwork [LLayer] Optim deriving(Show)
 
 mkNetwork :: StdGen -> [LSpec] -> Optim -> Network
 mkNetwork g lspec (SGD lr) = do
     let rands = normals g
         numInputs = lspecGetNumOutputs (lspec P.!! 0)
-    SGDNetwork (internSGD rands lspec numInputs numInputs) lr where
+    SGDNetwork (internSGD rands lspec numInputs numInputs) (SGD lr) where
         internSGD :: [Double] -> [LSpec] -> Int -> Int -> [Layer]
         internSGD _ [] _ _ = []
         internSGD rands [lspec2] numInputs numOutputs = do
@@ -50,7 +50,7 @@ learnNetwork (SGDNetwork layers lr) input = do
 backpropNetwork :: LNetwork -> Acc (Vector Double) -> (Network, Acc (Vector Double))
 backpropNetwork (LSGDNetwork llayers lr) backProp = do
     let backProp2 = A.replicate (A.lift (Z:.All:.(1::Int))) backProp
-        (layers, retbp) = intern llayers (SGD lr) backProp2
+        (layers, retbp) = intern llayers lr backProp2
     ((SGDNetwork layers lr), (A.flatten retbp)) where
         
         intern :: [LLayer] -> Optim -> Acc (Matrix Double) -> ([Layer], Acc (Matrix Double))

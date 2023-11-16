@@ -1,4 +1,4 @@
-{-# LANGUAGE GADTs, TypeFamilies, DataKinds #-}
+{-# LANGUAGE GADTs, TypeFamilies, DataKinds, DeriveGeneric #-}
 module ML.ANN.ActFuncs (sigmoid, dsigmoid, ActFunc(..), applyActFuncs, dapplyActFuncs) where
 
 import Data.Array.Accelerate as A
@@ -6,7 +6,11 @@ import Prelude as P
 import ML.ANN.Vect
 import ML.ANN.Mat
 
-data ActFunc = Sigmoid Int | Relu Int deriving(Show, P.Eq)
+import Data.Serialize
+
+data ActFunc = Sigmoid Int | Relu Int deriving(Show, P.Eq, P.Read, Generic)
+
+instance Serialize ActFunc
 
 getInt :: ActFunc -> Int -- TODO: Find a better way to do this.
 getInt (Sigmoid i) = i

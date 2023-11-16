@@ -23,6 +23,16 @@ source-repository head
   type: git
   location: https://github.com/githubuser/accelerate-ann
 
+executable mkNet
+  hs-source-dirs: mkNet/
+  main-is: Main.hs
+  build-depends:
+      accelerate,
+      base,
+      random,
+      bytestring,
+      accelerate-ann
+
 executable app
   hs-source-dirs: app/
   main-is: Main.hs
@@ -32,6 +42,7 @@ executable app
       normaldistribution,
       accelerate-ann,
       random
+
 library
   exposed-modules:
       ML.ANN.ActFuncs
@@ -42,6 +53,7 @@ library
       ML.ANN.Block
       ML.ANN.Optim
       ML.ANN.Costs
+      ML.ANN.File
       ML.ANN
   other-modules:
       Paths_accelerate_ann
@@ -55,6 +67,13 @@ library
     , random >= 1.2
     , accelerate-llvm
     , accelerate-llvm-ptx
+    , bytestring
+    , accelerate-io
+    , accelerate-io-bytestring
+    , accelerate-io-array
+    , accelerate-io-vector
+    , bytestring-conversion
+    , cereal
   default-language: Haskell2010
 
 

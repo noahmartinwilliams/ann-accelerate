@@ -1,3 +1,4 @@
+{-# LANGUAGE DeriveGeneric #-}
 module ML.ANN.Block(BLInfo(..), BlockInfo(..), BlockA, BlockV, layer2block, block2layer, network2block, block2network) where
 
 import ML.ANN.Network
@@ -9,13 +10,18 @@ import ML.ANN.Optim
 import Data.Array.Accelerate as A
 import Prelude as P
 
-data BLInfo = SGDBLInfo Int Int LSpec deriving(Show, P.Eq) -- numInputs numOutputs lspec
+import Data.Serialize
 
-data BlockInfo = BlockInfo Optim [BLInfo ] deriving(Show)
+data BLInfo = SGDBLInfo Int Int LSpec deriving(Show, P.Eq, Generic) -- numInputs numOutputs lspec
 
-type BlockA = Acc (Vector Int, Vector Double)
+data BlockInfo = BlockInfo Optim [BLInfo ] deriving(Show, P.Eq, Generic)
+
+type BlockA = Acc (Vector Int, Vector Double) 
 type BlockV = (Vector Int, Vector Double)
 
+
+instance Serialize BLInfo
+instance Serialize BlockInfo
 
 layer2block :: Layer -> (BLInfo, BlockA)
 layer2block (SGDLayer numInputs weights bias lspec) = do
@@ -41,8 +47,9 @@ block2layer ((SGDBLInfo numInputs numOutputs lspec), block) = do
     ((SGDLayer numInputs (MatOI weightsAM) (VectO biasesAM) lspec), retBlock)
 
 network2block :: Network -> (BlockInfo, BlockA)
-network2block (SGDNetwork layers lr) = do
-    let lr2 = A.reshape (constant (Z:.1)) (A.unit lr)
+network2block (SGDNetwork layers optim) = do
+    let (SGD lr) = optim
+        lr2 = A.reshape (constant (Z:.1)) (A.unit (constant lr))
         (blinfo, retblock) = layers2block layers
         (vint, vdouble) = A.unlift retblock :: (Acc (Vector Int), Acc (Vector Double))
         vdouble2 = lr2 A.++ vdouble
@@ -60,13 +67,11 @@ network2block (SGDNetwork layers lr) = do
             (info : infoRest, ret)
 
 block2network :: (BlockInfo, BlockA) -> Network
-block2network (BlockInfo (SGD _) blinfos, blocka) = do
+block2network (BlockInfo (SGD lr) blinfos, blocka) = do
     let (integers, doubles) = A.unlift blocka :: (Acc (Vector Int), Acc (Vector Double))
-        lr = A.take (constant 1) doubles
-        lr2 = A.the (A.reshape (constant Z) lr)
         restDoubles = A.drop (constant 1) doubles
         restV = A.lift (integers, restDoubles) :: Acc (Vector Int, Vector Double)
-    SGDNetwork (intern blinfos restV) lr2 where
+    SGDNetwork (intern blinfos restV) (SGD lr) where
 
         intern :: [BLInfo] -> BlockA -> [Layer]
         intern [] _ = []

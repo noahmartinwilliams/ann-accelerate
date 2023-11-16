@@ -5,8 +5,10 @@ module ML.ANN
     module ML.ANN.Optim,
     module ML.ANN.ActFuncs,
     module ML.ANN.Block,
+    module ML.ANN.File,
     ANN(..),
-    trainOnceLinReg
+    trainOnceLinReg,
+    ML.ANN.Layer.LSpec
     ) where
 
 import ML.ANN.Costs
@@ -14,6 +16,8 @@ import ML.ANN.Network
 import ML.ANN.Optim
 import ML.ANN.ActFuncs
 import ML.ANN.Block
+import ML.ANN.File
+import ML.ANN.Layer
 import Data.Array.Accelerate as A
 
 data ANN = ANN BlockInfo BlockA deriving(Show)
