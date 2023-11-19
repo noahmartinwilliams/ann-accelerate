@@ -33,6 +33,26 @@ executable mkNet
       bytestring,
       accelerate-ann
 
+executable trainNet
+  hs-source-dirs: trainNet/
+  main-is: Main.hs
+  build-depends:
+      accelerate,
+      base,
+      split,
+      bytestring,
+      accelerate-ann,
+      accelerate-llvm-ptx
+
+executable genOrGate
+  hs-source-dirs: genOrGate/
+  main-is: Main.hs
+  build-depends:
+      base, 
+      random,
+      parallel >= 3.2
+  ghc-options: -threaded -rtsopts -eventlog
+
 executable app
   hs-source-dirs: app/
   main-is: Main.hs
