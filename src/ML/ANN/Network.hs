@@ -14,10 +14,13 @@ data Network = SGDNetwork [Layer] Optim deriving(Show)
 data LNetwork = LSGDNetwork [LLayer] Optim deriving(Show)
 
 mkNetwork :: StdGen -> [LSpec] -> Optim -> Network
-mkNetwork g lspec (SGD lr) = do
+mkNetwork g lspec (SGD lr) | (P.length lspec) P.>= 2 = do
     let rands = normals g
         numInputs = lspecGetNumOutputs (lspec P.!! 0)
-    SGDNetwork (internSGD rands lspec numInputs numInputs) (SGD lr) where
+        (firstLayer : restLayers) = lspec
+        layer1 = mkSGDInpLayer rands firstLayer
+        numOutputs = lspecGetNumOutputs (lspec P.!! 1)
+    SGDNetwork (layer1 : (internSGD rands restLayers numInputs numOutputs)) (SGD lr) where
         internSGD :: [Double] -> [LSpec] -> Int -> Int -> [Layer]
         internSGD _ [] _ _ = []
         internSGD rands [lspec2] numInputs numOutputs = do

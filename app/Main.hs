@@ -38,7 +38,7 @@ sample2vect (a, b, _) = use (fromList (Z:.2:.1) [a, b])
 main :: IO ()
 main = do
     let g = mkStdGen 100
-    let n = mkNetwork g [[Relu 2], [Relu 5], [Sigmoid 1]] (SGD (constant 0.0005))
+    let n = mkNetwork g [[Relu 2], [Relu 5], [Sigmoid 1]] (SGD 0.0005)
         integers = randoms g :: [Int]
         samples = genSamples integers
         (blinfo, blockOut) = network2block n

@@ -17,7 +17,7 @@ startOptions :: Options
 startOptions = Options { optOutput = "output.txt", optRandSeed = 100, optTrueRand = False, optLayers = [], optOptimizer = (SGD 0.001)}
 
 options :: [OptDescr (Options -> IO Options)]
-options = [ Option "o" ["output"] (ReqArg (\x -> \opt -> return opt { optOutput = x }) "output.txt") "output file",
+options = [ Option "o" ["output"] (ReqArg (\x -> \opt -> return opt { optOutput = x }) "output.ann") "output file",
             Option "s" ["seed"] (ReqArg (\arg -> \opt -> return opt { optRandSeed = (read arg :: Int) }) "100") "random seed",
             Option "r" ["rand"] (NoArg (\opt -> return opt { optTrueRand = True})) "use truly random seed",
             Option "l" ["layers"] (ReqArg (\arg -> \opt -> return opt { optLayers = (read arg :: [LSpec]) }) "[[Sigmoid 2], [Sigmoid 3], [Sigmoid 1]]") "specify layers",

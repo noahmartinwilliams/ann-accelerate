@@ -1,5 +1,5 @@
-{-# LANGUAGE DeriveGeneric #-}
-module ML.ANN.Block(BLInfo(..), BlockInfo(..), BlockA, BlockV, layer2block, block2layer, network2block, block2network) where
+{-# LANGUAGE DeriveGeneric, GADTs, TypeFamilies #-}
+module ML.ANN.Block(BlInfo(..), BlockInfo(..), BlockA, BlockV, layer2block, block2layer, network2block, block2network) where
 
 import ML.ANN.Network
 import ML.ANN.Mat
@@ -12,28 +12,50 @@ import Prelude as P
 
 import Data.Serialize
 
-data BLInfo = SGDBLInfo Int Int LSpec deriving(Show, P.Eq, Generic) -- numInputs numOutputs lspec
+data BlInfo = SGDBlInfo Int Int LSpec | -- numInputs numOutputs lspec
+    SGDBlInpInfo LSpec deriving(Show, P.Eq, Generic) -- lspec
 
-data BlockInfo = BlockInfo Optim [BLInfo ] deriving(Show, P.Eq, Generic)
+data BlockInfo = BlockInfo Optim [BlInfo ] deriving(Show, P.Eq, Generic)
 
 type BlockA = Acc (Vector Int, Vector Double) 
 type BlockV = (Vector Int, Vector Double)
 
 
-instance Serialize BLInfo
+instance Serialize BlInfo
 instance Serialize BlockInfo
 
-layer2block :: Layer -> (BLInfo, BlockA)
+layer2block :: Layer -> (BlInfo, BlockA)
+layer2block (SGDInpLayer weights bias lspec) = do
+    let (VectO weightsV) = weights
+        (VectO biasV) = bias
+        weightsFlat = A.flatten weightsV
+        biasFlat = A.flatten biasV
+        integers = use (fromList (Z:.1) [(lspecGetNumOutputs lspec)])
+        lifted = A.lift (integers, weightsFlat A.++ biasFlat)
+    ((SGDBlInpInfo lspec), lifted)
+
 layer2block (SGDLayer numInputs weights bias lspec) = do
     let numOutputs = lspecGetNumOutputs lspec
         weightsFlat = A.flatten (extractMat weights)
         biasFlat = A.flatten (extractVect bias)
         integers = use (fromList (Z:.2) [numInputs, numOutputs])
         lifted = A.lift (integers, weightsFlat A.++ biasFlat)
-    ((SGDBLInfo numInputs numOutputs lspec), lifted)
+    ((SGDBlInfo numInputs numOutputs lspec), lifted)
 
-block2layer :: (BLInfo, BlockA) -> (Layer, BlockA)
-block2layer ((SGDBLInfo numInputs numOutputs lspec), block) = do
+block2layer :: (BlInfo, BlockA) -> (Layer, BlockA)
+block2layer ((SGDBlInpInfo lspec), block) = do
+    let (integers, doubles) = A.unlift block :: (Acc (Vector Int), Acc (Vector Double))
+        numOutputs = lspecGetNumOutputs lspec
+        weightsAV = A.take (constant numOutputs) doubles
+        biasesAV = A.take (constant numOutputs) (A.drop (constant numOutputs) doubles)
+        retBlockD = A.drop (constant (2 * numOutputs)) doubles
+        retBlockI = A.drop (constant 1) integers
+        weightsAM = VectO (A.replicate (A.lift (Z:.All:.(1 :: Int))) weightsAV)
+        biasesAM = VectO (A.replicate (A.lift (Z:.All:.(1 :: Int))) biasesAV)
+        retBlock = A.lift (retBlockI, retBlockD)
+    ((SGDInpLayer weightsAM biasesAM lspec), retBlock)
+
+block2layer ((SGDBlInfo numInputs numOutputs lspec), block) = do
     let (integers, doubles) = A.unlift block :: (Acc (Vector Int), Acc (Vector Double))
         numWeights = numInputs * numOutputs
         numBiases = numOutputs
@@ -56,7 +78,7 @@ network2block (SGDNetwork layers optim) = do
         retblock2 = A.lift (vint, vdouble2)
     (BlockInfo (SGD lr) blinfo, retblock2) where
 
-        layers2block :: [Layer] -> ([BLInfo], BlockA)
+        layers2block :: [Layer] -> ([BlInfo], BlockA)
         layers2block [] = let emptyi = use (fromList (Z:.0) []) in let emptyd = use (fromList (Z:.0) []) in ([], A.lift (emptyi, emptyd))
         layers2block (h : t) = do
             let (info, intdoubles) = layer2block h
@@ -73,7 +95,7 @@ block2network (BlockInfo (SGD lr) blinfos, blocka) = do
         restV = A.lift (integers, restDoubles) :: Acc (Vector Int, Vector Double)
     SGDNetwork (intern blinfos restV) (SGD lr) where
 
-        intern :: [BLInfo] -> BlockA -> [Layer]
+        intern :: [BlInfo] -> BlockA -> [Layer]
         intern [] _ = []
         intern (h : rest) blockA = do
             let (layer, blockRest) = block2layer (h, blockA)

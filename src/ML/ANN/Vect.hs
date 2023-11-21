@@ -83,3 +83,4 @@ sigma (MatOI m) = do
     let sh = shape m
         (Z:.cols:._) = A.unlift sh :: (Z:.Exp Int:.Exp Int)
     VectO (A.reshape (A.lift (Z:.cols:.(constant 1))) (A.sum m)) 
+

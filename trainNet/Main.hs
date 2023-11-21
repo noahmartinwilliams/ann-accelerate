@@ -2,7 +2,7 @@ module Main where
 
 import Prelude as P
 import Data.Array.Accelerate as A
-import Data.Array.Accelerate.LLVM.PTX
+import Data.Array.Accelerate.Interpreter
 import System.Console.GetOpt
 import System.Environment
 import System.IO
