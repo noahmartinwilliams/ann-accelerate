@@ -1,4 +1,6 @@
 .stack-work/
 dist-newstyle/
 *.eventlog
+cabal.project
+cabal.project.local
 *~
