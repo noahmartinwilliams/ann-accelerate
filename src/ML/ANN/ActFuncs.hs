@@ -1,5 +1,5 @@
 {-# LANGUAGE GADTs, TypeFamilies, DataKinds, DeriveGeneric #-}
-module ML.ANN.ActFuncs (sigmoid, dsigmoid, ActFunc(..), applyActFuncs, dapplyActFuncs) where
+module ML.ANN.ActFuncs (sigmoid, dsigmoid, ActFunc(..), applyActFuncs, dapplyActFuncs, getInt) where
 
 import Data.Array.Accelerate as A
 import Prelude as P
@@ -8,13 +8,14 @@ import ML.ANN.Mat
 
 import Data.Serialize
 
-data ActFunc = Sigmoid Int | Relu Int deriving(Show, P.Eq, P.Read, Generic)
+data ActFunc = Sigmoid Int | Relu Int | Ident Int deriving(Show, P.Eq, P.Read, Generic)
 
 instance Serialize ActFunc
 
-getInt :: ActFunc -> Int -- TODO: Find a better way to do this.
+getInt :: ActFunc -> Int
 getInt (Sigmoid i) = i
 getInt (Relu i) = i
+getInt (Ident i) = i
 
 sigmoid :: (Acc (Matrix Double) -> Acc (Matrix Double))
 sigmoid = let func = (\x -> let one = constant 1.0 in one / (one + (exp (-x)))) in A.map func
@@ -28,13 +29,21 @@ relu = A.map (\y -> A.max (constant 0.0) y)
 drelu :: (Acc (Matrix Double) -> Acc (Matrix Double))
 drelu = A.map (\y -> A.fromIntegral (boolToInt (y A.>= (constant 0.0 :: Exp Double))) :: Exp Double)
 
+ident :: (Acc (Matrix Double) -> Acc (Matrix Double))
+ident = let f x = x in f
+
+dident :: (Acc (Matrix Double) -> Acc (Matrix Double))
+dident = let f x = A.map (\_ -> constant 1.0) x :: Acc (Matrix Double) in f
+
 getFunc :: ActFunc -> (Acc (Matrix Double) -> Acc (Matrix Double))
 getFunc (Sigmoid _) = sigmoid
 getFunc (Relu _) = relu
+getFunc (Ident _) = ident
 
 dgetFunc :: ActFunc -> (Acc (Matrix Double) -> Acc (Matrix Double))
 dgetFunc (Sigmoid _) = dsigmoid
 dgetFunc (Relu _) = drelu
+dgetFunc (Ident _) = dident
 
 applyActFuncs :: [ActFunc] -> Vect OutputSize -> Vect OutputSize
 applyActFuncs [] x = x

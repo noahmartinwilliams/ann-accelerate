@@ -124,8 +124,8 @@ backpropLayer (LMomLayer (MomLayer numInputs weights weightsMom biases biasesMom
 
 lspecGetNumOutputs :: LSpec -> Int
 lspecGetNumOutputs [] = 0
-lspecGetNumOutputs ((Sigmoid x) : rest) = x + (lspecGetNumOutputs rest)
-lspecGetNumOutputs ((Relu x) : rest) = x + (lspecGetNumOutputs rest)
+lspecGetNumOutputs (h : t) = (getInt h) + (lspecGetNumOutputs t)
 
 layerGetNumInputs :: Layer -> Int
 layerGetNumInputs (SGDLayer num _ _ _ ) = num
+layerGetNumInputs (MomLayer num _ _ _ _ _) = num

@@ -2,7 +2,7 @@ module Main where
 
 import Prelude as P
 import Data.Array.Accelerate as A
-import Data.Array.Accelerate.Interpreter
+import Data.Array.Accelerate.LLVM.Native
 import System.Console.GetOpt
 import System.Environment
 import System.IO
@@ -42,6 +42,7 @@ getSamplesLL inplist = do
 
 main :: IO ()
 main = do
+    hSetBuffering stdout LineBuffering
     args <- getArgs
     let (actions, _, errors) = getOpt RequireOrder options args
     opts <- P.foldl (>>=) (return startOptions) actions

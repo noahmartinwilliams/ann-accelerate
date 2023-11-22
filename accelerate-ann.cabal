@@ -42,7 +42,8 @@ executable trainNet
       split,
       bytestring,
       accelerate-ann,
-      accelerate-llvm-ptx
+      accelerate-llvm-ptx,
+      accelerate-llvm-native
   ghc-options: -threaded -rtsopts 
 
 executable genOrGate
@@ -51,8 +52,8 @@ executable genOrGate
   build-depends:
       base, 
       random,
-      parallel >= 3.2
-  ghc-options: -threaded -rtsopts
+      parallel >= 3.2.2
+  ghc-options: -threaded -rtsopts 
 
 executable app
   hs-source-dirs: app/

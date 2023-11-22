@@ -14,7 +14,7 @@ maybeNegativeMod inp sign modulus = do
     inp3
 
 genSamples :: [Int] -> [(Double, Double, Double)]
-genSamples ( h1 : h2 : h3 : h4 : rest ) | (((P.abs h1) `P.mod` 1000) P.> 50) P.&& (((P.abs h3) `P.mod` 1000) P.> 50) = do
+genSamples ( h1 : h2 : h3 : h4 : rest ) | (((P.abs h1) `P.mod` 1000) P.> 100) P.&& (((P.abs h3) `P.mod` 1000) P.> 100) = do
     let h1' = maybeNegativeMod h1 h2 1000
         h2' = maybeNegativeMod h3 h4 1000
         h1_2 = (P.fromIntegral h1' :: Double) / 1000.0
@@ -31,5 +31,5 @@ main = do
         integers = randoms g :: [Int]
         samples = genSamples integers
         sampleLines = (P.map (\(x, y, z) -> (printf "%.5F" x) P.++ "," P.++ (printf "%.5F" y) P.++ "#" P.++ (printf "%.5F" z) P.++ "\n") samples) 
-        samplesLinesOut = (P.take toTake sampleLines) `using` parListChunk numCapabilities rdeepseq
+        samplesLinesOut = (P.take toTake sampleLines) -- `using` parListChunk numCapabilities rdeepseq
     putStr (P.foldr (P.++) "" samplesLinesOut )
