@@ -9,8 +9,8 @@ import GHC.Conc
 
 maybeNegativeMod :: Int -> Int -> Int -> Int
 maybeNegativeMod inp sign modulus = do
-    let inp2 = inp `P.mod` modulus
-        inp3 = if (sign `P.mod` 2) P.== 0 then inp2 else -inp2
+    let inp2 = (P.abs inp) `P.mod` modulus
+        inp3 = if (sign `P.mod` 2) P.== 0 then (P.abs inp2) else -(P.abs inp2)
     inp3
 
 genSamples :: [Int] -> [(Double, Double, Double)]
@@ -27,7 +27,7 @@ main :: IO ()
 main = do
     hSetBuffering stdout LineBuffering 
     let g = mkStdGen 100
-        toTake = 10000000
+        toTake = 100000
         integers = randoms g :: [Int]
         samples = genSamples integers
         sampleLines = (P.map (\(x, y, z) -> (printf "%.5F" x) P.++ "," P.++ (printf "%.5F" y) P.++ "#" P.++ (printf "%.5F" z) P.++ "\n") samples) 

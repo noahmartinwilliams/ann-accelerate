@@ -16,11 +16,13 @@ data LNetwork = LSGDNetwork [LLayer] Optim |
     LMomNetwork [LLayer] Optim deriving(Show)
 
 mkNetwork :: StdGen -> [LSpec] -> Optim -> Network
-mkNetwork g lspec (Mom alpha beta) = do
+mkNetwork g lspec (Mom alpha beta) | (P.length lspec) P.>=2 = do
     let rands = normals g
         numInputs = lspecGetNumOutputs (lspec P.!! 0)
-        numOutputs = numInputs
-    MomNetwork (internMom rands lspec numInputs numOutputs) (Mom alpha beta) where
+        (firstLayer : restLayers) = lspec
+        layer1 = mkMomInpLayer rands firstLayer numInputs
+        numOutputs = lspecGetNumOutputs (lspec P.!! 1)
+    MomNetwork (layer1 : (internMom rands restLayers numInputs numOutputs)) (Mom alpha beta) where
         internMom :: [Double] -> [LSpec] -> Int -> Int -> [Layer]
         internMom _ [] _ _ = []
         internMom rands [lspec2] numInputs numOutputs = do

@@ -14,7 +14,8 @@ import Data.Serialize
 
 data BlInfo = SGDBlInfo Int Int LSpec | -- numInputs numOutputs lspec
     SGDBlInpInfo LSpec |
-    MomBlInfo Int Int LSpec  --numInputs numOutputs lspec
+    MomBlInfo Int Int LSpec | --numInputs numOutputs lspec
+    MomBlInpInfo LSpec
     deriving(Show, P.Eq, Generic) -- lspec
 
 data BlockInfo = BlockInfo Optim [BlInfo ] deriving(Show, P.Eq, Generic)
@@ -53,6 +54,17 @@ layer2block (MomLayer numInputs weights weightsMom biases biasesMom lspec) = do
         integers = use (fromList (Z:.2) [numInputs, numOutputs])
         lifted = A.lift (integers, weightsFlat A.++ weightsMomFlat A.++ biasesFlat A.++ biasesMomFlat)
     (MomBlInfo numInputs numOutputs lspec, lifted)
+
+layer2block (MomInpLayer weights weightsMom biases biasesMom lspec) = do
+    let numOutputs = lspecGetNumOutputs lspec
+        weightsFlat = A.flatten (extractVect weights)
+        weightsMomFlat = A.flatten (extractVect weightsMom)
+        biasesFlat = A.flatten (extractVect biases)
+        biasesMomFlat = A.flatten (extractVect biasesMom)
+        integers = use (fromList (Z:.1) [numOutputs])
+        lifted = A.lift (integers, weightsFlat A.++ weightsMomFlat A.++ biasesFlat A.++ biasesMomFlat)
+    (MomBlInpInfo lspec, lifted)
+
 
 block2layer :: (BlInfo, BlockA) -> (Layer, BlockA)
 block2layer ((SGDBlInpInfo lspec), block) = do
@@ -95,6 +107,22 @@ block2layer ((MomBlInfo numInputs numOutputs lspec), block) = do
         retBlockI = A.drop (constant 2) integers
         retBlock = A.lift (retBlockI, rest3)
     ((MomLayer numInputs (MatOI weightsAM) (MatOI weightsMomAM) (VectO biasesAM) (VectO biasesMomAM) lspec), retBlock)
+
+block2layer ((MomBlInpInfo lspec), block) = do
+    let (integers, doubles) = A.unlift block :: (Acc (Vector Int), Acc (Vector Double))
+        numWeights = lspecGetNumOutputs lspec
+        numBiases = numWeights
+        (weightsAV, rest0) = takeDrop numWeights doubles
+        (weightsMomAV, rest1) = takeDrop numWeights rest0
+        (biasesAV, rest2) = takeDrop numBiases rest1
+        (biasesMomAV, rest3) = takeDrop numBiases rest2
+        weightsAM = A.reshape (constant (Z:.numWeights:.1)) weightsAV
+        weightsMomAM = A.reshape (constant (Z:.numWeights:.1)) weightsMomAV
+        biasesAM = A.replicate (A.lift (Z:.All:.(1 :: Int))) biasesAV
+        biasesMomAM = A.replicate (A.lift (Z:.All:.(1 :: Int))) biasesMomAV
+        retBlockI = A.drop (constant 2) integers
+        retBlock = A.lift (retBlockI, rest3)
+    ((MomInpLayer (VectO weightsAM) (VectO weightsMomAM) (VectO biasesAM) (VectO biasesMomAM) lspec), retBlock)
         
 
 takeDrop :: Int -> Acc (Vector Double) -> (Acc (Vector Double), Acc (Vector Double))

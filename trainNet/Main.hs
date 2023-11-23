@@ -55,6 +55,6 @@ main = do
         samplesll = getSamplesLL inplines
         samplesvv = P.map (\(x, y) -> ((A.fromList (Z:.(P.length x)) x :: Vector Double), (A.fromList (Z:.(P.length y)) y :: Vector Double))) samplesll
         (errors, blockv2) = train blockv samplesvv fn 
-        errorsStr = P.map (\x -> (printf "%.5F" ((toList x) P.!! 0) )  P.++ "\n") errors
+        errorsStr = P.map (\x -> (printf "%.7F" ((toList x) P.!! 0) )  P.++ "\n") errors
     System.IO.putStr (P.foldr (P.++) "" errorsStr)
     B.writeFile outnetfilename (block2bs (blinfo, blockv2))
