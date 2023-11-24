@@ -20,10 +20,8 @@ data Layer = SGDLayer Int (Mat OutputSize InputSize) (Vect OutputSize) LSpec | -
     MomInpLayer (Vect OutputSize) (Vect OutputSize) (Vect OutputSize) (Vect OutputSize) LSpec -- numInputs weights weightsMomentum biases biasesMomentum lspec
     deriving(Show) 
 
-data LLayer = LSGDLayer Layer (Vect InputSize) | -- layer previousInput
-    LSGDInpLayer Layer (Vect OutputSize) | -- layer previousInput
-    LMomLayer Layer (Vect InputSize) |
-    LMomInpLayer Layer (Vect OutputSize)
+data LLayer = LLayer Layer (Vect InputSize) | -- layer previousInput
+    LInpLayer Layer (Vect OutputSize)
     deriving(Show)
 
 mkSGDInpLayer :: [Double] -> LSpec -> Layer
@@ -81,28 +79,27 @@ learnLayer :: Layer -> Acc (Matrix Double) -> (LLayer, Acc (Matrix Double))
 learnLayer (SGDInpLayer weights biases lspec) input = do
     let x = VectO input
         output = applyActFuncs lspec ((weights `vmulv` x) `vaddv` biases)
-    ((LSGDInpLayer (SGDInpLayer weights biases lspec) x), (extractVect output))
+    ((LInpLayer (SGDInpLayer weights biases lspec) x), (extractVect output))
 
 learnLayer (SGDLayer numInputs weights biases lspec) input = do
     let x = VectI input
         output = applyActFuncs lspec ((weights `mmulv` x) `vaddv` biases)
-    ((LSGDLayer (SGDLayer numInputs weights biases lspec) x), (extractVect output))
+    ((LLayer (SGDLayer numInputs weights biases lspec) x), (extractVect output))
 
 learnLayer (MomLayer numInputs weights weightsMom biases biasesMom lspec) input = do
     let x = VectI input
         output = applyActFuncs lspec ((weights `mmulv` x) `vaddv` biases)
-    ((LMomLayer (MomLayer numInputs weights weightsMom biases biasesMom lspec) x), (extractVect output))
+    ((LLayer (MomLayer numInputs weights weightsMom biases biasesMom lspec) x), (extractVect output))
 
 learnLayer (MomInpLayer weights weightsMom biases biasesMom lspec) input = do
     let x = VectO input
         output = applyActFuncs lspec ((weights `vmulv` x) `vaddv` biases)
-    ((LMomInpLayer (MomInpLayer weights weightsMom biases biasesMom lspec) x), (extractVect output))
+    ((LInpLayer (MomInpLayer weights weightsMom biases biasesMom lspec) x), (extractVect output))
 
 
 backpropLayer :: LLayer -> Optim -> Acc (Matrix Double) -> (Layer, Acc (Matrix Double))
-backpropLayer (LSGDInpLayer layer x) (SGD learnRate) bp = do
+backpropLayer (LInpLayer (SGDInpLayer weights biases lspec) x) (SGD learnRate) bp = do
     let lr = constant learnRate
-        (SGDInpLayer weights biases lspec) = layer
         bp2 = VectO bp
         deriv = dapplyActFuncs lspec ((weights `vmulv` x) `vaddv` biases)
         weights2 = weights `vsubv` (lr `smulv` (x `vmulv` (deriv `vmulv` bp2)))
@@ -110,9 +107,8 @@ backpropLayer (LSGDInpLayer layer x) (SGD learnRate) bp = do
         bp3 = weights `vmulv` (deriv `vmulv` bp2)
         (VectO bp4) = bp3
     ((SGDInpLayer weights2 biases2 lspec), bp4)
-backpropLayer (LSGDLayer layer x) (SGD learnRate) bp = do
+backpropLayer (LLayer (SGDLayer numInputs weights biases lspec) x) (SGD learnRate) bp = do
     let lr = constant learnRate
-        (SGDLayer numInputs weights biases lspec) = layer
         bp2 = VectO bp
         deriv = dapplyActFuncs lspec ((weights `mmulv` x) `vaddv` biases)
         weights2 = weights `msubm` (lr `smulm` (x `vxv` (deriv `vmulv` bp2 ) ))
@@ -121,7 +117,7 @@ backpropLayer (LSGDLayer layer x) (SGD learnRate) bp = do
         (VectI bp4) = bp3
     ((SGDLayer numInputs weights2 biases2 lspec), bp4)
 
-backpropLayer (LMomLayer (MomLayer numInputs weights weightsMom biases biasesMom lspec) x) (Mom alpha mom) bpInp = do
+backpropLayer (LLayer (MomLayer numInputs weights weightsMom biases biasesMom lspec) x) (Mom alpha mom) bpInp = do
     let deriv = dapplyActFuncs lspec ((weights `mmulv` x) `vaddv` biases)
         bp = VectO bpInp
         momExp = constant mom
@@ -135,7 +131,7 @@ backpropLayer (LMomLayer (MomLayer numInputs weights weightsMom biases biasesMom
         bp2 = (transp weights) `mmulv` (bp `vmulv` deriv)
         (VectI bp3) = bp2
     ((MomLayer numInputs weights2 changeWeights biases changeBiases lspec), bp3)
-backpropLayer (LMomInpLayer (MomInpLayer weights weightsMom biases biasesMom lspec) x) (Mom alpha mom) bpInp = do
+backpropLayer (LInpLayer (MomInpLayer weights weightsMom biases biasesMom lspec) x) (Mom alpha mom) bpInp = do
     let deriv = dapplyActFuncs lspec ((weights `vmulv` x) `vaddv` biases)
         bp = VectO bpInp
         momExp = constant mom
@@ -157,4 +153,5 @@ lspecGetNumOutputs (h : t) = (getInt h) + (lspecGetNumOutputs t)
 
 layerGetNumInputs :: Layer -> Int
 layerGetNumInputs (SGDLayer num _ _ _ ) = num
-layerGetNumInputs (MomLayer num _ _ _ _ _) = num
+layerGetNumInputs (SGDInpLayer _ _ lspec ) = lspecGetNumOutputs lspec
+layerGetNumInputs (MomInpLayer _ _ _ _ lspec ) = lspecGetNumOutputs lspec

@@ -1,5 +1,5 @@
-{-# LANGUAGE GADTs, TypeFamilies, DataKinds, DeriveGeneric #-}
-module ML.ANN.ActFuncs (sigmoid, dsigmoid, ActFunc(..), applyActFuncs, dapplyActFuncs, getInt) where
+{-# LANGUAGE GADTs, TypeFamilies, DataKinds, DeriveGeneric, FlexibleContexts #-}
+module ML.ANN.ActFuncs (sigmoid, dsigmoid, relu, drelu, ident, dident, softmax, dsoftmax, ActFunc(..), applyActFuncs, dapplyActFuncs, getInt) where
 
 import Data.Array.Accelerate as A
 import Prelude as P
@@ -8,7 +8,7 @@ import ML.ANN.Mat
 
 import Data.Serialize
 
-data ActFunc = Sigmoid Int | Relu Int | Ident Int deriving(Show, P.Eq, P.Read, Generic)
+data ActFunc = Sigmoid Int | Relu Int | Ident Int | Softmax Int deriving(Show, P.Eq, P.Read, Generic)
 
 instance Serialize ActFunc
 
@@ -16,6 +16,7 @@ getInt :: ActFunc -> Int
 getInt (Sigmoid i) = i
 getInt (Relu i) = i
 getInt (Ident i) = i
+getInt (Softmax i) = i
 
 sigmoid :: (Acc (Matrix Double) -> Acc (Matrix Double))
 sigmoid = let func = (\x -> let one = constant 1.0 in one / (one + (exp (-x)))) in A.map func
@@ -35,15 +36,28 @@ ident = let f x = x in f
 dident :: (Acc (Matrix Double) -> Acc (Matrix Double))
 dident = let f x = A.map (\_ -> constant 1.0) x :: Acc (Matrix Double) in f
 
+softmax :: (Acc (Matrix Double) -> Acc (Matrix Double))
+softmax = do
+    let summation x = A.the (A.sum (A.flatten (A.map (\y -> exp y) x)))
+        ret x = let s = summation x in A.map (\y -> (exp y) / s) x
+    ret
+
+dsoftmax :: (Acc (Matrix Double) -> Acc (Matrix Double))
+dsoftmax = do
+       let fn x = A.zipWith (-) (softmax x) (A.zipWith (*) (softmax x) (softmax x))
+       fn 
+
 getFunc :: ActFunc -> (Acc (Matrix Double) -> Acc (Matrix Double))
 getFunc (Sigmoid _) = sigmoid
 getFunc (Relu _) = relu
 getFunc (Ident _) = ident
+getFunc (Softmax _) = softmax
 
 dgetFunc :: ActFunc -> (Acc (Matrix Double) -> Acc (Matrix Double))
 dgetFunc (Sigmoid _) = dsigmoid
 dgetFunc (Relu _) = drelu
 dgetFunc (Ident _) = dident
+dgetFunc (Softmax _) = dsoftmax
 
 applyActFuncs :: [ActFunc] -> Vect OutputSize -> Vect OutputSize
 applyActFuncs [] x = x
