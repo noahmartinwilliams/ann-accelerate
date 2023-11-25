@@ -10,19 +10,32 @@ import ML.ANN.Layer
 import ML.ANN.Optim
 import ML.ANN.ActFuncs
 
-data Network = SGDNetwork [Layer] Optim |
-    MomNetwork [Layer] Optim deriving(Show)
-data LNetwork = LSGDNetwork [LLayer] Optim |
-    LMomNetwork [LLayer] Optim deriving(Show)
+data Network = Network [Layer] Optim deriving(Show)
+
+data LNetwork = LNetwork [LLayer] Optim deriving(Show)
 
 mkNetwork :: StdGen -> [LSpec] -> Optim -> Network
+mkNetwork g lspec (RMSProp alpha beta) | (P.length lspec) P.>=2 = do
+    let rands = normals g
+        numInputs = lspecGetNumOutputs (lspec P.!! 0)
+        (firstLayer : restLayers) = lspec
+        layer1 = mkRMSInpLayer rands firstLayer numInputs
+        numOutputs = lspecGetNumOutputs (lspec P.!! 1)
+    Network (layer1 : (internRMS rands restLayers numInputs numOutputs)) (RMSProp alpha beta) where
+        internRMS :: [Double] -> [LSpec] -> Int -> Int -> [Layer]
+        internRMS _ [] _ _ = []
+        internRMS rands [lspec2] numInputs numOutputs = do
+            [(mkRMSLayer rands lspec2 numInputs numOutputs)]
+        internRMS rands (lspec2 : rest) numInputs numOutputs = do
+            (mkRMSLayer rands lspec2 numInputs numOutputs) : (internRMS rands rest numOutputs (lspecGetNumOutputs (rest P.!! 0)))
+
 mkNetwork g lspec (Mom alpha beta) | (P.length lspec) P.>=2 = do
     let rands = normals g
         numInputs = lspecGetNumOutputs (lspec P.!! 0)
         (firstLayer : restLayers) = lspec
         layer1 = mkMomInpLayer rands firstLayer numInputs
         numOutputs = lspecGetNumOutputs (lspec P.!! 1)
-    MomNetwork (layer1 : (internMom rands restLayers numInputs numOutputs)) (Mom alpha beta) where
+    Network (layer1 : (internMom rands restLayers numInputs numOutputs)) (Mom alpha beta) where
         internMom :: [Double] -> [LSpec] -> Int -> Int -> [Layer]
         internMom _ [] _ _ = []
         internMom rands [lspec2] numInputs numOutputs = do
@@ -36,7 +49,7 @@ mkNetwork g lspec (SGD lr) | (P.length lspec) P.>= 2 = do
         (firstLayer : restLayers) = lspec
         layer1 = mkSGDInpLayer rands firstLayer
         numOutputs = lspecGetNumOutputs (lspec P.!! 1)
-    SGDNetwork (layer1 : (internSGD rands restLayers numInputs numOutputs)) (SGD lr) where
+    Network (layer1 : (internSGD rands restLayers numInputs numOutputs)) (SGD lr) where
         internSGD :: [Double] -> [LSpec] -> Int -> Int -> [Layer]
         internSGD _ [] _ _ = []
         internSGD rands [lspec2] numInputs numOutputs = do
@@ -47,7 +60,7 @@ mkNetwork g lspec (SGD lr) | (P.length lspec) P.>= 2 = do
                 
     
 calcNetwork :: Network -> Acc (Vector Double) -> Acc (Vector Double)
-calcNetwork (SGDNetwork layers _) x = do
+calcNetwork (Network layers _) x = do
     let x2 = A.replicate (constant (Z:.All:.(1::Int))) x
     A.flatten (calcIntern layers x2) where
         calcIntern :: [Layer] -> Acc (Matrix Double) -> Acc (Matrix Double)
@@ -56,20 +69,10 @@ calcNetwork (SGDNetwork layers _) x = do
 
 
 learnNetwork :: Network -> Acc (Vector Double) -> (LNetwork, Acc (Vector Double))
-learnNetwork (SGDNetwork layers lr) input = do
+learnNetwork (Network layers lr) input = do
     let x = A.replicate (A.lift (Z:.All:.(1::Int))) input
         (llayers, output) = intern layers x
-    (LSGDNetwork llayers lr, A.flatten output) where
-        intern :: [Layer] -> Acc (Matrix Double) -> ([LLayer], Acc (Matrix Double))
-        intern [] input2 = ([], input2)
-        intern (h : t) input2 = do
-            let (llayer, output) =  learnLayer h input2
-                (restllayer, output2) = intern t output
-            (llayer : restllayer, output2)
-learnNetwork (MomNetwork layers lr) input = do
-    let x = A.replicate (A.lift (Z:.All:.(1::Int))) input
-        (llayers, output) = intern layers x
-    (LMomNetwork llayers lr, A.flatten output) where
+    (LNetwork llayers lr, A.flatten output) where
         intern :: [Layer] -> Acc (Matrix Double) -> ([LLayer], Acc (Matrix Double))
         intern [] input2 = ([], input2)
         intern (h : t) input2 = do
@@ -78,10 +81,10 @@ learnNetwork (MomNetwork layers lr) input = do
             (llayer : restllayer, output2)
 
 backpropNetwork :: LNetwork -> Acc (Vector Double) -> (Network, Acc (Vector Double))
-backpropNetwork (LSGDNetwork llayers lr) backProp = do
+backpropNetwork (LNetwork llayers lr) backProp = do
     let backProp2 = A.replicate (A.lift (Z:.All:.(1::Int))) backProp
         (layers, retbp) = intern llayers lr backProp2
-    ((SGDNetwork layers lr), (A.flatten retbp)) where
+    ((Network layers lr), (A.flatten retbp)) where
         
         intern :: [LLayer] -> Optim -> Acc (Matrix Double) -> ([Layer], Acc (Matrix Double))
         intern [] _ x = ([], x)
@@ -90,14 +93,3 @@ backpropNetwork (LSGDNetwork llayers lr) backProp = do
                 (layer, bp3) = backpropLayer h optim bp2
             (layer : restLayer, bp3)
 
-backpropNetwork (LMomNetwork llayers lr) backProp = do
-    let backProp2 = A.replicate (A.lift (Z:.All:.(1::Int))) backProp
-        (layers, retbp) = intern llayers lr backProp2
-    ((MomNetwork layers lr), (A.flatten retbp)) where
-        
-        intern :: [LLayer] -> Optim -> Acc (Matrix Double) -> ([Layer], Acc (Matrix Double))
-        intern [] _ x = ([], x)
-        intern ( h : t ) optim bp = do
-            let (restLayer, bp2) = intern t optim bp
-                (layer, bp3) = backpropLayer h optim bp2
-            (layer : restLayer, bp3)

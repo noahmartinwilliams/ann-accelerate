@@ -6,7 +6,8 @@ import Prelude as P
 import Data.Serialize
 
 data Optim = SGD Double |  -- learnRate
-    Mom Double Double  -- learnRate Momentum
+    Mom Double Double  | -- learnRate Momentum
+    RMSProp Double Double -- alpha beta
     deriving(Show, P.Eq, Read, Generic)
 
 instance Serialize Optim
