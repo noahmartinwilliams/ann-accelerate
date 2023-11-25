@@ -1,5 +1,5 @@
 {-# LANGUAGE GADTs, DataKinds, KindSignatures, TypeOperators #-}
-module ML.ANN.Vect ( Vect(..), vaddv, mmulv, extractVect, takeV, dropV, vxv, vmulv, vsubv, smulv, vzipw) where
+module ML.ANN.Vect ( Vect(..), vaddv, mmulv, extractVect, takeV, dropV, vxv, vmulv, vsubv, smulv, vzipw, vmap) where
 
 import ML.ANN.Mat
 import Data.Array.Accelerate as A
@@ -78,3 +78,7 @@ dropV (VectO a) i = A.drop i (A.transpose a)
 vzipw :: (Exp Double -> Exp Double -> Exp Double) -> Vect a -> Vect a -> Vect a
 vzipw fn (VectI a) (VectI b) = VectI (A.zipWith fn a b)
 vzipw fn (VectO a) (VectO b) = VectO (A.zipWith fn a b)
+
+vmap :: (Exp Double -> Exp Double) -> Vect a -> Vect a
+vmap fn (VectO v) = VectO (A.map fn v)
+vmap fn (VectI v) = VectI (A.map fn v)

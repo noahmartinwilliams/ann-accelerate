@@ -3,4 +3,6 @@ dist-newstyle/
 *.eventlog
 cabal.project
 cabal.project.local
+*.exe
+*.ann
 *~

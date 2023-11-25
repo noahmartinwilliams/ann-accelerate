@@ -1,5 +1,21 @@
 {-# LANGUAGE GADTs, DataKinds, KindSignatures, TypeOperators #-}
-module ML.ANN.Layer (Layer(..), LLayer(..), LSpec(), calcLayer, lspecGetNumOutputs, layerGetNumInputs, mkSGDLayer, mkSGDInpLayer, learnLayer, backpropLayer, mkMomLayer, mkMomInpLayer, mkRMSLayer, mkRMSInpLayer) where
+module ML.ANN.Layer (
+    Layer(..), 
+    LLayer(..), 
+    LSpec(), 
+    calcLayer, 
+    lspecGetNumOutputs, 
+    layerGetNumInputs, 
+    mkSGDLayer, 
+    mkSGDInpLayer, 
+    learnLayer, 
+    backpropLayer, 
+    mkMomLayer, 
+    mkMomInpLayer, 
+    mkRMSLayer, 
+    mkRMSInpLayer,
+    mkAdagradLayer,
+    mkAdagradInpLayer) where
 
 import Data.Array.Accelerate as A
 import Prelude as P
@@ -20,7 +36,9 @@ data Layer = SGDLayer Int (Mat OutputSize InputSize) (Vect OutputSize) LSpec | -
     MomLayer Int (Mat OutputSize InputSize) (Mat OutputSize InputSize) (Vect OutputSize) (Vect OutputSize) LSpec | -- numInputs weights weightsMomentum biases biasesMomentum lspec
     MomInpLayer (Vect OutputSize) (Vect OutputSize) (Vect OutputSize) (Vect OutputSize) LSpec | -- numInputs weights weightsMomentum biases biasesMomentum lspec
     RMSLayer Int (Mat OutputSize InputSize) (Mat OutputSize InputSize) (Vect OutputSize) (Vect OutputSize) LSpec | -- numInputs weights weightsV biases biasesV lspec
-    RMSInpLayer (Vect OutputSize ) (Vect OutputSize ) (Vect OutputSize) (Vect OutputSize) LSpec -- weights weightsV biases biasesV lspec
+    RMSInpLayer (Vect OutputSize ) (Vect OutputSize ) (Vect OutputSize) (Vect OutputSize) LSpec | -- weights weightsV biases biasesV lspec
+    AdagradLayer Int (Mat OutputSize InputSize) (Mat OutputSize InputSize) (Vect OutputSize) (Vect OutputSize) LSpec |
+    AdagradInpLayer (Vect OutputSize ) (Vect OutputSize ) (Vect OutputSize) (Vect OutputSize) LSpec -- weights weightsSummed biases biasesSummed lspec
     deriving(Show) 
 
 data LLayer = LLayer Layer (Vect InputSize) | -- layer previousInput
@@ -77,6 +95,16 @@ mkRMSInpLayer randoms lspec numInputs = do
     let (MomInpLayer weights weightsMom biases biasesMom _) = mkMomInpLayer randoms lspec numInputs
     (RMSInpLayer weights weightsMom biases biasesMom lspec)
 
+mkAdagradLayer :: [Double] -> LSpec -> Int -> Int -> Layer
+mkAdagradLayer randoms lspec numInputs numOutputs = do
+    let (RMSLayer _ weights weightsSummed biases biasesSummed _) = mkRMSLayer randoms lspec numInputs numOutputs
+    (AdagradLayer numInputs weights weightsSummed biases biasesSummed lspec)
+
+mkAdagradInpLayer :: [Double] -> LSpec -> Int -> Layer
+mkAdagradInpLayer randoms lspec numInputs = do
+    let (RMSInpLayer weights weightsSummed biases biasesSummed _) = mkRMSInpLayer randoms lspec numInputs
+    (AdagradInpLayer weights weightsSummed biases biasesSummed lspec)
+
 calcLayer :: Layer -> Acc (Matrix Double) -> Acc (Matrix Double)
 calcLayer (SGDInpLayer weights bias lspec) x = do
     let x2 = (weights `vmulv` (VectO x)) `vaddv` bias
@@ -126,6 +154,16 @@ learnLayer (RMSInpLayer weights weightsMom biases biasesMom lspec) input = do
     let x = VectO input
         output = applyActFuncs lspec ((weights `vmulv` x) `vaddv` biases)
     ((LInpLayer (RMSInpLayer weights weightsMom biases biasesMom lspec) x), (extractVect output))
+
+learnLayer (AdagradLayer numInputs weights weightsSummed biases biasesSummed lspec) input = do
+    let x = VectI input
+        output = applyActFuncs lspec ((weights `mmulv` x) `vaddv` biases)
+    ((LLayer (AdagradLayer numInputs weights weightsSummed biases biasesSummed lspec) x), (extractVect output))
+
+learnLayer (AdagradInpLayer weights weightsSummed biases biasesSummed lspec) input = do
+    let x = VectO input
+        output = applyActFuncs lspec ((weights `vmulv` x) `vaddv` biases)
+    ((LInpLayer (AdagradInpLayer weights weightsSummed biases biasesSummed lspec) x), (extractVect output))
 
 
 backpropLayer :: LLayer -> Optim -> Acc (Matrix Double) -> (Layer, Acc (Matrix Double))
@@ -214,6 +252,44 @@ backpropLayer (LInpLayer (RMSInpLayer weights weightsV biases biasesV lspec) x) 
         bp2 = weights `vmulv` (bp `vmulv` deriv)
         (VectO bp3) = bp2
     ((RMSInpLayer weights2 vdw biases2 vdb lspec), bp3)
+
+backpropLayer (LInpLayer (AdagradInpLayer weights weightsSummed biases biasesSummed lspec) x) (Adagrad learnRate)  bp = do
+    let bp2 = VectO bp
+        lr = constant learnRate
+        epsilon = constant 0.00001
+        lrW = vmap (\x -> lr / (sqrt (x + epsilon))) weightsSummed
+        lrB = vmap (\x -> lr / (sqrt (x + epsilon))) biasesSummed
+        deriv = dapplyActFuncs lspec ((weights `vmulv` x) `vaddv` biases)
+        weightsDelta = x `vmulv` (deriv `vmulv` bp2)
+        biasesDelta = deriv `vmulv` bp2
+        weightsChange = vzipw (*) lrW weightsDelta
+        biasesChange = vzipw (*) lrB biasesDelta
+        weights2 = weights `vsubv` weightsChange
+        biases2 = biases `vsubv` biasesChange
+        weightsSummed2 = vzipw (*) weightsDelta weightsDelta
+        biasesSummed2 = vzipw (*) biasesDelta biasesDelta
+        bp3 = weights `vmulv` (deriv `vmulv` bp2)
+        (VectO bp4) = bp3
+    ((AdagradInpLayer weights2 weightsSummed2 biases2 biasesSummed2 lspec), bp4)
+
+backpropLayer (LLayer (AdagradLayer numInputs weights weightsSummed biases biasesSummed lspec) x) (Adagrad learnRate) bp = do
+    let bp2 = VectO bp
+        lr = constant learnRate
+        epsilon = constant 0.00001
+        lrW = mmap (\x -> lr / (sqrt (x + epsilon))) weightsSummed
+        lrB = vmap (\x -> lr / (sqrt (x + epsilon))) biasesSummed
+        deriv = dapplyActFuncs lspec ((weights `mmulv` x) `vaddv` biases)
+        weightsDelta = x `vxv` (deriv `vmulv` bp2)
+        biasesDelta = deriv `vmulv` bp2
+        weightsChange = mzipw (*) lrW weightsDelta
+        biasesChange = vzipw (*) lrB biasesDelta
+        weights2 = weights `msubm` weightsChange
+        biases2 = biases `vsubv` biasesChange
+        weightsSummed2 = mzipw (*) weightsDelta weightsDelta
+        biasesSummed2 = vzipw (*) biasesDelta biasesDelta
+        bp3 = (transp weights) `mmulv` (deriv `vmulv` bp2)
+        (VectI bp4) = bp3
+    ((AdagradLayer numInputs weights2 weightsSummed2 biases2 biasesSummed2 lspec), bp4)
 
 lspecGetNumOutputs :: LSpec -> Int
 lspecGetNumOutputs [] = 0

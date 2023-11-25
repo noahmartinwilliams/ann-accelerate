@@ -1,5 +1,5 @@
 {-# LANGUAGE GADTs, DataKinds, KindSignatures, TypeOperators #-}
-module ML.ANN.Mat ( Mat(..), InputSize, OutputSize, maddm, transp, extractMat, msubm, smulm, mzipw) where
+module ML.ANN.Mat ( Mat(..), InputSize, OutputSize, maddm, transp, extractMat, msubm, smulm, mzipw, mmap) where
 
 import Data.Array.Accelerate as A
 import Prelude as P
@@ -38,3 +38,7 @@ smulm s (MatOI m) = MatOI (A.map (\x -> x * s) m)
 mzipw :: (Exp Double -> Exp Double -> Exp Double) -> (Mat a b) -> Mat a b -> Mat a b
 mzipw fn (MatOI a) (MatOI b) = MatOI (A.zipWith fn a b)
 mzipw fn (MatIO a) (MatOI b) = MatIO (A.zipWith fn a b)
+
+mmap :: (Exp Double -> Exp Double) -> Mat a b -> Mat a b
+mmap fn (MatOI m) = MatOI (A.map fn m)
+mmap fn (MatIO m) = MatIO (A.map fn m)

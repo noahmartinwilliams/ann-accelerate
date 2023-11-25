@@ -27,7 +27,7 @@ main :: IO ()
 main = do
     hSetBuffering stdout LineBuffering 
     let g = mkStdGen 100
-        toTake = 100000
+        toTake = 10000
         integers = randoms g :: [Int]
         samples = genSamples integers
         sampleLines = (P.map (\(x, y, z) -> (printf "%.5F" x) P.++ "," P.++ (printf "%.5F" y) P.++ "#" P.++ (printf "%.5F" z) P.++ "\n") samples) 

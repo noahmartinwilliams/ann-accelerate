@@ -17,7 +17,9 @@ data BlInfo = SGDBlInfo Int Int LSpec | -- numInputs numOutputs lspec
     MomBlInfo Int Int LSpec | --numInputs numOutputs lspec
     MomBlInpInfo LSpec |
     RMSBlInfo Int Int LSpec |
-    RMSBlInpInfo LSpec
+    RMSBlInpInfo LSpec |
+    AdagradBlInfo Int Int LSpec | 
+    AdagradBlInpInfo LSpec
     deriving(Show, P.Eq, Generic) -- lspec
 
 data BlockInfo = BlockInfo Optim [BlInfo ] deriving(Show, P.Eq, Generic)
@@ -86,6 +88,26 @@ layer2block (RMSInpLayer weights weightsMom biases biasesMom lspec) = do
         integers = use (fromList (Z:.1) [numOutputs])
         lifted = A.lift (integers, weightsFlat A.++ weightsMomFlat A.++ biasesFlat A.++ biasesMomFlat)
     (RMSBlInpInfo lspec, lifted)
+
+layer2block (AdagradLayer numInputs weights weightsSummed biases biasesSummed lspec) = do
+    let numOutputs = lspecGetNumOutputs lspec
+        weightsFlat = A.flatten (extractMat weights)
+        weightsSummedFlat = A.flatten (extractMat weightsSummed)
+        biasesFlat = A.flatten (extractVect biases)
+        biasesSummedFlat = A.flatten (extractVect biasesSummed)
+        integers = use (fromList (Z:.2) [numInputs, numOutputs])
+        lifted = A.lift (integers, weightsFlat A.++ weightsSummedFlat A.++ biasesFlat A.++ biasesSummedFlat)
+    (AdagradBlInfo numInputs numOutputs lspec, lifted)
+
+layer2block (AdagradInpLayer weights weightsSummed biases biasesSummed lspec) = do
+    let numOutputs = lspecGetNumOutputs lspec
+        weightsFlat = A.flatten (extractVect weights)
+        weightsSummedFlat = A.flatten (extractVect weightsSummed)
+        biasesFlat = A.flatten (extractVect biases)
+        biasesSummedFlat = A.flatten (extractVect biasesSummed)
+        integers = use (fromList (Z:.1) [numOutputs])
+        lifted = A.lift (integers, weightsFlat A.++ weightsSummedFlat A.++ biasesFlat A.++ biasesSummedFlat)
+    (AdagradBlInpInfo lspec, lifted)
 
 
 block2layer :: (BlInfo, BlockA) -> (Layer, BlockA)
@@ -177,6 +199,38 @@ block2layer ((RMSBlInpInfo lspec), block) = do
         retBlockI = A.drop (constant 2) integers
         retBlock = A.lift (retBlockI, rest3)
     ((RMSInpLayer (VectO weightsAM) (VectO weightsMomAM) (VectO biasesAM) (VectO biasesMomAM) lspec), retBlock)
+
+block2layer ((AdagradBlInfo numInputs numOutputs lspec), block) = do
+    let (integers, doubles) = A.unlift block :: (Acc (Vector Int), Acc (Vector Double))
+        numWeights = numInputs * numOutputs
+        numBiases = numOutputs
+        (weightsAV, rest0) = takeDrop numWeights doubles
+        (weightsSummedAV, rest1) = takeDrop numWeights rest0
+        (biasesAV, rest2) = takeDrop numBiases rest1
+        (biasesSummedAV, rest3) = takeDrop numBiases rest2
+        weightsAM = A.reshape (constant (Z:.numOutputs:.numInputs)) weightsAV
+        weightsSummedAM = A.reshape (constant (Z:.numOutputs:.numInputs)) weightsSummedAV
+        biasesAM = A.replicate (A.lift (Z:.All:.(1 :: Int))) biasesAV
+        biasesSummedAM = A.replicate (A.lift (Z:.All:.(1 :: Int))) biasesSummedAV
+        retBlockI = A.drop (constant 2) integers
+        retBlock = A.lift (retBlockI, rest3)
+    ((AdagradLayer numInputs (MatOI weightsAM) (MatOI weightsSummedAM) (VectO biasesAM) (VectO biasesSummedAM) lspec), retBlock)
+
+block2layer ((AdagradBlInpInfo lspec), block) = do
+    let (integers, doubles) = A.unlift block :: (Acc (Vector Int), Acc (Vector Double))
+        numWeights = lspecGetNumOutputs lspec
+        numBiases = numWeights
+        (weightsAV, rest0) = takeDrop numWeights doubles
+        (weightsSummedAV, rest1) = takeDrop numWeights rest0
+        (biasesAV, rest2) = takeDrop numBiases rest1
+        (biasesSummedAV, rest3) = takeDrop numBiases rest2
+        weightsAM = A.reshape (constant (Z:.numWeights:.1)) weightsAV
+        weightsSummedAM = A.reshape (constant (Z:.numWeights:.1)) weightsSummedAV
+        biasesAM = A.replicate (A.lift (Z:.All:.(1 :: Int))) biasesAV
+        biasesSummedAM = A.replicate (A.lift (Z:.All:.(1 :: Int))) biasesSummedAV
+        retBlockI = A.drop (constant 2) integers
+        retBlock = A.lift (retBlockI, rest3)
+    ((AdagradInpLayer (VectO weightsAM) (VectO weightsSummedAM) (VectO biasesAM) (VectO biasesSummedAM) lspec), retBlock)
         
 
 takeDrop :: Int -> Acc (Vector Double) -> (Acc (Vector Double), Acc (Vector Double))
@@ -239,6 +293,24 @@ network2block (Network layers (SGD lr)) = do
                 ret = A.lift ((integers A.++ integersRest), (doubles A.++ doublesRest))
             (info : infoRest, ret)
 
+network2block (Network layers (Adagrad lr)) = do
+    let lr2 = A.reshape (constant (Z:.1)) (A.unit (constant lr))
+        (blinfo, retblock) = layers2block layers
+        (vint, vdouble) = A.unlift retblock :: (Acc (Vector Int), Acc (Vector Double))
+        vdouble2 = lr2 A.++ vdouble
+        retblock2 = A.lift (vint, vdouble2)
+    (BlockInfo (Adagrad lr) blinfo, retblock2) where
+
+        layers2block :: [Layer] -> ([BlInfo], BlockA)
+        layers2block [] = let emptyi = use (fromList (Z:.0) []) in let emptyd = use (fromList (Z:.0) []) in ([], A.lift (emptyi, emptyd))
+        layers2block (h : t) = do
+            let (info, intdoubles) = layer2block h
+                (integers, doubles) = A.unlift intdoubles
+                (infoRest, intdoublesRest) = layers2block t
+                (integersRest, doublesRest) = A.unlift intdoublesRest
+                ret = A.lift ((integers A.++ integersRest), (doubles A.++ doublesRest))
+            (info : infoRest, ret)
+
 block2network :: (BlockInfo, BlockA) -> Network
 block2network (BlockInfo (SGD lr) blinfos, blocka) = do
     let (integers, doubles) = A.unlift blocka :: (Acc (Vector Int), Acc (Vector Double))
@@ -269,6 +341,18 @@ block2network (BlockInfo (RMSProp lr beta) blinfos, blocka) = do
         restDoubles = A.drop (constant 2) doubles
         restV = A.lift (integers, restDoubles) :: Acc (Vector Int, Vector Double)
     Network (intern blinfos restV) (RMSProp lr beta) where
+
+        intern :: [BlInfo] -> BlockA -> [Layer]
+        intern [] _ = []
+        intern (h : rest) blockA = do
+            let (layer, blockRest) = block2layer (h, blockA)
+            layer : (intern rest blockRest)
+
+block2network (BlockInfo (Adagrad lr) blinfos, blocka) = do
+    let (integers, doubles) = A.unlift blocka :: (Acc (Vector Int), Acc (Vector Double))
+        restDoubles = A.drop (constant 1) doubles
+        restV = A.lift (integers, restDoubles) :: Acc (Vector Int, Vector Double)
+    Network (intern blinfos restV) (Adagrad lr) where
 
         intern :: [BlInfo] -> BlockA -> [Layer]
         intern [] _ = []

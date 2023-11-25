@@ -21,13 +21,7 @@ mkNetwork g lspec (RMSProp alpha beta) | (P.length lspec) P.>=2 = do
         (firstLayer : restLayers) = lspec
         layer1 = mkRMSInpLayer rands firstLayer numInputs
         numOutputs = lspecGetNumOutputs (lspec P.!! 1)
-    Network (layer1 : (internRMS rands restLayers numInputs numOutputs)) (RMSProp alpha beta) where
-        internRMS :: [Double] -> [LSpec] -> Int -> Int -> [Layer]
-        internRMS _ [] _ _ = []
-        internRMS rands [lspec2] numInputs numOutputs = do
-            [(mkRMSLayer rands lspec2 numInputs numOutputs)]
-        internRMS rands (lspec2 : rest) numInputs numOutputs = do
-            (mkRMSLayer rands lspec2 numInputs numOutputs) : (internRMS rands rest numOutputs (lspecGetNumOutputs (rest P.!! 0)))
+    Network (layer1 : (mkNetworkLayers mkRMSLayer rands restLayers numInputs numOutputs)) (RMSProp alpha beta) 
 
 mkNetwork g lspec (Mom alpha beta) | (P.length lspec) P.>=2 = do
     let rands = normals g
@@ -35,13 +29,7 @@ mkNetwork g lspec (Mom alpha beta) | (P.length lspec) P.>=2 = do
         (firstLayer : restLayers) = lspec
         layer1 = mkMomInpLayer rands firstLayer numInputs
         numOutputs = lspecGetNumOutputs (lspec P.!! 1)
-    Network (layer1 : (internMom rands restLayers numInputs numOutputs)) (Mom alpha beta) where
-        internMom :: [Double] -> [LSpec] -> Int -> Int -> [Layer]
-        internMom _ [] _ _ = []
-        internMom rands [lspec2] numInputs numOutputs = do
-            [(mkMomLayer rands lspec2 numInputs numOutputs)]
-        internMom rands (lspec2 : rest) numInputs numOutputs = do
-            (mkMomLayer rands lspec2 numInputs numOutputs) : (internMom rands rest numOutputs (lspecGetNumOutputs (rest P.!! 0)))
+    Network (layer1 : (mkNetworkLayers mkMomLayer rands restLayers numInputs numOutputs)) (Mom alpha beta) 
 
 mkNetwork g lspec (SGD lr) | (P.length lspec) P.>= 2 = do
     let rands = normals g
@@ -49,14 +37,22 @@ mkNetwork g lspec (SGD lr) | (P.length lspec) P.>= 2 = do
         (firstLayer : restLayers) = lspec
         layer1 = mkSGDInpLayer rands firstLayer
         numOutputs = lspecGetNumOutputs (lspec P.!! 1)
-    Network (layer1 : (internSGD rands restLayers numInputs numOutputs)) (SGD lr) where
-        internSGD :: [Double] -> [LSpec] -> Int -> Int -> [Layer]
-        internSGD _ [] _ _ = []
-        internSGD rands [lspec2] numInputs numOutputs = do
-            [(mkSGDLayer rands lspec2 numInputs numOutputs)]
-        internSGD rands (lspec2 : rest) numInputs numOutputs = do
-            (mkSGDLayer rands lspec2 numInputs numOutputs) : (internSGD rands rest numOutputs (lspecGetNumOutputs (rest P.!! 0)))
+    Network (layer1 : (mkNetworkLayers mkSGDLayer rands restLayers numInputs numOutputs)) (SGD lr) 
+mkNetwork g lspec (Adagrad lr) | (P.length lspec) P.>= 2 = do
+    let rands = normals g
+        numInputs = lspecGetNumOutputs (lspec P.!! 0)
+        (firstLayer : restLayers) = lspec
+        layer1 = mkAdagradInpLayer rands firstLayer numInputs
+        numOutputs = lspecGetNumOutputs (lspec P.!! 1)
+    Network (layer1 : (mkNetworkLayers mkAdagradLayer rands restLayers numInputs numOutputs)) (Adagrad lr) 
 
+mkNetworkLayers :: ([Double] -> LSpec -> Int -> Int -> Layer) -> [Double] -> [LSpec] -> Int -> Int -> [Layer]
+mkNetworkLayers _ _ [] _ _ = []
+mkNetworkLayers fn rands [lspec2] numInputs numOutputs = do
+    [(fn rands lspec2 numInputs numOutputs)]
+mkNetworkLayers fn randoms (lspec2 : rest)  numInputs numOutputs = do
+    (fn randoms lspec2 numInputs numOutputs) : (mkNetworkLayers fn randoms rest numOutputs (lspecGetNumOutputs (rest P.!! 0)))
+    
                 
     
 calcNetwork :: Network -> Acc (Vector Double) -> Acc (Vector Double)
