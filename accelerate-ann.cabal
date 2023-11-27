@@ -46,6 +46,20 @@ executable trainNet
       accelerate-llvm-native
   ghc-options: -threaded -rtsopts 
 
+executable mnist
+  hs-source-dirs: mnist/
+  main-is: Main.hs
+  build-depends:
+      accelerate,
+      base,
+      split,
+      bytestring,
+      accelerate-ann,
+      accelerate-llvm-ptx,
+      accelerate-llvm-native,
+      random
+  ghc-options: -threaded -rtsopts 
+
 executable genOrGate
   hs-source-dirs: genOrGate/
   main-is: Main.hs
@@ -76,6 +90,7 @@ library
       ML.ANN.Optim
       ML.ANN.Costs
       ML.ANN.File
+      ML.ANN.MkLayer
       ML.ANN
   other-modules:
       Paths_accelerate_ann

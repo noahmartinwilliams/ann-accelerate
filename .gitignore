@@ -5,4 +5,7 @@ cabal.project
 cabal.project.local
 *.exe
 *.ann
+results*.txt
+*.pdf
+*.png
 *~
