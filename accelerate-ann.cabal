@@ -67,7 +67,7 @@ executable genOrGate
       base, 
       random,
       parallel >= 3.2.2
-  ghc-options: -threaded -rtsopts 
+  ghc-options: -threaded -rtsopts -eventlog
 
 executable app
   hs-source-dirs: app/

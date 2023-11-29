@@ -55,21 +55,22 @@ main = do
     mnistImages <- BS.readFile "mnist-dataset/train-images.idx3-ubyte"
     mnistLabels <- BS.readFile "mnist-dataset/train-labels.idx1-ubyte"
     let g = mkStdGen 200
-        n = mkNetwork g [[Relu (28*28)], [Relu 15], [Softmax 10]] (Adam 0.0001 0.9 0.999)
+        n = mkNetwork g [[Relu (28*28)], [Relu 32], [Relu 32], [Softmax 10]] (Adam 0.000001 0.9 0.999)
+        --n = mkNetwork g [[Relu (28*28)], [Relu 16], [Softmax 10]] (SGD 0.000001)
         mnistImages' = BS.drop 16 mnistImages
         mnistLabels' = BS.drop 8 mnistLabels
         labelVects = getLabels mnistLabels'
         imageVects = getImages mnistImages'
         zipped = P.zip imageVects labelVects
-        repeated = P.take 10 (P.repeat zipped)
+        repeated = P.take 20 (P.repeat zipped)
         folded = P.foldr (P.++) [] repeated
         (blinfo, blockAV) = network2block n
         blockV = run blockAV
-        fn x y = trainOnceLinReg (ANN blinfo x) y
+        fn x y = trainOnce (ANN blinfo x) crossEntropyCFn y
         fn' = runN fn 
         (errors, output) = train blockV fn' folded
         errorsStr = P.map (\x -> (printf "%.5F" x ) P.++ "\n") errors
         bsout = block2bs (blinfo, output)
     P.putStr (P.foldr (P.++) "" errorsStr)
-    BS.writeFile "output.ann" (toStrict bsout)
+    BS.writeFile "mnist.ann" (toStrict bsout)
 
