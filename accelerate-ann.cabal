@@ -46,6 +46,18 @@ executable trainNet
       accelerate-llvm-native
   ghc-options: -threaded -rtsopts 
 
+executable calcNet
+  hs-source-dirs: calcNet/
+  main-is: Main.hs
+  build-depends:
+      accelerate,
+      base,
+      split,
+      bytestring,
+      accelerate-ann,
+      accelerate-llvm-ptx
+  ghc-options: -threaded -rtsopts 
+
 executable mnist
   hs-source-dirs: mnist/
   main-is: Main.hs
