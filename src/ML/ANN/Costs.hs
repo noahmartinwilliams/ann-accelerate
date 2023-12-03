@@ -1,7 +1,13 @@
-module ML.ANN.Costs(CostFn, dmseFn, mseFn, mseCFn, dcrossEntropyFn, crossEntropyFn, crossEntropyCFn) where
+module ML.ANN.Costs(CostFnT(..), costFn, CostFn, dmseFn, mseFn, mseCFn, dcrossEntropyFn, crossEntropyFn, crossEntropyCFn) where
 
 import Data.Array.Accelerate as A
 import Prelude as P
+
+data CostFnT = MSE | CrossEntropy deriving(Show, Read)
+
+costFn :: CostFnT -> CostFn
+costFn MSE = mseCFn
+costFn CrossEntropy = crossEntropyCFn
 
 type CostFn = ((Acc (Vector Double) -> Acc (Vector Double) -> Acc (Vector Double)), (Acc (Vector Double) -> Acc (Vector Double) -> Acc (Vector Double)))
 
