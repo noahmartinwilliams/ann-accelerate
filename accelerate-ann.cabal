@@ -69,8 +69,9 @@ executable mnist
       accelerate-ann,
       accelerate-llvm-ptx,
       accelerate-llvm-native,
-      random
-  ghc-options: -threaded -rtsopts 
+      random,
+      parallel
+  ghc-options: -threaded -rtsopts
 
 executable genOrGate
   hs-source-dirs: genOrGate/

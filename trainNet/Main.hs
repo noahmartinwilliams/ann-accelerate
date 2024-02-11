@@ -2,7 +2,7 @@ module Main where
 
 import Prelude as P
 import Data.Array.Accelerate as A
-import Data.Array.Accelerate.LLVM.Native
+import Data.Array.Accelerate.LLVM.PTX
 import System.Console.GetOpt
 import System.Environment
 import System.IO
@@ -40,6 +40,12 @@ getSamplesLL inplist = do
         outputsld = P.map (\x -> P.map (\y -> read y :: Double) x) outputsl
     P.zip inputsld outputsld
 
+writer :: [String] -> IO ()
+writer [] = return ()
+writer ( head : tail ) = do
+    System.IO.putStr head
+    writer tail
+
 main :: IO ()
 main = do
     hSetBuffering stdout LineBuffering
@@ -56,5 +62,5 @@ main = do
         samplesvv = P.map (\(x, y) -> ((A.fromList (Z:.(P.length x)) x :: Vector Double), (A.fromList (Z:.(P.length y)) y :: Vector Double))) samplesll
         (errors, blockv2) = train blockv samplesvv fn 
         errorsStr = P.map (\x -> (printf "%.7F" ((toList x) P.!! 0) )  P.++ "\n") errors
-    System.IO.putStr (P.foldr (P.++) "" errorsStr)
+    writer errorsStr
     B.writeFile outnetfilename (block2bs (blinfo, blockv2))

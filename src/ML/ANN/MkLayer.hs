@@ -48,7 +48,7 @@ heWeightInit randoms numInputs = P.map (\x -> x * (sqrt (2.0 / (P.fromIntegral n
 mkSGDInpLayer :: [Double] -> LSpec -> Layer
 mkSGDInpLayer randoms lspec = do
     let numInputs = lspecGetNumOutputs lspec
-        randoms2 = P.map (\x -> x * (sqrt (2.0 / (P.fromIntegral numInputs :: Double)))) randoms
+        randoms2 = heWeightInit randoms numInputs
         weights = VectO (use (fromList (Z:.numInputs:.1) (P.take numInputs randoms2)))
         biases = weights
     SGDInpLayer weights biases lspec
