@@ -90,8 +90,8 @@ writer ( head : tail ) = do
 main :: IO ()
 main = do
     hSetBuffering stdout LineBuffering
-    mnistImages <- BS.readFile "mnist-dataset/train-images.idx3-ubyte"
-    mnistLabels <- BS.readFile "mnist-dataset/train-labels.idx1-ubyte"
+    mnistImages <- BS.readFile "train-images-idx3-ubyte"
+    mnistLabels <- BS.readFile "train-labels-idx1-ubyte"
     args <- getArgs
     let (actions, _, errors) = getOpt RequireOrder options args
     opts <- P.foldl (>>=) (return startOptions) actions
@@ -101,7 +101,7 @@ main = do
         mnistImages' = BS.drop 16 mnistImages 
         mnistLabels' = BS.drop 8 mnistLabels
         labelVects = getLabels mnistLabels'
-        imageVects = getImages mnistImages' `using` parListChunk numCapabilities rdeepseq
+        imageVects = getImages mnistImages' `using` parBuffer numCapabilities rdeepseq
         zipped = P.zip imageVects labelVects
         repeated = P.take numEpochs (P.repeat zipped)
         folded = P.foldr (P.++) [] repeated
@@ -112,7 +112,7 @@ main = do
         (errors, output) = train blockV fn' folded
         errorsStr = P.map (\x -> (printf "%.5F" x ) P.++ "\n") errors
         bsout = block2bs (blinfo, output)
-    --P.putStr (P.foldr (P.++) "" errorsStr)
-    writer errorsStr
+    P.putStr (P.foldr (P.++) "" errorsStr)
+    --writer errorsStr
     BS.writeFile "mnist.ann" (toStrict bsout)
 

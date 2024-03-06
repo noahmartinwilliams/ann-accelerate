@@ -40,17 +40,107 @@ library:
   - -rtsopts
   dependencies:
   - accelerate
+  - cereal
+  - normaldistribution
+  - random
+  - bytestring
+  - accelerate-io
+  - accelerate-io-bytestring
+  - bytestring-conversion
 
 executables:
-  accelerate-ann-exe:
+  mnist:
     main:                Main.hs
-    source-dirs:         app
+    source-dirs:         mnist
     ghc-options:
     - -threaded
     - -rtsopts
     - -with-rtsopts=-N
     dependencies:
     - accelerate-ann
+    - accelerate
+    - base
+    - split
+    - bytestring
+    - accelerate-llvm-ptx
+    - random
+    - parallel
+
+  mnistTest:
+    main:                Main.hs
+    source-dirs:         mnistTest
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - accelerate-ann
+    - accelerate
+    - base
+    - split
+    - bytestring
+    - accelerate-llvm-ptx
+    - random
+
+  mkNet:
+    main:                Main.hs
+    source-dirs:         mkNet
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - accelerate-ann
+    - accelerate
+    - base
+    - split
+    - bytestring
+    - random
+
+  calcNet:
+    main:                Main.hs
+    source-dirs:         calcNet
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - accelerate-ann
+    - accelerate
+    - base
+    - split
+    - bytestring
+    - accelerate-llvm-ptx
+
+  trainNet:
+    main:                Main.hs
+    source-dirs:         trainNet
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - accelerate
+    - base
+    - random
+    - parallel
+    - accelerate-llvm-ptx
+    - accelerate-ann
+    - split
+    - bytestring
+
+  genOrGate:
+    main:                Main.hs
+    source-dirs:         genOrGate
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - accelerate
+    - base
+    - random
+    - parallel
 
 tests:
   accelerate-ann-test:
