@@ -6,7 +6,7 @@
 layer_sizes(16).
 layer_sizes(32).
 layer_sizes(64).
-layer_sizes(128).
+%layer_sizes(128).
 %layer_sizes(256).
 %layer_sizes(512).
 %layer_sizes(1024).
@@ -17,7 +17,7 @@ num_layers(2).
 
 act_funcs('Relu').
 act_funcs('Sigmoid').
-%act_funcs('Ident').
+act_funcs('Ident').
 act_funcs('Softmax').
 act_funcs('TanH').
 
@@ -34,33 +34,45 @@ beta2('0.9').
 beta2('0.99').
 beta2('0.999').
 
-build_layer(Size, AF):- layer_sizes(Size), act_funcs(AF).
+bite_sizes(32).
+bite_sizes(16).
+%bite_sizes(4).
 
-build_layers_intern(1, Layer5):-
-	build_layer(Size, AF),
-	Layer = '[',
-	atom_concat(Layer, AF, Layer2),
-	atom_concat(Layer2, ' ', Layer3),
-	atom_concat(Layer3, Size, Layer4),
-	atom_concat(Layer4, ']', Layer5).
+concat_atoms([], '').
+concat_atoms([A|B], Atom):- atom(A), concat_atoms(B, Rest), atom_concat(A, Rest, Atom).
 
-build_layers_intern(X, Layer6):-
-	X \= 1,
-	build_layer(Size, AF),
-	Layer = '[',
-	atom_concat(Layer, AF, Layer2),
-	atom_concat(Layer2, ' ', Layer3),
-	atom_concat(Layer3, Size, Layer4),
-	atom_concat(Layer4, '], ', Layer5),
-	X2 is X - 1,
-	build_layers_intern(X2, Rest),
-	atom_concat(Layer5, Rest, Layer6).
+build_layers(AFs):- num_layers(L), build_layers_intern(L, AFs2), concat_atoms(['[', AFs2, ']'], AFs).
 
-build_layers(Layers3):- 
-	num_layers(NumLayers),
-	build_layers_intern(NumLayers, Layers0),
-	atom_concat('[', Layers0, Layers2),
-	atom_concat(Layers2, ']', Layers3).
+build_layers_intern(0, '').
+build_layers_intern(1, Atom):- !, build_layer(Atom).
+build_layers_intern(X, L):- build_layer(Layer), X2 is X - 1, build_layers_intern(X2, L2), concat_atoms([Layer, ',', L2], L).
+
+build_layer(AFs5):- layer_sizes(Size), build_layer_intern(Size, AFs), sort(AFs, AFs2), build_layer_post(AFs2, AFs3), build_layer_post2(AFs3, AFs4), concat_atoms(['[', AFs4], AFs5).
+
+# transform entries into atoms.
+build_layer_post2([], '').
+build_layer_post2([layer(AF, Size)], Atom):- !, atom_number(SizeAtom, Size), concat_atoms([AF, ' ', SizeAtom, ']' ], Atom).
+build_layer_post2([layer(AF, Size)|Rest], Atoms3):- atom_number(SizeAtom, Size), concat_atoms([' ' , AF, ' ', SizeAtom, ', '], Atoms), build_layer_post2(Rest, Atoms2), atom_concat(Atoms, Atoms2, Atoms3).
+
+# find duplicates and remove them.
+build_layer_post([], []):- !.
+build_layer_post([layer(AF, Size1), layer(AF, Size2)|Rest], List):- !, Size3 is Size1 + Size2,  build_layer_post([layer(AF, Size3)|Rest], List).
+build_layer_post([layer(AF, Size)|Rest], [layer(AF, Size)|List]):- build_layer_post(Rest, List).
+
+build_layer_intern(Size, [layer(AF, BiteSize)|List]):- 
+	bite_sizes(BiteSize),
+	NextSize is Size - BiteSize,
+	NextSize >= 0,
+	act_funcs(AF),
+	build_layer_intern(NextSize, List).
+build_layer_intern(Size, [layer(AF, Size)]):-
+	Size \= 0,
+	act_funcs(AF).
+
+build_layer_intern(0, []).
+
+
+
 
 cost_fn('MSE').
 cost_fn('CrossEntropy').

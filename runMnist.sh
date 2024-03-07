@@ -31,7 +31,7 @@ done
 mv /tmp/results-mnist-*.txt ./results
 
 X=0
-ls results/results-mnist-*.txt | while read RESULT ; do
+ls results/ | while read RESULT ; do
 	./mkGraph.m results/$RESULT "$X"
 	mv plot.png graphs/mnist-$X.png
 	X=$(($X + 1));
