@@ -28,12 +28,11 @@ cat configsMnist.txt | while read CONFIG ; do
 
 	X=$(($X + 1));
 done
-mv /tmp/results-mnist-*.txt ./results
 
 X=0
 ls results/ | while read RESULT ; do
-	./mkGraph.m results/$RESULT "$X"
-	mv plot.png graphs/mnist-$X.png
+	#./mkGraph.m results/$RESULT "$X"
+	#mv plot.png graphs/mnist-$X.png
 	X=$(($X + 1));
 done
 

@@ -49,8 +49,8 @@ writer ( head : tail) = do
 main :: IO ()
 main = do
     hSetBuffering stdout LineBuffering
-    mnistImages <- BS.readFile "mnist-dataset/t10k-images.idx3-ubyte"
-    mnistLabels <- BS.readFile "mnist-dataset/t10k-labels.idx1-ubyte"
+    mnistImages <- BS.readFile "t10k-images-idx3-ubyte"
+    mnistLabels <- BS.readFile "t10k-labels-idx1-ubyte"
     args <- getArgs
     annFD <- BS.readFile (args P.!! 0)
     (blinfo, block) <- bs2block (fromStrict annFD)
