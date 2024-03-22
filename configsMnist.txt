@@ -1,0 +1,1024 @@
+{"optimizer":"Mom","layers":"[[Relu 16,Sigmoid 16,Softmax 16,TanH 16],[Ident 16,Relu 16,Softmax 16]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Relu 16,Softmax 16],[TanH 32]]","lr":"0.001","beta1":"0.99","beta2":"0.9","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Softmax 16],[Ident 16,Relu 16,Softmax 16]]","lr":"0.00001","beta1":"0.9","beta2":"0.999","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16],[Ident 16,Relu 16,Softmax 16,TanH 16]]","lr":"0.0001","beta1":"0.9","beta2":"0.9","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Sigmoid 16,TanH 16],[Sigmoid 16,Softmax 32]]","lr":"0.0001","beta1":"0.999","beta2":"0.9","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 32,TanH 16],[Ident 16,Softmax 16]]","lr":"0.001","beta1":"0.999","beta2":"0.9","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 32,TanH 16],[Ident 16,Relu 16,Sigmoid 32]]","lr":"0.001","beta1":"0.9","beta2":"0.9","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Relu 16,Softmax 16,TanH 16],[Ident 16,Sigmoid 32,Softmax 16]]","lr":"0.0001","beta1":"0.99","beta2":"0.9","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Mom","layers":"[[Relu 16,Sigmoid 16],[Ident 16,Relu 16,TanH 16]]","lr":"0.00001","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Sigmoid 16],[Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.00001","beta1":"0.9","beta2":"0.99","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 32,Sigmoid 16,Softmax 16],[Ident 48,Softmax 16]]","lr":"0.00001","beta1":"0.999","beta2":"0.999","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Mom","layers":"[[Ident 16,Sigmoid 16,Softmax 16],[Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.01","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"SGD","layers":"[[Ident 16,Sigmoid 16,TanH 16],[Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.01","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16,TanH 16],[Ident 16,Relu 16,Softmax 16]]","lr":"0.001","beta1":"0.999","beta2":"0.9","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 32],[Ident 16,Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.001","beta1":"0.99","beta2":"0.99","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Sigmoid 16,Softmax 16],[Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"0.999","beta2":"0.999","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Mom","layers":"[[Ident 16,Relu 16,TanH 16],[Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.01","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Softmax 16,TanH 16],[TanH 48]]","lr":"0.001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 48,TanH 16],[Sigmoid 16,Softmax 48]]","lr":"0.0001","beta1":"0.99","beta2":"0.99","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16,TanH 16],[Ident 16,Relu 16,Softmax 16]]","lr":"0.00001","beta1":"0.999","beta2":"0.99","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 32,TanH 16],[Relu 16,Softmax 16,TanH 16]]","lr":"0.0001","beta1":"0.999","beta2":"0.99","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Sigmoid 16,Softmax 16,TanH 16],[Ident 16,Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.001","beta1":"0.9","beta2":"0.9","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"SGD","layers":"[[Softmax 16,TanH 16],[Relu 16,Softmax 16,TanH 16]]","lr":"0.0001","beta1":"","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Mom","layers":"[[Ident 16,Relu 16,TanH 16],[Sigmoid 16,TanH 48]]","lr":"0.01","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"RMSProp","layers":"[[Relu 16,Sigmoid 16,Softmax 16,TanH 16],[Relu 16,Sigmoid 16,TanH 16]]","lr":"0.0001","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Relu 16,TanH 16],[Ident 16,Sigmoid 16,Softmax 16]]","lr":"0.001","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Mom","layers":"[[Sigmoid 48,TanH 16],[Ident 16,Sigmoid 16,TanH 16]]","lr":"0.001","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"RMSProp","layers":"[[Relu 16,Sigmoid 16],[Relu 16,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Mom","layers":"[[Ident 16,Sigmoid 16,Softmax 16,TanH 16],[Relu 16,Softmax 16]]","lr":"0.001","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Softmax 16,TanH 16],[Softmax 16,TanH 16]]","lr":"0.0001","beta1":"0.999","beta2":"0.9","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Mom","layers":"[[Relu 16,Softmax 48],[Relu 16,Softmax 16,TanH 16]]","lr":"0.0001","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"SGD","layers":"[[Ident 16,Softmax 16,TanH 16],[Ident 16,Relu 16,Softmax 16,TanH 16]]","lr":"0.0001","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Relu 32,Sigmoid 16,Softmax 16],[Ident 16,Relu 32,Softmax 16]]","lr":"0.00001","beta1":"0.999","beta2":"0.99","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Softmax 16],[Sigmoid 16,TanH 16]]","lr":"0.01","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Relu 32,Sigmoid 16,TanH 16],[Ident 32,Relu 16,TanH 16]]","lr":"0.00001","beta1":"0.9","beta2":"0.999","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,Softmax 16,TanH 16],[Ident 16,Relu 16,TanH 16]]","lr":"0.00001","beta1":"0.9","beta2":"0.999","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16],[Ident 16,Softmax 16,TanH 16]]","lr":"0.01","beta1":"0.999","beta2":"0.99","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Mom","layers":"[[Ident 16,Sigmoid 16,Softmax 32],[Relu 16,TanH 16]]","lr":"0.001","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,TanH 16],[Relu 48,Softmax 16]]","lr":"0.01","beta1":"0.999","beta2":"0.999","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16,TanH 16],[Ident 16,Relu 16]]","lr":"0.001","beta1":"0.9","beta2":"0.99","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adagrad","layers":"[[Softmax 32],[Sigmoid 16,Softmax 32,TanH 16]]","lr":"0.001","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Sigmoid 16],[Ident 32,Relu 16,TanH 16]]","lr":"0.00001","beta1":"0.99","beta2":"0.999","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Sigmoid 16,TanH 16],[Ident 16,Sigmoid 16,TanH 16]]","lr":"0.01","beta1":"0.99","beta2":"0.999","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Sigmoid 32,Softmax 16],[Ident 16,Relu 32,TanH 16]]","lr":"0.001","beta1":"0.9","beta2":"0.9","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"SGD","layers":"[[Sigmoid 16,TanH 48],[Ident 16,Relu 16,TanH 16]]","lr":"0.0001","beta1":"","beta2":"","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"RMSProp","layers":"[[Ident 32,Relu 16],[Ident 16,Softmax 16,TanH 16]]","lr":"0.0001","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"RMSProp","layers":"[[Relu 16,Sigmoid 16,TanH 32],[Relu 16,Sigmoid 32,TanH 16]]","lr":"0.01","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Relu 16,Softmax 16,TanH 16],[Relu 16,Sigmoid 16,TanH 16]]","lr":"0.001","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,TanH 16],[Ident 16,Relu 16,Softmax 16,TanH 16]]","lr":"0.001","beta1":"0.999","beta2":"0.999","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"RMSProp","layers":"[[Ident 32,Sigmoid 16,TanH 16],[Softmax 16,TanH 16]]","lr":"0.001","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Softmax 16,TanH 16],[Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.01","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16,TanH 16],[Ident 16,Relu 32,Softmax 16]]","lr":"0.0001","beta1":"0.9","beta2":"0.999","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,Softmax 32],[Ident 16,Sigmoid 16,Softmax 16]]","lr":"0.001","beta1":"0.99","beta2":"0.999","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Sigmoid 16,Softmax 16,TanH 16],[Ident 16,Softmax 16,TanH 16]]","lr":"0.001","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,TanH 16],[Relu 16,Sigmoid 16]]","lr":"0.00001","beta1":"0.9","beta2":"0.99","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 48],[Ident 16,Relu 48]]","lr":"0.00001","beta1":"0.9","beta2":"0.99","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,TanH 16],[Ident 16,Sigmoid 16,TanH 16]]","lr":"0.00001","beta1":"0.9","beta2":"0.9","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Mom","layers":"[[Ident 16,Sigmoid 16,Softmax 16,TanH 16],[Relu 16,Softmax 16,TanH 16]]","lr":"0.001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 32,Relu 16,Softmax 16],[Ident 16,Relu 16,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"0.99","beta2":"0.999","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16],[Ident 16,Relu 32,Softmax 16]]","lr":"0.0001","beta1":"0.999","beta2":"0.9","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Mom","layers":"[[Ident 16,Softmax 16,TanH 16],[Ident 16,Softmax 16,TanH 16]]","lr":"0.001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"SGD","layers":"[[Ident 16,Sigmoid 16,Softmax 16,TanH 16],[Ident 16,Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.01","beta1":"","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adagrad","layers":"[[Ident 16,Relu 16,Softmax 16],[Sigmoid 16,Softmax 16,TanH 32]]","lr":"0.00001","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"RMSProp","layers":"[[Relu 16,Sigmoid 16,Softmax 16],[Ident 16,Sigmoid 16,Softmax 16]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16,Softmax 16,TanH 16],[Ident 32]]","lr":"0.0001","beta1":"0.9","beta2":"0.999","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 32,Relu 16,TanH 16],[Ident 16,Relu 16,Softmax 16]]","lr":"0.00001","beta1":"0.9","beta2":"0.9","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Softmax 16,TanH 16],[Ident 16,Relu 16,Sigmoid 32]]","lr":"0.001","beta1":"0.999","beta2":"0.99","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"RMSProp","layers":"[[Relu 48,TanH 16],[Relu 16,Sigmoid 16,TanH 16]]","lr":"0.001","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Sigmoid 16,Softmax 16,TanH 16],[Sigmoid 16,TanH 32]]","lr":"0.001","beta1":"0.9","beta2":"0.999","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Relu 32,Sigmoid 32],[Ident 16,Relu 16,Softmax 16]]","lr":"0.0001","beta1":"0.99","beta2":"0.9","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,TanH 16],[Ident 48,Softmax 16]]","lr":"0.00001","beta1":"0.99","beta2":"0.9","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,Softmax 16],[Ident 16,Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.0001","beta1":"0.9","beta2":"0.9","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adagrad","layers":"[[Sigmoid 16,Softmax 16,TanH 16],[Relu 16,Softmax 16,TanH 16]]","lr":"0.001","beta1":"","beta2":"","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Relu 32,Sigmoid 16],[Sigmoid 48,TanH 16]]","lr":"0.001","beta1":"0.9","beta2":"0.99","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Mom","layers":"[[Ident 16,Relu 16],[Ident 16,Sigmoid 16,TanH 16]]","lr":"0.00001","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Relu 16,Softmax 16],[Ident 16,Relu 16]]","lr":"0.01","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adagrad","layers":"[[Ident 16,Sigmoid 16],[Sigmoid 16,TanH 16]]","lr":"0.0001","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Sigmoid 16,Softmax 32,TanH 16],[Ident 16,Relu 16]]","lr":"0.001","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Mom","layers":"[[Ident 16,Relu 16,Sigmoid 16],[Ident 16,Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.01","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Relu 32,Softmax 16,TanH 16],[Ident 16,Softmax 16,TanH 16]]","lr":"0.001","beta1":"0.99","beta2":"0.99","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Sigmoid 16,Softmax 32],[Relu 16,Sigmoid 16,TanH 16]]","lr":"0.001","beta1":"0.999","beta2":"0.999","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,Softmax 16,TanH 16],[Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.00001","beta1":"0.99","beta2":"0.99","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Relu 16,Softmax 32],[Ident 16,Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.01","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Mom","layers":"[[Ident 16,Sigmoid 16,Softmax 16,TanH 16],[Ident 16,Relu 16,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,Softmax 16,TanH 16],[Ident 16,Relu 16]]","lr":"0.01","beta1":"0.999","beta2":"0.99","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"RMSProp","layers":"[[Ident 48,Sigmoid 16],[Ident 16,Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.0001","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Relu 48,TanH 16],[Ident 16,Relu 16,Sigmoid 16]]","lr":"0.00001","beta1":"0.999","beta2":"0.999","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,Softmax 16],[Ident 32,Relu 16,TanH 16]]","lr":"0.01","beta1":"0.99","beta2":"0.9","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 48],[Ident 16,Sigmoid 16]]","lr":"0.01","beta1":"0.9","beta2":"0.999","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Sigmoid 16],[Ident 16,Relu 32]]","lr":"0.01","beta1":"0.999","beta2":"0.9","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Mom","layers":"[[Relu 48,TanH 16],[Relu 32,Sigmoid 32]]","lr":"0.01","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"RMSProp","layers":"[[Relu 16,TanH 16],[Relu 16,Sigmoid 16,TanH 16]]","lr":"0.00001","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Relu 64],[Relu 48,TanH 16]]","lr":"0.0001","beta1":"0.9","beta2":"0.99","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Softmax 48],[Ident 16,Relu 16,Softmax 16]]","lr":"0.001","beta1":"0.9","beta2":"0.99","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Relu 16,TanH 16],[Ident 16,Relu 16]]","lr":"0.0001","beta1":"0.99","beta2":"0.99","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"RMSProp","layers":"[[Softmax 16,TanH 16],[Ident 16,Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.01","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Sigmoid 16,Softmax 16,TanH 16],[Ident 16,Sigmoid 16,Softmax 16]]","lr":"0.001","beta1":"0.999","beta2":"0.9","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Relu 16,Softmax 48],[Sigmoid 16,TanH 16]]","lr":"0.001","beta1":"0.9","beta2":"0.9","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"RMSProp","layers":"[[Relu 16,Softmax 16,TanH 16],[Relu 16,Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Relu 16,TanH 16],[Relu 48,TanH 16]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Mom","layers":"[[Softmax 16,TanH 16],[Ident 16,Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Mom","layers":"[[Relu 16,Sigmoid 16,Softmax 16,TanH 16],[Relu 16,Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.0001","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Sigmoid 16,Softmax 32],[Ident 16,Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.001","beta1":"0.99","beta2":"0.9","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[TanH 48],[Ident 16,Relu 16,Sigmoid 16,TanH 16]]","lr":"0.00001","beta1":"0.999","beta2":"0.99","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Ident 48],[Ident 16,Sigmoid 16,TanH 16]]","lr":"0.001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,TanH 16],[Ident 16,Softmax 48]]","lr":"0.01","beta1":"0.99","beta2":"0.999","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Sigmoid 16,Softmax 16],[Ident 16,Relu 16,Sigmoid 16]]","lr":"0.00001","beta1":"0.9","beta2":"0.999","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Sigmoid 48,TanH 16],[Ident 16,Relu 16,Softmax 16]]","lr":"0.001","beta1":"0.9","beta2":"0.999","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Sigmoid 16,TanH 48],[Ident 16,Sigmoid 16,Softmax 32]]","lr":"0.0001","beta1":"0.999","beta2":"0.999","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Relu 48,Sigmoid 16],[Ident 16,Softmax 16,TanH 32]]","lr":"0.01","beta1":"0.999","beta2":"0.99","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"SGD","layers":"[[Ident 16,Softmax 48],[Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.0001","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Relu 32],[Ident 16,TanH 16]]","lr":"0.00001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Sigmoid 16],[Ident 16,Relu 16,Sigmoid 16]]","lr":"0.01","beta1":"0.999","beta2":"0.99","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,TanH 16],[Relu 32,Softmax 16,TanH 16]]","lr":"0.0001","beta1":"0.999","beta2":"0.99","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Relu 16,Softmax 16],[Relu 16,Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Relu 32,Sigmoid 16,Softmax 16],[Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.001","beta1":"0.99","beta2":"0.9","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"RMSProp","layers":"[[Sigmoid 16,Softmax 16],[Relu 48,Sigmoid 16]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Sigmoid 16,Softmax 16,TanH 16],[Ident 16,Sigmoid 32]]","lr":"0.001","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Softmax 48,TanH 16],[Relu 16,Sigmoid 16,TanH 16]]","lr":"0.0001","beta1":"0.99","beta2":"0.999","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,TanH 16],[Relu 16,Softmax 16,TanH 16]]","lr":"0.0001","beta1":"0.99","beta2":"0.99","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Sigmoid 32,Softmax 16],[Ident 16,TanH 16]]","lr":"0.01","beta1":"0.99","beta2":"0.99","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Sigmoid 16,Softmax 32,TanH 16],[Ident 16,Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.001","beta1":"0.999","beta2":"0.999","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"RMSProp","layers":"[[Relu 16,Sigmoid 16,Softmax 16,TanH 16],[Ident 16,Relu 16,Softmax 16]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"SGD","layers":"[[Ident 16,Relu 16],[Ident 48,Sigmoid 16]]","lr":"0.01","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adagrad","layers":"[[Sigmoid 16,Softmax 16,TanH 16],[Relu 16,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,TanH 16],[Ident 16,Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.0001","beta1":"0.9","beta2":"0.99","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Sigmoid 16,TanH 16],[Ident 16,Relu 16]]","lr":"0.001","beta1":"0.99","beta2":"0.99","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 32,Sigmoid 16,Softmax 16],[Ident 16,Relu 16,Sigmoid 16,TanH 16]]","lr":"0.0001","beta1":"0.999","beta2":"0.999","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Mom","layers":"[[Relu 16,Softmax 16,TanH 32],[Ident 16,Sigmoid 32,Softmax 16]]","lr":"0.01","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,TanH 16],[Ident 16,Relu 16,Softmax 16]]","lr":"0.0001","beta1":"0.99","beta2":"0.9","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Mom","layers":"[[Relu 16,Sigmoid 16,TanH 16],[Ident 16,Relu 16,Softmax 32]]","lr":"0.001","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 32,Relu 16,Softmax 16],[Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.01","beta1":"0.999","beta2":"0.9","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Relu 16,Softmax 16,TanH 32],[Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.01","beta1":"0.99","beta2":"0.99","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Relu 16,Sigmoid 16],[Ident 16,TanH 16]]","lr":"0.001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"RMSProp","layers":"[[Sigmoid 16,TanH 16],[Ident 16,Softmax 16,TanH 32]]","lr":"0.00001","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"RMSProp","layers":"[[Relu 32,Sigmoid 16,TanH 16],[Softmax 16,TanH 16]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adagrad","layers":"[[Softmax 16,TanH 32],[Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.01","beta1":"","beta2":"","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16,Softmax 32],[Ident 16,Sigmoid 16,Softmax 16]]","lr":"0.01","beta1":"0.99","beta2":"0.999","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"RMSProp","layers":"[[Relu 16,Softmax 16],[Ident 16,Softmax 16,TanH 16]]","lr":"0.001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Softmax 16],[Sigmoid 16,TanH 16]]","lr":"0.0001","beta1":"0.9","beta2":"0.99","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 48],[Ident 16,Relu 16,Sigmoid 16]]","lr":"0.01","beta1":"0.99","beta2":"0.999","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Sigmoid 16,Softmax 16],[Relu 16,Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"0.99","beta2":"0.999","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Mom","layers":"[[Ident 16,Sigmoid 16,Softmax 32],[Ident 16,Sigmoid 32,Softmax 16]]","lr":"0.00001","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Mom","layers":"[[Ident 16,Relu 16,Sigmoid 16],[Ident 16,Relu 16,Sigmoid 16]]","lr":"0.0001","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 32,Softmax 16],[Ident 16,Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.001","beta1":"0.99","beta2":"0.999","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Relu 48,Softmax 16],[Relu 16,Sigmoid 16,TanH 16]]","lr":"0.00001","beta1":"0.9","beta2":"0.9","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 48,Sigmoid 16],[Relu 16,Sigmoid 16,TanH 16]]","lr":"0.0001","beta1":"0.99","beta2":"0.9","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 32,TanH 16],[Ident 16,Sigmoid 48]]","lr":"0.0001","beta1":"0.9","beta2":"0.999","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Mom","layers":"[[Ident 16,Relu 16],[Relu 32,Sigmoid 16,TanH 16]]","lr":"0.01","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Mom","layers":"[[Ident 16,Softmax 32,TanH 16],[Sigmoid 64]]","lr":"0.01","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16,Softmax 16],[Ident 16,Softmax 16,TanH 16]]","lr":"0.01","beta1":"0.99","beta2":"0.999","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Sigmoid 16,Softmax 16,TanH 16],[Ident 16,Relu 16,Softmax 16,TanH 16]]","lr":"0.001","beta1":"0.999","beta2":"0.999","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,TanH 32],[Ident 16,Relu 16,TanH 32]]","lr":"0.01","beta1":"0.999","beta2":"0.9","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Relu 16],[Ident 16,Relu 16,Softmax 16,TanH 16]]","lr":"0.001","beta1":"0.9","beta2":"0.999","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Sigmoid 16],[Relu 16,Softmax 16]]","lr":"0.001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adagrad","layers":"[[Relu 16,Sigmoid 16,Softmax 16,TanH 16],[Ident 16,Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.0001","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"RMSProp","layers":"[[Relu 32,Sigmoid 16],[Relu 16]]","lr":"0.01","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 16,Softmax 16,TanH 16],[Ident 16,Sigmoid 16,TanH 32]]","lr":"0.00001","beta1":"0.99","beta2":"0.99","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"SGD","layers":"[[Relu 48,Sigmoid 16],[Ident 16,Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.01","beta1":"","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Relu 16,Softmax 16,TanH 16],[Ident 48,Sigmoid 16]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Sigmoid 16,TanH 16],[Ident 16,Relu 16,TanH 16]]","lr":"0.01","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Mom","layers":"[[Relu 16,Sigmoid 32],[Ident 16,Relu 16,Softmax 16]]","lr":"0.0001","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Softmax 16],[Relu 16,Sigmoid 16]]","lr":"0.01","beta1":"0.99","beta2":"0.99","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Relu 32,TanH 16],[Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.001","beta1":"0.9","beta2":"0.999","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"SGD","layers":"[[Sigmoid 16,Softmax 16,TanH 16],[Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.0001","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,Softmax 32],[Ident 16,Relu 16,Sigmoid 16,TanH 16]]","lr":"0.01","beta1":"0.9","beta2":"0.99","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Mom","layers":"[[Ident 16,Sigmoid 48],[Ident 16,Softmax 48]]","lr":"0.001","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,Softmax 16],[Ident 48]]","lr":"0.001","beta1":"0.99","beta2":"0.999","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adagrad","layers":"[[Relu 16,Sigmoid 16,Softmax 32],[Relu 16,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adagrad","layers":"[[Ident 16,Sigmoid 16,Softmax 16,TanH 16],[Ident 16,TanH 16]]","lr":"0.00001","beta1":"","beta2":"","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Relu 16,Softmax 32],[Ident 16,Sigmoid 48]]","lr":"0.0001","beta1":"0.9","beta2":"0.9","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adagrad","layers":"[[Sigmoid 48,Softmax 16],[Sigmoid 16,TanH 16]]","lr":"0.0001","beta1":"","beta2":"","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Softmax 16,TanH 32],[Ident 16,Softmax 32,TanH 16]]","lr":"0.001","beta1":"0.9","beta2":"0.9","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"RMSProp","layers":"[[Sigmoid 16,Softmax 16],[Sigmoid 32,Softmax 32]]","lr":"0.00001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Softmax 16],[Ident 16,Sigmoid 16,TanH 16]]","lr":"0.001","beta1":"0.99","beta2":"0.999","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Mom","layers":"[[Relu 32,TanH 32],[Relu 32,TanH 16]]","lr":"0.00001","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"RMSProp","layers":"[[Sigmoid 16,Softmax 16,TanH 16],[TanH 32]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Softmax 48],[Ident 32,Relu 16,Sigmoid 16]]","lr":"0.0001","beta1":"0.99","beta2":"0.999","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16,Softmax 16],[Ident 16,Relu 16,Softmax 16]]","lr":"0.01","beta1":"0.9","beta2":"0.999","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Softmax 16,TanH 16],[TanH 16]]","lr":"0.0001","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,TanH 16],[Ident 16,Sigmoid 16,Softmax 16]]","lr":"0.001","beta1":"0.99","beta2":"0.9","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adagrad","layers":"[[Relu 16,Sigmoid 16,Softmax 16,TanH 16],[Softmax 16,TanH 16]]","lr":"0.01","beta1":"","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 16,Softmax 16,TanH 16],[Ident 16,Relu 32,Sigmoid 16]]","lr":"0.0001","beta1":"0.99","beta2":"0.9","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Mom","layers":"[[Ident 16,TanH 16],[Ident 16,Relu 16,Softmax 16]]","lr":"0.00001","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Mom","layers":"[[Softmax 16],[Ident 32,Softmax 16,TanH 16]]","lr":"0.01","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,TanH 32],[Relu 32,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"RMSProp","layers":"[[Sigmoid 16,Softmax 48],[Ident 16,Relu 32,Sigmoid 16]]","lr":"0.01","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Relu 16,Softmax 16,TanH 16],[Ident 16,Relu 32,Softmax 16]]","lr":"0.001","beta1":"0.9","beta2":"0.99","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16,Softmax 16],[Ident 16,Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.0001","beta1":"0.999","beta2":"0.999","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"RMSProp","layers":"[[Ident 32,Sigmoid 16,Softmax 16],[Sigmoid 16,Softmax 16]]","lr":"0.0001","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Mom","layers":"[[Ident 16,Relu 16,Softmax 16,TanH 16],[Ident 16,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 48,Relu 16],[Sigmoid 32,Softmax 32]]","lr":"0.00001","beta1":"0.9","beta2":"0.99","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Relu 16,Softmax 16],[Relu 16,Sigmoid 16]]","lr":"0.0001","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Softmax 16,TanH 32],[Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.001","beta1":"0.99","beta2":"0.9","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Sigmoid 16,Softmax 16],[Ident 16,Relu 16,Sigmoid 16]]","lr":"0.00001","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Relu 16,Softmax 16,TanH 16],[Ident 16,Softmax 16,TanH 16]]","lr":"0.0001","beta1":"0.999","beta2":"0.9","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,Softmax 16],[Relu 16,Sigmoid 16,TanH 16]]","lr":"0.01","beta1":"0.99","beta2":"0.9","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Mom","layers":"[[Sigmoid 16,TanH 16],[Relu 16,Sigmoid 16,TanH 16]]","lr":"0.0001","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Relu 16,Sigmoid 16,TanH 16],[Ident 16,Relu 16]]","lr":"0.00001","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"RMSProp","layers":"[[Sigmoid 48,TanH 16],[Relu 16,Softmax 48]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Sigmoid 16,Softmax 16],[Sigmoid 16,Softmax 16]]","lr":"0.0001","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"SGD","layers":"[[Ident 16,Softmax 16,TanH 16],[Sigmoid 16,TanH 16]]","lr":"0.001","beta1":"","beta2":"","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Mom","layers":"[[Sigmoid 16,Softmax 16,TanH 16],[Ident 16,Relu 16,Softmax 16]]","lr":"0.001","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adagrad","layers":"[[Ident 16,Sigmoid 16],[Ident 16,Softmax 16,TanH 16]]","lr":"0.001","beta1":"","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Sigmoid 16],[Ident 16,Sigmoid 16]]","lr":"0.01","beta1":"0.9","beta2":"0.9","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"RMSProp","layers":"[[Ident 32,Relu 16,TanH 16],[Ident 16,TanH 48]]","lr":"0.01","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Sigmoid 48,TanH 16],[Ident 16,Relu 16,Sigmoid 16]]","lr":"0.01","beta1":"0.999","beta2":"0.9","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Sigmoid 16,Softmax 16],[Ident 16,Softmax 16,TanH 16]]","lr":"0.01","beta1":"0.99","beta2":"0.999","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adagrad","layers":"[[Ident 16,Sigmoid 16,Softmax 16],[Ident 16,Relu 16,Sigmoid 16]]","lr":"0.001","beta1":"","beta2":"","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,Softmax 32],[Sigmoid 48,TanH 16]]","lr":"0.00001","beta1":"0.9","beta2":"0.99","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,TanH 16],[Ident 16,Relu 16,Sigmoid 16]]","lr":"0.00001","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Softmax 32],[Ident 16,Relu 16,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"0.99","beta2":"0.999","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adagrad","layers":"[[Ident 16,Relu 32,Sigmoid 16],[Ident 16,Sigmoid 16,Softmax 16]]","lr":"0.0001","beta1":"","beta2":"","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Relu 16,Softmax 16],[Ident 48,Softmax 16]]","lr":"0.001","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Softmax 16,TanH 16],[Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.01","beta1":"0.99","beta2":"0.999","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Sigmoid 16,Softmax 16,TanH 16],[Ident 16,Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.00001","beta1":"0.999","beta2":"0.99","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Softmax 16],[Ident 16,Softmax 16,TanH 32]]","lr":"0.001","beta1":"0.9","beta2":"0.9","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 32],[Sigmoid 16,TanH 16]]","lr":"0.001","beta1":"0.9","beta2":"0.99","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Softmax 16],[Ident 16,Sigmoid 48]]","lr":"0.0001","beta1":"0.999","beta2":"0.999","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,TanH 16],[Ident 16,Relu 16,Sigmoid 32]]","lr":"0.00001","beta1":"0.999","beta2":"0.999","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"SGD","layers":"[[Relu 16,Sigmoid 16],[Ident 16,TanH 48]]","lr":"0.00001","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"SGD","layers":"[[Ident 16,Softmax 16,TanH 16],[Relu 16,Sigmoid 16,TanH 16]]","lr":"0.0001","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Relu 16,TanH 16],[Ident 16,Sigmoid 32,TanH 16]]","lr":"0.01","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adagrad","layers":"[[Ident 16,Softmax 16],[Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.0001","beta1":"","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16,Softmax 16],[Relu 16,Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.001","beta1":"0.9","beta2":"0.9","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"SGD","layers":"[[Ident 16,Relu 16,Softmax 16,TanH 16],[Sigmoid 16,TanH 16]]","lr":"0.01","beta1":"","beta2":"","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"RMSProp","layers":"[[TanH 32],[Relu 16,Softmax 16,TanH 32]]","lr":"0.0001","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Sigmoid 16,Softmax 16],[Softmax 16,TanH 48]]","lr":"0.01","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adagrad","layers":"[[Sigmoid 16,TanH 32],[Relu 16,Sigmoid 16,TanH 32]]","lr":"0.00001","beta1":"","beta2":"","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 32,TanH 16],[Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"0.999","beta2":"0.99","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adagrad","layers":"[[Ident 16,Sigmoid 16,Softmax 16,TanH 16],[TanH 32]]","lr":"0.001","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,TanH 16],[Ident 16,Sigmoid 16,TanH 16]]","lr":"0.01","beta1":"0.99","beta2":"0.9","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Mom","layers":"[[Relu 16,TanH 16],[Ident 16,Relu 16,Softmax 16,TanH 16]]","lr":"0.01","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Mom","layers":"[[Ident 16,Relu 16,Softmax 16],[Relu 16,TanH 16]]","lr":"0.01","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,Softmax 32],[Relu 32,Sigmoid 16]]","lr":"0.001","beta1":"0.99","beta2":"0.999","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Softmax 16,TanH 16],[Ident 16,Relu 32,Sigmoid 16]]","lr":"0.00001","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 16,Softmax 16,TanH 16],[Ident 16,Relu 16,Softmax 16,TanH 16]]","lr":"0.001","beta1":"0.999","beta2":"0.9","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"SGD","layers":"[[Ident 16,Relu 16],[Relu 16,Softmax 32]]","lr":"0.0001","beta1":"","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Sigmoid 16,TanH 16],[Ident 32,TanH 16]]","lr":"0.0001","beta1":"0.99","beta2":"0.9","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Softmax 16,TanH 48],[Softmax 16,TanH 16]]","lr":"0.0001","beta1":"0.9","beta2":"0.99","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"RMSProp","layers":"[[Softmax 16,TanH 16],[Relu 16,TanH 32]]","lr":"0.00001","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Relu 32,TanH 16],[Ident 32,Relu 32]]","lr":"0.001","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Softmax 16],[Ident 16,Sigmoid 16,Softmax 16]]","lr":"0.00001","beta1":"0.99","beta2":"0.9","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Softmax 32,TanH 16],[Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"0.99","beta2":"0.9","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 32,Softmax 16],[Ident 16,Relu 16,TanH 16]]","lr":"0.001","beta1":"0.99","beta2":"0.9","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16,Softmax 16,TanH 16],[Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.0001","beta1":"0.999","beta2":"0.9","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Mom","layers":"[[Ident 48,Sigmoid 16],[Ident 16,Relu 32,Softmax 16]]","lr":"0.001","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Relu 16,Sigmoid 16,Softmax 16],[Relu 16,Sigmoid 32]]","lr":"0.01","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Mom","layers":"[[Ident 48],[Relu 16,Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.001","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adagrad","layers":"[[Ident 48,Sigmoid 16],[Sigmoid 32]]","lr":"0.001","beta1":"","beta2":"","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,Softmax 16],[Sigmoid 16,TanH 16]]","lr":"0.0001","beta1":"0.9","beta2":"0.999","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Relu 16,TanH 16],[Ident 16,Relu 16,Sigmoid 16]]","lr":"0.01","beta1":"0.99","beta2":"0.99","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Sigmoid 16,Softmax 16,TanH 16],[Relu 16,Softmax 16,TanH 16]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"RMSProp","layers":"[[Relu 16,Sigmoid 16,TanH 16],[Ident 48,Sigmoid 16]]","lr":"0.01","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Mom","layers":"[[Ident 16,Relu 16,Softmax 32],[Ident 16,Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.01","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16,Softmax 16],[Ident 16,Relu 32,Softmax 16]]","lr":"0.001","beta1":"0.9","beta2":"0.9","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Sigmoid 48],[Ident 16,Relu 48]]","lr":"0.00001","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16],[Softmax 16,TanH 16]]","lr":"0.01","beta1":"0.99","beta2":"0.99","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 16,TanH 48],[Relu 16,Sigmoid 16,TanH 16]]","lr":"0.0001","beta1":"0.99","beta2":"0.99","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Mom","layers":"[[Ident 16,Relu 16,TanH 16],[Sigmoid 16,Softmax 48]]","lr":"0.0001","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,TanH 16],[Ident 16,Softmax 16,TanH 16]]","lr":"0.001","beta1":"0.9","beta2":"0.99","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Mom","layers":"[[Ident 16,Sigmoid 16],[Relu 16,Sigmoid 16,TanH 16]]","lr":"0.01","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 32,Sigmoid 16,Softmax 16],[Ident 16,Relu 32,Sigmoid 16]]","lr":"0.01","beta1":"0.999","beta2":"0.99","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,TanH 16],[Ident 16,Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.001","beta1":"0.9","beta2":"0.999","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Adagrad","layers":"[[Relu 16,Sigmoid 16,TanH 16],[Ident 16,Softmax 16]]","lr":"0.00001","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Mom","layers":"[[Ident 16,Softmax 16],[Ident 16,Softmax 16,TanH 16]]","lr":"0.01","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Softmax 16],[Softmax 32,TanH 16]]","lr":"0.00001","beta1":"0.9","beta2":"0.999","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Softmax 16,TanH 16],[Sigmoid 16,Softmax 16]]","lr":"0.00001","beta1":"0.9","beta2":"0.99","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Mom","layers":"[[Ident 16,Relu 48],[Ident 16,Relu 16,Softmax 16]]","lr":"0.001","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Sigmoid 48,Softmax 16],[TanH 48]]","lr":"0.001","beta1":"0.9","beta2":"0.999","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,TanH 16],[Relu 16,TanH 32]]","lr":"0.01","beta1":"0.9","beta2":"0.99","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adagrad","layers":"[[Ident 16,Relu 16,Sigmoid 16],[Ident 16,Softmax 16,TanH 32]]","lr":"0.001","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"SGD","layers":"[[Softmax 16,TanH 16],[Relu 16,Softmax 16,TanH 16]]","lr":"0.001","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"SGD","layers":"[[Relu 16,Softmax 48],[Ident 16,Relu 32,Softmax 16]]","lr":"0.00001","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16,Softmax 16,TanH 16],[Relu 48,TanH 16]]","lr":"0.001","beta1":"0.9","beta2":"0.999","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Relu 16,TanH 16],[Ident 32,Sigmoid 16,Softmax 16]]","lr":"0.0001","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Mom","layers":"[[Relu 16,Sigmoid 16,Softmax 32],[Ident 16,Relu 16,Sigmoid 16,TanH 16]]","lr":"0.01","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Mom","layers":"[[Ident 16,Sigmoid 16,Softmax 16,TanH 16],[Ident 16,Relu 16,Softmax 16]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,Softmax 16],[Relu 16,Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"0.99","beta2":"0.9","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Mom","layers":"[[Relu 16,Sigmoid 16,Softmax 16],[Ident 16,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[TanH 48],[Ident 16,Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"0.9","beta2":"0.999","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Softmax 16],[Relu 32,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"0.9","beta2":"0.99","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Mom","layers":"[[Ident 16,Sigmoid 32,Softmax 16],[Ident 48,TanH 16]]","lr":"0.0001","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Relu 48,Softmax 16],[Softmax 48,TanH 16]]","lr":"0.00001","beta1":"0.999","beta2":"0.999","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Mom","layers":"[[Sigmoid 16,Softmax 16,TanH 16],[Ident 16,Relu 32,Softmax 16]]","lr":"0.0001","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Mom","layers":"[[Ident 16,Sigmoid 16,Softmax 16,TanH 16],[Softmax 16]]","lr":"0.01","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Mom","layers":"[[Relu 16,TanH 16],[Relu 16,Softmax 16]]","lr":"0.0001","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,Softmax 16],[Ident 16,Sigmoid 16,Softmax 16]]","lr":"0.01","beta1":"0.99","beta2":"0.99","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 48],[Ident 16,Relu 16,TanH 16]]","lr":"0.00001","beta1":"0.999","beta2":"0.99","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[TanH 32],[Relu 16,Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.0001","beta1":"0.99","beta2":"0.999","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Softmax 16],[Sigmoid 16,TanH 16]]","lr":"0.0001","beta1":"0.9","beta2":"0.999","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 32,Softmax 16],[Ident 16,Relu 16]]","lr":"0.001","beta1":"0.999","beta2":"0.99","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Softmax 16],[Relu 16,Sigmoid 16,TanH 16]]","lr":"0.001","beta1":"0.99","beta2":"0.999","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Softmax 16,TanH 16],[TanH 32]]","lr":"0.01","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Mom","layers":"[[Relu 16,Sigmoid 16,Softmax 16,TanH 16],[Softmax 16,TanH 48]]","lr":"0.00001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"RMSProp","layers":"[[Sigmoid 16,Softmax 16,TanH 16],[Ident 16,Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,Softmax 16,TanH 16],[Ident 16,Sigmoid 16,Softmax 16]]","lr":"0.00001","beta1":"0.9","beta2":"0.999","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Softmax 16],[Ident 16,TanH 16]]","lr":"0.001","beta1":"0.9","beta2":"0.999","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"SGD","layers":"[[Sigmoid 32,Softmax 32],[Sigmoid 16,Softmax 16]]","lr":"0.0001","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Relu 32,TanH 16],[Ident 32,Softmax 16,TanH 16]]","lr":"0.001","beta1":"0.9","beta2":"0.9","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Mom","layers":"[[Ident 16,Relu 16,Sigmoid 16],[Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.001","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Sigmoid 16,TanH 16],[Ident 32,TanH 16]]","lr":"0.001","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,Softmax 16],[Relu 48,Softmax 16]]","lr":"0.001","beta1":"0.99","beta2":"0.999","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Relu 48,Sigmoid 16],[Ident 48,TanH 16]]","lr":"0.01","beta1":"0.999","beta2":"0.999","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Softmax 16,TanH 16],[Softmax 16,TanH 48]]","lr":"0.00001","beta1":"0.99","beta2":"0.999","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Relu 16,Softmax 16],[Ident 48,Softmax 16]]","lr":"0.001","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"RMSProp","layers":"[[Ident 32],[Ident 16,Relu 16,Softmax 16]]","lr":"0.01","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Relu 16,Sigmoid 16],[Relu 64]]","lr":"0.01","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Mom","layers":"[[Ident 64],[Ident 32,Sigmoid 16,TanH 16]]","lr":"0.00001","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Mom","layers":"[[Sigmoid 32,Softmax 16,TanH 16],[Ident 16,Relu 16,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Relu 16,Sigmoid 16,Softmax 16],[Ident 16,Relu 16,Softmax 16,TanH 16]]","lr":"0.0001","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Sigmoid 16,Softmax 16,TanH 16],[Ident 16,Relu 16,Sigmoid 16]]","lr":"0.001","beta1":"0.99","beta2":"0.999","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"RMSProp","layers":"[[Relu 16,TanH 16],[Relu 16,TanH 16]]","lr":"0.0001","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Mom","layers":"[[Relu 16,TanH 16],[Ident 16,Sigmoid 16,Softmax 16]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Mom","layers":"[[Relu 16,Softmax 16,TanH 16],[Relu 48,Softmax 16]]","lr":"0.01","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,Softmax 16,TanH 16],[Ident 16,Sigmoid 32,TanH 16]]","lr":"0.01","beta1":"0.9","beta2":"0.9","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Mom","layers":"[[Ident 16,Relu 16,Sigmoid 16,Softmax 16],[Relu 16,Softmax 16]]","lr":"0.001","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16],[Relu 16,Softmax 16,TanH 16]]","lr":"0.001","beta1":"0.9","beta2":"0.99","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"RMSProp","layers":"[[Relu 16,Softmax 32,TanH 16],[Ident 16,Relu 32,TanH 16]]","lr":"0.0001","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adagrad","layers":"[[Ident 16,Relu 16,TanH 16],[Ident 16,Softmax 16]]","lr":"0.00001","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Mom","layers":"[[Ident 16,Sigmoid 16,Softmax 16],[Ident 16,Relu 16,Sigmoid 16]]","lr":"0.00001","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Mom","layers":"[[Ident 16,Sigmoid 16,Softmax 16,TanH 16],[Ident 16,Sigmoid 16,Softmax 16]]","lr":"0.00001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Sigmoid 16,Softmax 32,TanH 16],[Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.01","beta1":"0.9","beta2":"0.999","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Relu 16],[Sigmoid 16,Softmax 16]]","lr":"0.001","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Mom","layers":"[[Ident 16,Relu 16,TanH 16],[Ident 16,Relu 16,Sigmoid 32]]","lr":"0.0001","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,TanH 16],[Relu 16,Softmax 48]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Mom","layers":"[[Softmax 32,TanH 32],[Sigmoid 16,TanH 48]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"SGD","layers":"[[Ident 32,Softmax 16],[Ident 16,Softmax 16,TanH 16]]","lr":"0.001","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Mom","layers":"[[Relu 16,Softmax 16,TanH 16],[Sigmoid 16,Softmax 16,TanH 32]]","lr":"0.01","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Softmax 16],[Relu 48,TanH 16]]","lr":"0.00001","beta1":"0.999","beta2":"0.99","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Mom","layers":"[[Relu 16,Softmax 16,TanH 16],[Relu 32,Sigmoid 16,TanH 16]]","lr":"0.001","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Relu 32,Softmax 16],[Ident 16,Sigmoid 16,Softmax 16]]","lr":"0.001","beta1":"0.9","beta2":"0.99","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,TanH 32],[Ident 16,Relu 32]]","lr":"0.00001","beta1":"0.999","beta2":"0.9","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Sigmoid 16,Softmax 16,TanH 16],[Ident 16,Relu 16,Sigmoid 16]]","lr":"0.0001","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Sigmoid 16,Softmax 16,TanH 16],[Relu 48,Sigmoid 16]]","lr":"0.001","beta1":"0.99","beta2":"0.99","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Mom","layers":"[[Softmax 16,TanH 48],[Ident 16,Sigmoid 16]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,TanH 16],[Ident 16,Relu 32,Softmax 16]]","lr":"0.0001","beta1":"0.999","beta2":"0.999","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Softmax 16],[Ident 16,Relu 16,Sigmoid 16]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Mom","layers":"[[Ident 16,Relu 16,Sigmoid 16],[Relu 16,Softmax 48]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16,Softmax 16,TanH 16],[Relu 48,TanH 16]]","lr":"0.0001","beta1":"0.99","beta2":"0.999","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 32,Relu 16,Sigmoid 16],[Ident 16,Relu 16,Softmax 16]]","lr":"0.00001","beta1":"0.999","beta2":"0.9","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Sigmoid 16,TanH 16],[Relu 16,Sigmoid 32,TanH 16]]","lr":"0.01","beta1":"0.9","beta2":"0.99","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Sigmoid 16],[Sigmoid 16,Softmax 32,TanH 16]]","lr":"0.001","beta1":"0.9","beta2":"0.99","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Mom","layers":"[[Ident 16,Sigmoid 32,TanH 16],[Relu 16,TanH 48]]","lr":"0.001","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Softmax 48,TanH 16],[Ident 16,TanH 48]]","lr":"0.0001","beta1":"0.99","beta2":"0.9","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 32,Relu 16],[Ident 48,Relu 16]]","lr":"0.001","beta1":"0.9","beta2":"0.99","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"SGD","layers":"[[Ident 16,Relu 16,TanH 16],[Relu 16,Sigmoid 16,TanH 16]]","lr":"0.001","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,TanH 16],[Ident 16,Relu 16,Softmax 16]]","lr":"0.001","beta1":"0.9","beta2":"0.999","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 48,Relu 16],[Ident 48,Relu 16]]","lr":"0.00001","beta1":"0.99","beta2":"0.999","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adagrad","layers":"[[Ident 16,Relu 16,Sigmoid 16],[Ident 16,Sigmoid 16,Softmax 16]]","lr":"0.01","beta1":"","beta2":"","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Mom","layers":"[[Ident 16,Relu 16,Softmax 16],[Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.0001","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 16,Softmax 16,TanH 16],[Sigmoid 32,Softmax 16,TanH 16]]","lr":"0.01","beta1":"0.99","beta2":"0.999","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Mom","layers":"[[Ident 16,Sigmoid 16,Softmax 16,TanH 16],[Ident 16,Sigmoid 16,Softmax 16]]","lr":"0.00001","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Relu 16,TanH 32],[Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.00001","beta1":"0.9","beta2":"0.999","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Sigmoid 16],[Ident 16,Relu 16,Softmax 32]]","lr":"0.00001","beta1":"0.9","beta2":"0.9","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Relu 16,Softmax 16,TanH 16],[Ident 16,Relu 16,Softmax 16,TanH 16]]","lr":"0.01","beta1":"0.9","beta2":"0.999","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Mom","layers":"[[Ident 16,Relu 32,TanH 16],[Sigmoid 48,Softmax 16]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Softmax 32,TanH 16],[Ident 32,TanH 32]]","lr":"0.0001","beta1":"0.9","beta2":"0.9","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Softmax 16,TanH 16],[Ident 48,Sigmoid 16]]","lr":"0.001","beta1":"0.99","beta2":"0.999","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Mom","layers":"[[Relu 48,Sigmoid 16],[Relu 16,Softmax 16,TanH 16]]","lr":"0.01","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"RMSProp","layers":"[[Ident 32,Relu 16],[Ident 16,Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"SGD","layers":"[[Ident 16,Relu 16,Sigmoid 32],[Ident 16,Relu 32,Softmax 16]]","lr":"0.0001","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Sigmoid 16,Softmax 16],[Ident 16,Relu 16,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"0.99","beta2":"0.999","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Softmax 16,TanH 48],[Ident 16,Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.01","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,TanH 16],[Relu 16,TanH 16]]","lr":"0.00001","beta1":"0.9","beta2":"0.99","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16,Softmax 16],[Ident 16,Relu 32,Sigmoid 16]]","lr":"0.00001","beta1":"0.9","beta2":"0.9","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Mom","layers":"[[Relu 16,Softmax 32,TanH 16],[Relu 48,Sigmoid 16]]","lr":"0.0001","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Mom","layers":"[[Ident 16,Relu 48],[Ident 16,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Sigmoid 16,TanH 32],[Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Softmax 16,TanH 32],[Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.001","beta1":"0.999","beta2":"0.999","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Mom","layers":"[[Relu 16,TanH 16],[Relu 16,Sigmoid 16,TanH 16]]","lr":"0.0001","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 32,TanH 16],[Ident 16]]","lr":"0.01","beta1":"0.9","beta2":"0.9","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Softmax 16],[Ident 16,TanH 16]]","lr":"0.0001","beta1":"0.9","beta2":"0.999","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16,TanH 16],[Ident 16,Relu 16,Sigmoid 16,TanH 16]]","lr":"0.01","beta1":"0.999","beta2":"0.999","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,TanH 16],[Ident 16,Relu 16,Softmax 16]]","lr":"0.001","beta1":"0.99","beta2":"0.99","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,Softmax 16,TanH 16],[Ident 16,Relu 16,Softmax 16,TanH 16]]","lr":"0.001","beta1":"0.999","beta2":"0.9","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Relu 16,TanH 16],[Relu 16,Sigmoid 48]]","lr":"0.00001","beta1":"0.9","beta2":"0.9","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"RMSProp","layers":"[[Sigmoid 32,Softmax 16],[Ident 32,TanH 32]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Softmax 16,TanH 48],[Sigmoid 16,TanH 16]]","lr":"0.0001","beta1":"0.99","beta2":"0.999","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 32,TanH 16],[Relu 16,Sigmoid 16]]","lr":"0.01","beta1":"0.9","beta2":"0.9","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"SGD","layers":"[[Ident 32,Relu 16,TanH 16],[Relu 16,Sigmoid 16]]","lr":"0.01","beta1":"","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Sigmoid 16,TanH 48],[Ident 16,Sigmoid 32,TanH 16]]","lr":"0.0001","beta1":"0.99","beta2":"0.9","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Mom","layers":"[[Ident 16,Sigmoid 16,Softmax 16],[Relu 16,Sigmoid 16]]","lr":"0.001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Sigmoid 16,Softmax 16,TanH 16],[Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.001","beta1":"0.9","beta2":"0.9","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[TanH 64],[Relu 16,Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"0.99","beta2":"0.9","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"SGD","layers":"[[Ident 16,Relu 16,Softmax 16],[Ident 16,Relu 32,Softmax 16]]","lr":"0.001","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Mom","layers":"[[Ident 16,Relu 16,Softmax 16,TanH 16],[Sigmoid 16,Softmax 48]]","lr":"0.01","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Mom","layers":"[[Ident 16,Relu 16,Sigmoid 16,Softmax 16],[Relu 48,Sigmoid 16]]","lr":"0.00001","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Relu 48,TanH 16],[Sigmoid 32,TanH 16]]","lr":"0.00001","beta1":"0.9","beta2":"0.999","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 32,TanH 16],[Sigmoid 16,Softmax 32,TanH 16]]","lr":"0.00001","beta1":"0.99","beta2":"0.99","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Sigmoid 16,TanH 16],[Ident 16,Relu 16,Softmax 16,TanH 16]]","lr":"0.0001","beta1":"0.9","beta2":"0.999","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Mom","layers":"[[Ident 16,Sigmoid 16,Softmax 16,TanH 16],[Sigmoid 16,Softmax 16]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Mom","layers":"[[Ident 16,Sigmoid 16,Softmax 16],[Relu 16,Softmax 16,TanH 16]]","lr":"0.01","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16],[Ident 16,Relu 16,Sigmoid 16]]","lr":"0.0001","beta1":"0.99","beta2":"0.99","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"RMSProp","layers":"[[Sigmoid 16,Softmax 16],[Ident 16,Relu 16,TanH 16]]","lr":"0.01","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Relu 16,Softmax 16],[Relu 16,Softmax 48]]","lr":"0.0001","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,TanH 16],[Ident 16,Sigmoid 16,Softmax 16]]","lr":"0.0001","beta1":"0.99","beta2":"0.99","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 32,Sigmoid 16],[Softmax 16]]","lr":"0.00001","beta1":"0.9","beta2":"0.999","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"RMSProp","layers":"[[Relu 16,Sigmoid 16,Softmax 16,TanH 16],[Ident 16,Relu 32,Sigmoid 16]]","lr":"0.00001","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16,Softmax 16],[Relu 16,Softmax 32]]","lr":"0.0001","beta1":"0.999","beta2":"0.99","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 16,TanH 16],[Relu 16,Sigmoid 16,TanH 16]]","lr":"0.001","beta1":"0.9","beta2":"0.999","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Mom","layers":"[[Ident 16,Relu 16,TanH 16],[Ident 16,Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.01","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Mom","layers":"[[Ident 16,Relu 32,Softmax 16],[Relu 16,Sigmoid 16,Softmax 32]]","lr":"0.0001","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 16,Softmax 16,TanH 32],[Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.01","beta1":"0.99","beta2":"0.999","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Mom","layers":"[[Softmax 16,TanH 16],[Relu 16,TanH 48]]","lr":"0.001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16,Softmax 16,TanH 16],[Ident 16,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"0.99","beta2":"0.99","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Mom","layers":"[[Relu 16,Softmax 16,TanH 16],[Ident 16,Relu 16]]","lr":"0.00001","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Softmax 16,TanH 16],[Relu 16,TanH 48]]","lr":"0.00001","beta1":"0.9","beta2":"0.99","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,TanH 16],[Ident 16]]","lr":"0.01","beta1":"0.999","beta2":"0.999","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Softmax 32,TanH 16],[Ident 16,Softmax 16]]","lr":"0.00001","beta1":"0.999","beta2":"0.9","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,TanH 16],[Relu 16,Sigmoid 32,Softmax 16]]","lr":"0.001","beta1":"0.999","beta2":"0.999","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Relu 16,Softmax 16],[Ident 16,Softmax 16,TanH 32]]","lr":"0.0001","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Softmax 16],[Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.001","beta1":"0.99","beta2":"0.9","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Mom","layers":"[[Ident 16,Relu 16,Sigmoid 16,Softmax 16],[Relu 32,Sigmoid 16,Softmax 16]]","lr":"0.001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Mom","layers":"[[Relu 16,Softmax 16,TanH 16],[Ident 16,Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.00001","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Mom","layers":"[[Sigmoid 16,Softmax 16],[Relu 16,Softmax 16,TanH 16]]","lr":"0.0001","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,Softmax 16],[Relu 16,Softmax 48]]","lr":"0.0001","beta1":"0.999","beta2":"0.999","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Sigmoid 16],[Ident 16,Relu 16,Softmax 16]]","lr":"0.0001","beta1":"0.999","beta2":"0.999","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Sigmoid 16],[Ident 16,Relu 32]]","lr":"0.01","beta1":"0.999","beta2":"0.999","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16,Softmax 16],[Relu 16,Sigmoid 16,TanH 16]]","lr":"0.0001","beta1":"0.999","beta2":"0.999","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adagrad","layers":"[[Relu 32,Sigmoid 16,TanH 16],[Sigmoid 32,TanH 16]]","lr":"0.00001","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Relu 16,Softmax 16,TanH 16],[Ident 16,TanH 32]]","lr":"0.01","beta1":"0.9","beta2":"0.999","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Relu 16],[Relu 32,Sigmoid 16,TanH 16]]","lr":"0.00001","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Relu 16,Sigmoid 16,TanH 16],[Ident 16,Relu 16,Sigmoid 16,TanH 16]]","lr":"0.0001","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 48,Softmax 16],[Ident 16,Relu 16,Sigmoid 16,TanH 16]]","lr":"0.001","beta1":"0.99","beta2":"0.999","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,TanH 16],[Sigmoid 16,TanH 48]]","lr":"0.00001","beta1":"0.9","beta2":"0.999","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 32,Sigmoid 16,Softmax 16],[Ident 16,TanH 16]]","lr":"0.00001","beta1":"0.9","beta2":"0.999","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adagrad","layers":"[[Ident 16,Softmax 16],[Ident 16,Relu 16,Sigmoid 16]]","lr":"0.0001","beta1":"","beta2":"","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"RMSProp","layers":"[[Relu 32,Sigmoid 16,TanH 16],[Sigmoid 16,Softmax 32]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Softmax 16],[Ident 16,Relu 32,TanH 16]]","lr":"0.0001","beta1":"0.99","beta2":"0.9","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Mom","layers":"[[Ident 16,Relu 48],[Sigmoid 16,TanH 16]]","lr":"0.00001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 32,Relu 16,TanH 16],[Ident 16,Softmax 16]]","lr":"0.0001","beta1":"0.99","beta2":"0.9","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Mom","layers":"[[Ident 16,Relu 16,TanH 32],[Ident 16,Softmax 16,TanH 16]]","lr":"0.001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,Softmax 16],[Ident 16,Softmax 48]]","lr":"0.00001","beta1":"0.9","beta2":"0.999","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Softmax 16,TanH 16],[Sigmoid 32,TanH 16]]","lr":"0.00001","beta1":"0.9","beta2":"0.9","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,TanH 16],[Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.01","beta1":"0.999","beta2":"0.99","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Softmax 16],[Relu 16,Sigmoid 32,Softmax 16]]","lr":"0.00001","beta1":"0.9","beta2":"0.9","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Softmax 16,TanH 16],[Sigmoid 16,TanH 16]]","lr":"0.0001","beta1":"0.999","beta2":"0.99","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Relu 16,TanH 32],[Ident 16,Relu 16,Sigmoid 16,TanH 16]]","lr":"0.00001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Mom","layers":"[[Ident 16,Softmax 32,TanH 16],[Ident 32,Relu 16,TanH 16]]","lr":"0.01","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16,TanH 16],[Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.001","beta1":"0.999","beta2":"0.99","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"RMSProp","layers":"[[Sigmoid 16,Softmax 16,TanH 16],[Relu 16,Sigmoid 16]]","lr":"0.00001","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"SGD","layers":"[[Ident 16,Relu 16,Sigmoid 16,Softmax 16],[Relu 16,TanH 16]]","lr":"0.01","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Mom","layers":"[[Ident 16,Softmax 16,TanH 16],[Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.00001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"SGD","layers":"[[Ident 32,Relu 16,Softmax 16],[Ident 48]]","lr":"0.001","beta1":"","beta2":"","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adagrad","layers":"[[Relu 16,Sigmoid 16,TanH 16],[Relu 16,Sigmoid 16,TanH 16]]","lr":"0.0001","beta1":"","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Sigmoid 16,Softmax 16],[Ident 32,Softmax 16]]","lr":"0.001","beta1":"0.99","beta2":"0.9","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Softmax 48,TanH 16],[Ident 16,Sigmoid 32,Softmax 16]]","lr":"0.00001","beta1":"0.999","beta2":"0.9","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 48,TanH 16],[Ident 16,Sigmoid 32,TanH 16]]","lr":"0.00001","beta1":"0.999","beta2":"0.9","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Softmax 16,TanH 16],[Ident 16,Relu 16,TanH 32]]","lr":"0.00001","beta1":"0.9","beta2":"0.999","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,TanH 32],[Ident 16,Relu 16,TanH 16]]","lr":"0.001","beta1":"0.999","beta2":"0.9","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 32,TanH 16],[Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.0001","beta1":"0.9","beta2":"0.999","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Softmax 16],[Softmax 16,TanH 16]]","lr":"0.01","beta1":"0.9","beta2":"0.99","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 48],[Relu 16,TanH 16]]","lr":"0.00001","beta1":"0.999","beta2":"0.999","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"SGD","layers":"[[Relu 48],[Relu 16,Softmax 16,TanH 32]]","lr":"0.001","beta1":"","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"RMSProp","layers":"[[Relu 16,Sigmoid 32,TanH 16],[Ident 32,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Mom","layers":"[[Ident 16,Relu 16,Sigmoid 16,Softmax 16],[Ident 16,Sigmoid 32,TanH 16]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"SGD","layers":"[[Ident 16,Relu 16,Sigmoid 16,Softmax 16],[Relu 16,Softmax 16,TanH 16]]","lr":"0.0001","beta1":"","beta2":"","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Sigmoid 16,Softmax 16],[Sigmoid 48,Softmax 16]]","lr":"0.001","beta1":"0.9","beta2":"0.9","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Mom","layers":"[[Sigmoid 32,TanH 16],[Ident 32,TanH 32]]","lr":"0.01","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Mom","layers":"[[Ident 16,Relu 32,TanH 16],[Relu 32,TanH 16]]","lr":"0.00001","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Mom","layers":"[[Ident 16,Sigmoid 16],[Ident 16,Relu 16,TanH 16]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,Softmax 32],[Ident 16,Sigmoid 16,Softmax 16]]","lr":"0.0001","beta1":"0.99","beta2":"0.9","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Mom","layers":"[[Softmax 16],[Ident 16,Relu 16]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Relu 32,Softmax 16,TanH 16],[Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.00001","beta1":"0.99","beta2":"0.9","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Sigmoid 16,Softmax 16,TanH 16],[Ident 16,Relu 16,TanH 16]]","lr":"0.0001","beta1":"0.999","beta2":"0.99","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"SGD","layers":"[[Sigmoid 48,TanH 16],[Relu 16,Sigmoid 16,TanH 16]]","lr":"0.0001","beta1":"","beta2":"","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Mom","layers":"[[Ident 16,Sigmoid 16,Softmax 16],[Relu 16,Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"RMSProp","layers":"[[Relu 16,Sigmoid 16,Softmax 16],[Sigmoid 48,TanH 16]]","lr":"0.01","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 32,Sigmoid 32],[Ident 16,Sigmoid 16,Softmax 16]]","lr":"0.0001","beta1":"0.99","beta2":"0.9","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,TanH 16],[Relu 48]]","lr":"0.00001","beta1":"0.9","beta2":"0.99","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Sigmoid 16,Softmax 16,TanH 16],[Ident 16,Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.00001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Sigmoid 16,Softmax 16],[Relu 48,Softmax 16]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Sigmoid 16,TanH 16],[Ident 16,Sigmoid 16,TanH 16]]","lr":"0.0001","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"RMSProp","layers":"[[Relu 16,Sigmoid 16],[Sigmoid 16,TanH 48]]","lr":"0.001","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adagrad","layers":"[[Ident 16,Relu 16,Sigmoid 16,Softmax 16],[Ident 16,Sigmoid 16,TanH 16]]","lr":"0.01","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Mom","layers":"[[Sigmoid 16,Softmax 32],[Ident 16,Relu 16,Sigmoid 16]]","lr":"0.0001","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Sigmoid 16,TanH 16],[Ident 16,Relu 16,Softmax 16]]","lr":"0.00001","beta1":"0.999","beta2":"0.9","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Relu 16,Softmax 32],[Ident 32,Sigmoid 16,TanH 16]]","lr":"0.00001","beta1":"0.99","beta2":"0.99","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Mom","layers":"[[Sigmoid 16,Softmax 32],[Ident 16,Relu 16,Sigmoid 32]]","lr":"0.01","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Sigmoid 16,TanH 16],[Relu 16,Softmax 32,TanH 16]]","lr":"0.001","beta1":"0.999","beta2":"0.999","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Softmax 16],[Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.0001","beta1":"0.99","beta2":"0.9","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adagrad","layers":"[[Relu 16,Sigmoid 16,TanH 16],[Ident 16,Relu 48]]","lr":"0.0001","beta1":"","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Relu 64],[Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.00001","beta1":"0.9","beta2":"0.999","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"RMSProp","layers":"[[Relu 16],[Ident 16,Sigmoid 32,TanH 16]]","lr":"0.001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Softmax 16,TanH 16],[Ident 16,Softmax 48]]","lr":"0.001","beta1":"0.9","beta2":"0.9","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adagrad","layers":"[[Sigmoid 16,Softmax 32],[Relu 16,Sigmoid 32,Softmax 16]]","lr":"0.0001","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Mom","layers":"[[Ident 16,TanH 48],[Sigmoid 16,TanH 16]]","lr":"0.00001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16,TanH 16],[Relu 16,Sigmoid 16,Softmax 32]]","lr":"0.01","beta1":"0.99","beta2":"0.9","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Mom","layers":"[[Relu 48,Sigmoid 16],[Sigmoid 32,Softmax 16]]","lr":"0.00001","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Mom","layers":"[[Ident 16,Sigmoid 16,TanH 32],[Ident 16,Relu 32,Sigmoid 16]]","lr":"0.0001","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,Softmax 16,TanH 16],[Relu 16,Sigmoid 16,Softmax 32]]","lr":"0.0001","beta1":"0.99","beta2":"0.9","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,TanH 16],[Ident 16,Relu 16,Softmax 16]]","lr":"0.00001","beta1":"0.99","beta2":"0.99","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"SGD","layers":"[[Relu 32,Sigmoid 16,Softmax 16],[Sigmoid 16,TanH 16]]","lr":"0.00001","beta1":"","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Mom","layers":"[[Ident 16,Softmax 16],[Ident 48,TanH 16]]","lr":"0.00001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,TanH 48],[Ident 16,Relu 16,Softmax 16]]","lr":"0.0001","beta1":"0.99","beta2":"0.999","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 32,Softmax 16],[Ident 16,Relu 16,Softmax 16]]","lr":"0.00001","beta1":"0.9","beta2":"0.99","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Mom","layers":"[[Relu 16,Sigmoid 16,TanH 16],[Ident 16,TanH 48]]","lr":"0.00001","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Sigmoid 48,Softmax 16],[Ident 16,Relu 16,TanH 16]]","lr":"0.0001","beta1":"0.9","beta2":"0.9","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Sigmoid 16,Softmax 16],[Ident 16,TanH 16]]","lr":"0.00001","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 32,TanH 16],[Relu 16,Softmax 16,TanH 16]]","lr":"0.0001","beta1":"0.999","beta2":"0.9","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Sigmoid 16,Softmax 16],[Ident 16,Relu 16,Sigmoid 16]]","lr":"0.01","beta1":"0.99","beta2":"0.9","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Mom","layers":"[[Relu 32,Sigmoid 16,TanH 16],[Ident 16,Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.001","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"RMSProp","layers":"[[Sigmoid 48,TanH 16],[Relu 16,Sigmoid 16]]","lr":"0.001","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 32,Softmax 16,TanH 16],[Ident 16,TanH 16]]","lr":"0.001","beta1":"0.99","beta2":"0.999","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"RMSProp","layers":"[[Sigmoid 16,TanH 16],[Ident 16,Relu 32]]","lr":"0.001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Adagrad","layers":"[[Ident 16,Softmax 32,TanH 16],[Ident 16,Sigmoid 16]]","lr":"0.0001","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Softmax 16,TanH 32],[Sigmoid 16]]","lr":"0.00001","beta1":"0.99","beta2":"0.9","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Sigmoid 16],[Ident 16,Relu 16,TanH 32]]","lr":"0.001","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Sigmoid 16,Softmax 48],[Ident 16,Relu 16,TanH 16]]","lr":"0.001","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Relu 16,Sigmoid 16,Softmax 16],[Relu 16,Softmax 32,TanH 16]]","lr":"0.001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"RMSProp","layers":"[[Sigmoid 16,Softmax 16,TanH 16],[Relu 32,Softmax 16]]","lr":"0.001","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 32,Relu 16,Softmax 16],[Softmax 16,TanH 48]]","lr":"0.001","beta1":"0.9","beta2":"0.9","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Sigmoid 16,Softmax 16,TanH 32],[Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.001","beta1":"0.9","beta2":"0.9","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Sigmoid 16],[Relu 16,TanH 16]]","lr":"0.00001","beta1":"0.9","beta2":"0.9","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Relu 16,TanH 16],[Sigmoid 16,Softmax 16,TanH 32]]","lr":"0.01","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Relu 16,Softmax 16,TanH 16],[Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.001","beta1":"0.999","beta2":"0.99","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"RMSProp","layers":"[[Ident 32,Sigmoid 16,TanH 16],[Softmax 16,TanH 16]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Sigmoid 32,Softmax 32],[Softmax 16,TanH 32]]","lr":"0.0001","beta1":"0.99","beta2":"0.9","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,TanH 16],[Relu 16,Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.01","beta1":"0.99","beta2":"0.999","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"SGD","layers":"[[Sigmoid 16,Softmax 16],[Ident 16,Relu 16,TanH 16]]","lr":"0.01","beta1":"","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"RMSProp","layers":"[[Ident 32,Sigmoid 16,TanH 16],[Ident 16,Sigmoid 16,Softmax 16]]","lr":"0.01","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Softmax 16],[Ident 16,Relu 16,Sigmoid 16]]","lr":"0.0001","beta1":"0.9","beta2":"0.9","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"RMSProp","layers":"[[Relu 16,Softmax 16,TanH 32],[Ident 16,Relu 48]]","lr":"0.001","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Sigmoid 16,TanH 16],[Relu 48]]","lr":"0.001","beta1":"0.999","beta2":"0.9","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Mom","layers":"[[Sigmoid 16,Softmax 16],[Relu 16,Sigmoid 16,TanH 32]]","lr":"0.00001","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Relu 16,Softmax 16,TanH 16],[Relu 16,TanH 48]]","lr":"0.0001","beta1":"0.999","beta2":"0.999","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"SGD","layers":"[[Ident 16,Sigmoid 16,Softmax 16,TanH 16],[Ident 16,Sigmoid 16,TanH 16]]","lr":"0.01","beta1":"","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 16],[Ident 16,Relu 16]]","lr":"0.00001","beta1":"0.999","beta2":"0.9","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Softmax 16],[Relu 16,Softmax 16,TanH 16]]","lr":"0.0001","beta1":"0.99","beta2":"0.99","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 32,Softmax 16],[Ident 32,Sigmoid 16,TanH 16]]","lr":"0.001","beta1":"0.9","beta2":"0.9","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adagrad","layers":"[[Relu 16,Softmax 16],[Ident 16,Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Relu 16,Softmax 16],[Relu 16,TanH 48]]","lr":"0.01","beta1":"0.9","beta2":"0.999","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Softmax 16],[Ident 16,Relu 16,TanH 16]]","lr":"0.00001","beta1":"0.999","beta2":"0.999","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,Softmax 16],[Relu 16,TanH 48]]","lr":"0.01","beta1":"0.99","beta2":"0.999","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"RMSProp","layers":"[[Relu 32,Softmax 16],[Ident 16,Softmax 32,TanH 16]]","lr":"0.01","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Sigmoid 16,Softmax 16],[Ident 16,Sigmoid 16,TanH 16]]","lr":"0.001","beta1":"0.9","beta2":"0.99","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,Softmax 32,TanH 16],[Relu 16,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"0.99","beta2":"0.9","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,Softmax 16],[Ident 16,Relu 16,TanH 16]]","lr":"0.0001","beta1":"0.99","beta2":"0.99","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 48],[Ident 16,Relu 48]]","lr":"0.01","beta1":"0.99","beta2":"0.9","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Mom","layers":"[[Relu 16,Sigmoid 16,TanH 32],[Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.00001","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Sigmoid 16],[Relu 16,Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"0.99","beta2":"0.999","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Relu 16,TanH 48],[Relu 16]]","lr":"0.0001","beta1":"0.99","beta2":"0.99","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Mom","layers":"[[Ident 16,Relu 16,TanH 32],[Ident 16,Relu 16,TanH 16]]","lr":"0.0001","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Relu 16],[Ident 32,TanH 16]]","lr":"0.01","beta1":"0.999","beta2":"0.9","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Softmax 16],[Relu 16,Sigmoid 16,TanH 16]]","lr":"0.01","beta1":"0.999","beta2":"0.9","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Relu 16,Softmax 16,TanH 16],[Relu 16,Sigmoid 16,TanH 16]]","lr":"0.0001","beta1":"0.9","beta2":"0.99","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"RMSProp","layers":"[[Relu 48,TanH 16],[Softmax 16,TanH 16]]","lr":"0.00001","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"SGD","layers":"[[Relu 16,Sigmoid 16,Softmax 32],[Sigmoid 16,Softmax 16]]","lr":"0.001","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Sigmoid 16,Softmax 16,TanH 16],[Ident 16,Softmax 48]]","lr":"0.01","beta1":"0.99","beta2":"0.9","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"RMSProp","layers":"[[Relu 16,Sigmoid 16,TanH 32],[Ident 16,Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Mom","layers":"[[Relu 16,TanH 16],[Softmax 16,TanH 48]]","lr":"0.001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Mom","layers":"[[Softmax 16,TanH 16],[Ident 16,Sigmoid 16,Softmax 32]]","lr":"0.01","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,TanH 16],[Ident 16,Relu 16,TanH 16]]","lr":"0.0001","beta1":"0.9","beta2":"0.999","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,TanH 16],[Relu 16,Softmax 16,TanH 16]]","lr":"0.001","beta1":"0.9","beta2":"0.999","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Sigmoid 16],[Relu 16,Softmax 16,TanH 16]]","lr":"0.0001","beta1":"0.99","beta2":"0.9","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 32,Softmax 16],[Relu 32,Softmax 16,TanH 16]]","lr":"0.001","beta1":"0.999","beta2":"0.999","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Relu 16,TanH 16],[Ident 16,TanH 32]]","lr":"0.0001","beta1":"0.9","beta2":"0.9","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Mom","layers":"[[Ident 32,Relu 16,Sigmoid 16],[Ident 16,Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.01","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"RMSProp","layers":"[[Sigmoid 32,Softmax 16,TanH 16],[Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.01","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Mom","layers":"[[Ident 16,Sigmoid 16],[Sigmoid 16,Softmax 16,TanH 32]]","lr":"0.00001","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,Softmax 16,TanH 16],[Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.0001","beta1":"0.999","beta2":"0.999","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Sigmoid 16,Softmax 16,TanH 16],[Ident 16,Sigmoid 32,Softmax 16]]","lr":"0.001","beta1":"0.9","beta2":"0.9","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Sigmoid 16,TanH 16],[Ident 16,Softmax 32,TanH 16]]","lr":"0.01","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Relu 16,Softmax 16],[Ident 16,Softmax 16]]","lr":"0.00001","beta1":"0.999","beta2":"0.99","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Relu 16,Softmax 16,TanH 16],[Ident 16,TanH 16]]","lr":"0.01","beta1":"0.999","beta2":"0.9","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,Softmax 16],[Relu 16,Softmax 16,TanH 16]]","lr":"0.001","beta1":"0.99","beta2":"0.999","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Softmax 48,TanH 16],[Ident 16,Sigmoid 16,TanH 32]]","lr":"0.01","beta1":"0.99","beta2":"0.99","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16,Softmax 16],[Ident 16,Sigmoid 16,Softmax 16]]","lr":"0.01","beta1":"0.9","beta2":"0.99","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"RMSProp","layers":"[[Relu 48,Sigmoid 16],[Ident 16,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Softmax 48],[Ident 16,Softmax 16]]","lr":"0.001","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Softmax 48,TanH 16],[Ident 32,Relu 16]]","lr":"0.01","beta1":"0.999","beta2":"0.999","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Relu 16,Softmax 16,TanH 32],[Relu 16,Sigmoid 32,Softmax 16]]","lr":"0.01","beta1":"0.99","beta2":"0.9","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Sigmoid 16,Softmax 16],[Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.001","beta1":"0.9","beta2":"0.999","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Sigmoid 16],[Ident 16,Relu 16,Softmax 16]]","lr":"0.001","beta1":"0.9","beta2":"0.9","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Relu 16,Sigmoid 16],[Ident 16,Sigmoid 16,Softmax 32]]","lr":"0.0001","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"RMSProp","layers":"[[Relu 16,Softmax 16],[Ident 16,TanH 32]]","lr":"0.01","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Mom","layers":"[[Relu 16,Sigmoid 32,TanH 16],[Ident 16,Relu 16,TanH 32]]","lr":"0.001","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Sigmoid 16,Softmax 16],[Ident 16,Sigmoid 16,Softmax 16]]","lr":"0.0001","beta1":"0.9","beta2":"0.99","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,TanH 32],[Ident 16,Sigmoid 16,Softmax 16]]","lr":"0.00001","beta1":"0.99","beta2":"0.9","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 32,Softmax 16],[Ident 16,Relu 32,Sigmoid 16]]","lr":"0.0001","beta1":"0.99","beta2":"0.9","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Relu 16,Sigmoid 16,Softmax 16],[Ident 16,Sigmoid 16,Softmax 16]]","lr":"0.00001","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"RMSProp","layers":"[[Relu 16,Sigmoid 16,Softmax 16],[Relu 16,Sigmoid 16,TanH 16]]","lr":"0.01","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Mom","layers":"[[Ident 16,Sigmoid 16,Softmax 16,TanH 16],[Ident 16,Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.0001","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Mom","layers":"[[Sigmoid 32,TanH 16],[Ident 48,Relu 16]]","lr":"0.001","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"RMSProp","layers":"[[Sigmoid 16,Softmax 16,TanH 16],[Relu 16,Softmax 16,TanH 16]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Mom","layers":"[[Ident 32,Sigmoid 16,Softmax 16],[Ident 16,Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.01","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Sigmoid 32],[Ident 16,Relu 16,TanH 16]]","lr":"0.0001","beta1":"0.99","beta2":"0.99","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"RMSProp","layers":"[[Relu 16,Softmax 32,TanH 16],[Ident 16,Sigmoid 16,Softmax 16]]","lr":"0.001","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"SGD","layers":"[[Ident 16,Relu 16,Sigmoid 16],[Ident 16,Relu 16,Softmax 16,TanH 16]]","lr":"0.01","beta1":"","beta2":"","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Mom","layers":"[[Ident 16,Relu 16,Softmax 16,TanH 16],[Relu 16,Sigmoid 16,TanH 16]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Mom","layers":"[[Ident 16,Relu 16],[Ident 16,Sigmoid 16,TanH 16]]","lr":"0.0001","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Mom","layers":"[[Sigmoid 16,Softmax 16,TanH 32],[Ident 16,Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.0001","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 32,Sigmoid 16,Softmax 16],[Softmax 48,TanH 16]]","lr":"0.0001","beta1":"0.99","beta2":"0.99","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Mom","layers":"[[Sigmoid 16,Softmax 16,TanH 16],[Relu 16,Softmax 16,TanH 16]]","lr":"0.001","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Sigmoid 16,Softmax 32],[Ident 16,Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 16,Softmax 16,TanH 16],[Ident 16,Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"0.99","beta2":"0.99","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,TanH 16],[Relu 48,Softmax 16]]","lr":"0.001","beta1":"0.9","beta2":"0.999","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"RMSProp","layers":"[[Relu 16,Sigmoid 16,Softmax 16],[Relu 16,Sigmoid 16,TanH 16]]","lr":"0.0001","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Softmax 16,TanH 16],[Ident 16,Softmax 16]]","lr":"0.0001","beta1":"0.9","beta2":"0.99","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,TanH 16],[Ident 16,TanH 16]]","lr":"0.0001","beta1":"0.999","beta2":"0.999","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,TanH 32],[Relu 16,TanH 48]]","lr":"0.00001","beta1":"0.99","beta2":"0.999","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Mom","layers":"[[Sigmoid 16,Softmax 16,TanH 16],[Ident 16,Softmax 16]]","lr":"0.001","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Softmax 16],[Relu 16,Sigmoid 48]]","lr":"0.01","beta1":"0.999","beta2":"0.999","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"SGD","layers":"[[Ident 16,Relu 16,Sigmoid 16],[Relu 32]]","lr":"0.0001","beta1":"","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Softmax 16,TanH 16],[Ident 16,Sigmoid 16,Softmax 16]]","lr":"0.00001","beta1":"0.999","beta2":"0.99","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"SGD","layers":"[[Relu 16,Sigmoid 16,Softmax 16,TanH 16],[Ident 16,Sigmoid 32,TanH 16]]","lr":"0.001","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Softmax 16],[Relu 16,Softmax 32,TanH 16]]","lr":"0.001","beta1":"0.9","beta2":"0.999","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"SGD","layers":"[[Sigmoid 16],[Relu 16,Sigmoid 16,TanH 16]]","lr":"0.001","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 32,Softmax 16,TanH 16],[Relu 32,Softmax 32]]","lr":"0.0001","beta1":"0.99","beta2":"0.999","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Relu 16,Softmax 48],[Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.0001","beta1":"0.9","beta2":"0.9","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Ident 32,Relu 16,Sigmoid 16],[Ident 16,Relu 32,Softmax 16]]","lr":"0.01","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Mom","layers":"[[Relu 32,Sigmoid 32],[Ident 16,Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.0001","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 32,Softmax 16],[Ident 16,Relu 16,Softmax 16,TanH 16]]","lr":"0.001","beta1":"0.99","beta2":"0.999","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,TanH 16],[Relu 32,Sigmoid 16,Softmax 16]]","lr":"0.00001","beta1":"0.99","beta2":"0.999","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Sigmoid 16,TanH 16],[Relu 16,Sigmoid 16,TanH 16]]","lr":"0.00001","beta1":"0.99","beta2":"0.9","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Softmax 32,TanH 16],[Ident 16,Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.01","beta1":"0.9","beta2":"0.9","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Mom","layers":"[[Softmax 16,TanH 16],[Relu 16,Sigmoid 16,TanH 16]]","lr":"0.01","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Mom","layers":"[[Ident 16],[Ident 16,Sigmoid 16,TanH 16]]","lr":"0.00001","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 32,Softmax 16],[Softmax 48,TanH 16]]","lr":"0.0001","beta1":"0.999","beta2":"0.9","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Sigmoid 16,Softmax 32],[Ident 16,Sigmoid 16,Softmax 16]]","lr":"0.001","beta1":"0.99","beta2":"0.99","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Mom","layers":"[[Sigmoid 32,TanH 16],[Sigmoid 16,Softmax 32,TanH 16]]","lr":"0.0001","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adagrad","layers":"[[Ident 16,Relu 16],[Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.0001","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Sigmoid 16],[Ident 16,Softmax 16]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 32,Sigmoid 16,TanH 16],[Ident 16,Relu 16,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"0.9","beta2":"0.9","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"RMSProp","layers":"[[Softmax 32],[Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.001","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Sigmoid 16,TanH 16],[Relu 16,Sigmoid 16,TanH 16]]","lr":"0.00001","beta1":"0.99","beta2":"0.99","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Adagrad","layers":"[[Ident 16,Relu 16,Sigmoid 16,TanH 16],[Ident 32,TanH 16]]","lr":"0.01","beta1":"","beta2":"","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16],[Ident 16,Sigmoid 16]]","lr":"0.01","beta1":"0.99","beta2":"0.9","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16,Softmax 16,TanH 16],[Ident 16,TanH 16]]","lr":"0.0001","beta1":"0.9","beta2":"0.99","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 32,Relu 32],[Ident 16,Relu 16,Softmax 16,TanH 16]]","lr":"0.01","beta1":"0.999","beta2":"0.99","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 32,Softmax 16],[Ident 16,Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.00001","beta1":"0.99","beta2":"0.99","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Relu 16,TanH 16],[Ident 16,Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Relu 16,Softmax 16,TanH 16],[Relu 16,Softmax 32,TanH 16]]","lr":"0.001","beta1":"0.99","beta2":"0.99","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Sigmoid 16,Softmax 32,TanH 16],[Ident 16,Softmax 16,TanH 16]]","lr":"0.0001","beta1":"0.9","beta2":"0.9","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Relu 16,Softmax 16,TanH 32],[Ident 16,Sigmoid 16,Softmax 32]]","lr":"0.01","beta1":"0.999","beta2":"0.999","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Sigmoid 16,Softmax 16],[Ident 16,Sigmoid 16,TanH 16]]","lr":"0.01","beta1":"0.9","beta2":"0.9","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16],[Sigmoid 32,TanH 16]]","lr":"0.01","beta1":"0.9","beta2":"0.999","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,TanH 16],[Ident 16,Relu 16,Sigmoid 16]]","lr":"0.0001","beta1":"0.999","beta2":"0.9","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"SGD","layers":"[[Ident 16,Softmax 16],[Ident 32,Sigmoid 16,TanH 16]]","lr":"0.001","beta1":"","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,Softmax 16,TanH 16],[Relu 16,Softmax 16,TanH 16]]","lr":"0.001","beta1":"0.9","beta2":"0.999","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"SGD","layers":"[[Ident 16,Sigmoid 16,TanH 16],[Relu 16,TanH 16]]","lr":"0.001","beta1":"","beta2":"","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Softmax 32,TanH 32],[Ident 16,Sigmoid 16]]","lr":"0.001","beta1":"0.99","beta2":"0.99","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"RMSProp","layers":"[[Relu 32,Sigmoid 32],[Relu 32,Sigmoid 16,Softmax 16]]","lr":"0.01","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"SGD","layers":"[[Ident 48,Softmax 16],[Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.001","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 16,Softmax 16],[Relu 16,Sigmoid 16,TanH 16]]","lr":"0.001","beta1":"0.99","beta2":"0.9","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Softmax 16],[Ident 16,Sigmoid 16,Softmax 16]]","lr":"0.01","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Mom","layers":"[[Ident 16,Relu 32,Sigmoid 16],[Ident 48,TanH 16]]","lr":"0.001","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,Softmax 32,TanH 16],[Ident 16,Softmax 32]]","lr":"0.00001","beta1":"0.99","beta2":"0.9","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Relu 16,TanH 16],[Softmax 48]]","lr":"0.0001","beta1":"0.9","beta2":"0.999","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"RMSProp","layers":"[[Relu 16,Sigmoid 16,Softmax 16],[Ident 16,Sigmoid 16,Softmax 32]]","lr":"0.001","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,Softmax 16,TanH 16],[Ident 16,Softmax 16]]","lr":"0.00001","beta1":"0.99","beta2":"0.999","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"SGD","layers":"[[TanH 16],[Ident 16,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adagrad","layers":"[[Sigmoid 16,Softmax 32,TanH 16],[Ident 48,TanH 16]]","lr":"0.0001","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Mom","layers":"[[Ident 16,Sigmoid 16,TanH 16],[Ident 16,Relu 16,Softmax 16]]","lr":"0.001","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Sigmoid 16,TanH 48],[Sigmoid 16]]","lr":"0.0001","beta1":"0.9","beta2":"0.99","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Sigmoid 16,Softmax 16],[Ident 16,Sigmoid 48]]","lr":"0.00001","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Relu 32,Softmax 16],[Sigmoid 16,Softmax 16,TanH 32]]","lr":"0.001","beta1":"0.9","beta2":"0.999","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Relu 16,Sigmoid 16,TanH 16],[Ident 16,Relu 16,Softmax 16]]","lr":"0.01","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Relu 16,Sigmoid 16,TanH 16],[Ident 16,Sigmoid 16,TanH 16]]","lr":"0.00001","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Sigmoid 16,Softmax 16,TanH 16],[Sigmoid 48]]","lr":"0.00001","beta1":"0.999","beta2":"0.9","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Softmax 16,TanH 48],[Relu 16,TanH 48]]","lr":"0.0001","beta1":"0.99","beta2":"0.9","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Sigmoid 16,TanH 48],[Ident 16,Sigmoid 32,Softmax 16]]","lr":"0.00001","beta1":"0.9","beta2":"0.9","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Relu 16,Softmax 16],[Ident 16,TanH 16]]","lr":"0.0001","beta1":"0.9","beta2":"0.99","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 48],[Sigmoid 16,Softmax 16]]","lr":"0.00001","beta1":"0.9","beta2":"0.9","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 16,TanH 16],[Ident 16,Sigmoid 16,TanH 16]]","lr":"0.00001","beta1":"0.9","beta2":"0.999","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"SGD","layers":"[[Relu 16,Sigmoid 16],[Ident 16,Sigmoid 16]]","lr":"0.001","beta1":"","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,TanH 16],[Ident 16,Relu 16,Softmax 32]]","lr":"0.0001","beta1":"0.999","beta2":"0.99","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Relu 32,TanH 16],[Softmax 16]]","lr":"0.0001","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"SGD","layers":"[[Relu 48,Softmax 16],[Relu 32,Softmax 16]]","lr":"0.01","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Relu 32,Softmax 16,TanH 16],[Relu 16,Sigmoid 16,TanH 16]]","lr":"0.00001","beta1":"0.9","beta2":"0.99","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Mom","layers":"[[TanH 16],[Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.01","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Relu 32,TanH 32],[Ident 16,Relu 16,TanH 16]]","lr":"0.001","beta1":"0.99","beta2":"0.999","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adagrad","layers":"[[Softmax 16,TanH 16],[Ident 32,Sigmoid 16,TanH 16]]","lr":"0.00001","beta1":"","beta2":"","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Softmax 16,TanH 16],[Ident 16,Relu 16,Sigmoid 32]]","lr":"0.001","beta1":"0.99","beta2":"0.9","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Sigmoid 64],[TanH 16]]","lr":"0.00001","beta1":"0.99","beta2":"0.9","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Relu 16,Sigmoid 32],[Ident 48,Sigmoid 16]]","lr":"0.0001","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,Softmax 16,TanH 16],[Ident 16,Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"0.99","beta2":"0.99","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,Softmax 16],[Ident 16,Relu 16,Sigmoid 16]]","lr":"0.0001","beta1":"0.99","beta2":"0.999","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Softmax 32,TanH 16],[Ident 16,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"0.99","beta2":"0.9","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adagrad","layers":"[[Ident 32,Relu 16,Softmax 16],[Ident 16,Sigmoid 16]]","lr":"0.0001","beta1":"","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Sigmoid 16],[Relu 48,TanH 16]]","lr":"0.00001","beta1":"0.99","beta2":"0.9","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Relu 16,Sigmoid 16,Softmax 16,TanH 16],[Ident 16,Softmax 16,TanH 16]]","lr":"0.0001","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Relu 16,Sigmoid 16],[Ident 16,Sigmoid 16,Softmax 16]]","lr":"0.00001","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Mom","layers":"[[Relu 16,Sigmoid 16,Softmax 32],[Ident 16,Relu 16,Softmax 16]]","lr":"0.00001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"RMSProp","layers":"[[Relu 16,TanH 32],[Ident 16,Sigmoid 16,Softmax 32]]","lr":"0.01","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Mom","layers":"[[Ident 48,TanH 16],[Ident 16,Relu 16,Softmax 16,TanH 16]]","lr":"0.01","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"SGD","layers":"[[Sigmoid 16,Softmax 16,TanH 16],[Ident 16,Sigmoid 16,TanH 16]]","lr":"0.01","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Mom","layers":"[[Ident 48,Sigmoid 16],[Sigmoid 48,TanH 16]]","lr":"0.01","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16,Softmax 16],[TanH 16]]","lr":"0.001","beta1":"0.99","beta2":"0.99","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Mom","layers":"[[Ident 16,Relu 16,Softmax 16],[Ident 16,Softmax 32]]","lr":"0.0001","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Softmax 16],[Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"0.999","beta2":"0.99","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Relu 16,TanH 16],[Ident 16,Relu 16,Softmax 32]]","lr":"0.001","beta1":"0.99","beta2":"0.99","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Mom","layers":"[[Ident 32,Sigmoid 16,TanH 16],[Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.001","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"RMSProp","layers":"[[Relu 48,Sigmoid 16],[Ident 16,Relu 16,Softmax 16]]","lr":"0.001","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Softmax 16,TanH 48],[Ident 16,Sigmoid 16,Softmax 16]]","lr":"0.01","beta1":"0.999","beta2":"0.999","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"SGD","layers":"[[Relu 16,Sigmoid 16,Softmax 32],[Ident 48,Relu 16]]","lr":"0.00001","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Relu 16,Sigmoid 16],[Relu 16,Sigmoid 16,TanH 16]]","lr":"0.01","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Softmax 32,TanH 16],[Ident 16,Relu 16,TanH 16]]","lr":"0.01","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"RMSProp","layers":"[[Sigmoid 16,Softmax 16,TanH 16],[Sigmoid 16,TanH 32]]","lr":"0.0001","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adagrad","layers":"[[Relu 32,Softmax 16,TanH 16],[Relu 16,Softmax 16,TanH 16]]","lr":"0.01","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adagrad","layers":"[[Ident 32,Softmax 16,TanH 16],[Ident 16,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 16,TanH 48],[Ident 16,Sigmoid 16,Softmax 16]]","lr":"0.001","beta1":"0.99","beta2":"0.999","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16],[Ident 16,Relu 32]]","lr":"0.0001","beta1":"0.99","beta2":"0.99","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Sigmoid 16,Softmax 16,TanH 16],[Relu 16,Softmax 16,TanH 16]]","lr":"0.01","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16,Softmax 16,TanH 16],[Ident 16,Relu 16,Sigmoid 16]]","lr":"0.001","beta1":"0.99","beta2":"0.999","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16,Softmax 32],[Ident 16,Softmax 16]]","lr":"0.00001","beta1":"0.99","beta2":"0.99","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 16,TanH 48],[Ident 16,Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.001","beta1":"0.99","beta2":"0.99","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Mom","layers":"[[Ident 16,Sigmoid 16,Softmax 16],[Sigmoid 16,Softmax 16]]","lr":"0.001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16,Softmax 16,TanH 16],[Relu 16,Sigmoid 16,TanH 16]]","lr":"0.0001","beta1":"0.9","beta2":"0.999","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adagrad","layers":"[[Sigmoid 16,Softmax 48],[Ident 16,Softmax 48]]","lr":"0.001","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Relu 16,Sigmoid 16,TanH 32],[Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.01","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16],[Ident 16,Relu 16,Sigmoid 16,TanH 16]]","lr":"0.01","beta1":"0.9","beta2":"0.999","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16,TanH 32],[Ident 16,TanH 16]]","lr":"0.00001","beta1":"0.999","beta2":"0.999","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Softmax 16],[Ident 16,Relu 16,Sigmoid 16]]","lr":"0.0001","beta1":"0.9","beta2":"0.999","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,Softmax 16],[Ident 16,Relu 16,TanH 16]]","lr":"0.01","beta1":"0.999","beta2":"0.9","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Relu 16,TanH 16],[Ident 16,Softmax 16,TanH 16]]","lr":"0.01","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"SGD","layers":"[[Ident 16,Relu 16,TanH 16],[Ident 16,TanH 16]]","lr":"0.0001","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Mom","layers":"[[Ident 16,Softmax 16,TanH 32],[Softmax 16,TanH 16]]","lr":"0.01","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Sigmoid 16],[Ident 16,Relu 16,Sigmoid 16]]","lr":"0.00001","beta1":"0.99","beta2":"0.9","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adagrad","layers":"[[Ident 16,Relu 16,Sigmoid 16,Softmax 16],[Relu 32,Sigmoid 16,TanH 16]]","lr":"0.01","beta1":"","beta2":"","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"SGD","layers":"[[Ident 16,Softmax 32,TanH 16],[Ident 16,Relu 16,Softmax 16]]","lr":"0.0001","beta1":"","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Mom","layers":"[[Softmax 16,TanH 16],[Softmax 32]]","lr":"0.0001","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,TanH 32],[Relu 16,Softmax 16]]","lr":"0.0001","beta1":"0.999","beta2":"0.999","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Mom","layers":"[[Ident 32,Softmax 16,TanH 16],[Relu 16,Sigmoid 32,TanH 16]]","lr":"0.00001","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16],[Sigmoid 16,TanH 16]]","lr":"0.0001","beta1":"0.999","beta2":"0.9","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,TanH 16],[Relu 16,Sigmoid 16]]","lr":"0.01","beta1":"0.999","beta2":"0.9","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,TanH 16],[Ident 16,Sigmoid 16,Softmax 16]]","lr":"0.00001","beta1":"0.99","beta2":"0.99","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Mom","layers":"[[Ident 32,Relu 16,TanH 16],[Relu 16,Sigmoid 16]]","lr":"0.00001","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,Softmax 16],[Ident 16,Sigmoid 48]]","lr":"0.0001","beta1":"0.99","beta2":"0.9","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16,Softmax 16,TanH 16],[Relu 16,Softmax 16,TanH 16]]","lr":"0.01","beta1":"0.99","beta2":"0.999","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Mom","layers":"[[Ident 16,Relu 16,TanH 16],[Ident 16]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Mom","layers":"[[Relu 16,Sigmoid 16,Softmax 16],[Softmax 48,TanH 16]]","lr":"0.001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"SGD","layers":"[[Softmax 16,TanH 16],[Relu 32,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,TanH 16],[Softmax 48]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 16,Softmax 16,TanH 16],[Ident 16,Relu 16,Softmax 16]]","lr":"0.01","beta1":"0.999","beta2":"0.9","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Mom","layers":"[[Ident 16,Sigmoid 32],[Relu 16,TanH 32]]","lr":"0.01","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Relu 16,Softmax 16],[Ident 16,Softmax 16,TanH 16]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"SGD","layers":"[[Ident 32,Relu 16,Sigmoid 16],[Ident 16,Relu 16,TanH 16]]","lr":"0.00001","beta1":"","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,TanH 32],[Ident 16,Sigmoid 16,Softmax 16]]","lr":"0.0001","beta1":"0.999","beta2":"0.99","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"SGD","layers":"[[Relu 48],[Relu 48,TanH 16]]","lr":"0.00001","beta1":"","beta2":"","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Sigmoid 16,Softmax 16,TanH 32],[Relu 16,Sigmoid 32,Softmax 16]]","lr":"0.001","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,TanH 16],[Relu 48,Sigmoid 16]]","lr":"0.001","beta1":"0.99","beta2":"0.9","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adagrad","layers":"[[Softmax 48,TanH 16],[Ident 16,Softmax 16]]","lr":"0.001","beta1":"","beta2":"","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Softmax 32,TanH 16],[Ident 16,Softmax 16,TanH 16]]","lr":"0.001","beta1":"0.999","beta2":"0.999","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Sigmoid 16,TanH 48],[Relu 16,Softmax 16]]","lr":"0.001","beta1":"0.9","beta2":"0.999","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Softmax 16,TanH 16],[Ident 16,Sigmoid 32]]","lr":"0.0001","beta1":"0.9","beta2":"0.9","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Sigmoid 32,Softmax 16,TanH 16],[Ident 16,Relu 16,TanH 16]]","lr":"0.00001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Relu 48,Softmax 16],[Relu 16,TanH 16]]","lr":"0.0001","beta1":"0.99","beta2":"0.9","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Mom","layers":"[[Sigmoid 16,Softmax 16,TanH 16],[Relu 16,TanH 16]]","lr":"0.001","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Relu 16],[Sigmoid 32,Softmax 16,TanH 16]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 48],[Ident 48,Softmax 16]]","lr":"0.0001","beta1":"0.9","beta2":"0.9","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adagrad","layers":"[[Ident 16,Relu 16,TanH 16],[Ident 16,Relu 16]]","lr":"0.0001","beta1":"","beta2":"","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Softmax 16],[Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.01","beta1":"0.9","beta2":"0.9","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 32,Sigmoid 16,TanH 16],[Ident 16,Sigmoid 16,TanH 16]]","lr":"0.01","beta1":"0.9","beta2":"0.9","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Softmax 16,TanH 16],[Softmax 16,TanH 16]]","lr":"0.00001","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Relu 32,Softmax 16],[Relu 16,Softmax 32,TanH 16]]","lr":"0.001","beta1":"0.99","beta2":"0.9","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Softmax 16,TanH 16],[Ident 16,Sigmoid 32,Softmax 16]]","lr":"0.01","beta1":"0.99","beta2":"0.9","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Sigmoid 16,Softmax 16,TanH 16],[Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.01","beta1":"0.9","beta2":"0.9","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Sigmoid 16,Softmax 16],[Sigmoid 16,Softmax 48]]","lr":"0.001","beta1":"0.99","beta2":"0.999","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16],[Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.01","beta1":"0.9","beta2":"0.9","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Mom","layers":"[[Ident 32,Sigmoid 16,Softmax 16],[Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,Softmax 16],[Ident 16,Softmax 16]]","lr":"0.0001","beta1":"0.99","beta2":"0.99","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,TanH 16],[Ident 16,Sigmoid 16,Softmax 16]]","lr":"0.01","beta1":"0.99","beta2":"0.999","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Softmax 16],[Ident 16,Sigmoid 16,TanH 32]]","lr":"0.0001","beta1":"0.99","beta2":"0.9","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Mom","layers":"[[Ident 48,Relu 16],[Ident 48,Relu 16]]","lr":"0.001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"SGD","layers":"[[Sigmoid 16,Softmax 16],[Ident 16,Sigmoid 16,TanH 16]]","lr":"0.001","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16,TanH 16],[Ident 16,Sigmoid 16,Softmax 32]]","lr":"0.01","beta1":"0.9","beta2":"0.999","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16],[Ident 16,Sigmoid 16,Softmax 16]]","lr":"0.001","beta1":"0.9","beta2":"0.9","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Relu 16,Softmax 16,TanH 32],[Ident 16,Relu 16,Softmax 16,TanH 16]]","lr":"0.001","beta1":"0.999","beta2":"0.9","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Mom","layers":"[[Ident 16,Relu 32,Sigmoid 16],[Ident 16,Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.00001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 32,Softmax 16],[Ident 16,Sigmoid 16,Softmax 32]]","lr":"0.01","beta1":"0.999","beta2":"0.999","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16],[Relu 16,Sigmoid 16,TanH 16]]","lr":"0.00001","beta1":"0.99","beta2":"0.999","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 48,Sigmoid 16],[Relu 16,Sigmoid 32,TanH 16]]","lr":"0.00001","beta1":"0.99","beta2":"0.999","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Relu 16,TanH 16],[Relu 16,Sigmoid 16,TanH 16]]","lr":"0.0001","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Softmax 32],[Relu 16,TanH 16]]","lr":"0.001","beta1":"0.99","beta2":"0.9","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"RMSProp","layers":"[[Sigmoid 32,Softmax 16,TanH 16],[Ident 16,Sigmoid 16,Softmax 16]]","lr":"0.00001","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Sigmoid 16,Softmax 16],[Relu 16,Sigmoid 16,TanH 16]]","lr":"0.001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,TanH 16],[Ident 16,Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.01","beta1":"0.99","beta2":"0.99","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16],[Ident 16,Sigmoid 16,Softmax 16]]","lr":"0.01","beta1":"0.999","beta2":"0.99","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Softmax 16],[Sigmoid 16,TanH 48]]","lr":"0.00001","beta1":"0.999","beta2":"0.999","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Relu 48,Softmax 16],[Ident 16,Relu 16,Sigmoid 32]]","lr":"0.01","beta1":"0.999","beta2":"0.99","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Relu 16,Sigmoid 16],[Relu 16,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Mom","layers":"[[Relu 16,Softmax 16,TanH 16],[Ident 16,Sigmoid 16,TanH 16]]","lr":"0.01","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,Softmax 16,TanH 16],[Sigmoid 16,Softmax 32,TanH 16]]","lr":"0.001","beta1":"0.9","beta2":"0.99","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Mom","layers":"[[Ident 16,TanH 16],[Sigmoid 32,TanH 16]]","lr":"0.01","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,TanH 16],[Ident 16,Sigmoid 16,Softmax 16]]","lr":"0.001","beta1":"0.9","beta2":"0.9","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,TanH 16],[Ident 16,Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.001","beta1":"0.9","beta2":"0.999","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"SGD","layers":"[[Relu 32,Softmax 16,TanH 16],[Relu 16,Softmax 16]]","lr":"0.0001","beta1":"","beta2":"","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 32,TanH 16],[Ident 16,Relu 16,TanH 16]]","lr":"0.0001","beta1":"0.999","beta2":"0.99","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Sigmoid 16,TanH 16],[Sigmoid 32,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,TanH 16],[Relu 16,Softmax 16,TanH 16]]","lr":"0.0001","beta1":"0.999","beta2":"0.99","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"SGD","layers":"[[Sigmoid 32,Softmax 16],[Ident 16,Sigmoid 16,TanH 16]]","lr":"0.00001","beta1":"","beta2":"","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 48,TanH 16],[Ident 16,Softmax 16,TanH 16]]","lr":"0.01","beta1":"0.9","beta2":"0.99","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16,TanH 16],[Ident 32,Relu 16,Softmax 16]]","lr":"0.01","beta1":"0.9","beta2":"0.99","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Mom","layers":"[[Softmax 16,TanH 16],[Relu 16,Softmax 16,TanH 16]]","lr":"0.001","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Relu 16,TanH 16],[Ident 16,Sigmoid 16]]","lr":"0.01","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Softmax 16,TanH 16],[Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.0001","beta1":"0.999","beta2":"0.9","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,TanH 48],[Ident 16,Sigmoid 16,Softmax 16]]","lr":"0.01","beta1":"0.999","beta2":"0.99","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adagrad","layers":"[[Ident 16,TanH 16],[Relu 16,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Relu 16,Softmax 16,TanH 16],[Ident 16,Softmax 16,TanH 32]]","lr":"0.00001","beta1":"0.9","beta2":"0.999","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 48,Softmax 16],[Ident 16,Relu 16,Softmax 16]]","lr":"0.0001","beta1":"0.9","beta2":"0.999","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Sigmoid 16,Softmax 16,TanH 16],[Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.01","beta1":"0.99","beta2":"0.99","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16,TanH 16],[Relu 16,Sigmoid 32,TanH 16]]","lr":"0.00001","beta1":"0.99","beta2":"0.99","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16,Softmax 32],[Ident 16,Relu 16,Sigmoid 16]]","lr":"0.00001","beta1":"0.99","beta2":"0.9","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,Softmax 16],[Sigmoid 16,Softmax 32]]","lr":"0.0001","beta1":"0.9","beta2":"0.999","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adagrad","layers":"[[Ident 16,Sigmoid 16,Softmax 16],[Relu 16]]","lr":"0.0001","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Softmax 16,TanH 16],[Ident 16,Softmax 16,TanH 32]]","lr":"0.01","beta1":"0.99","beta2":"0.99","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Mom","layers":"[[Ident 16,Relu 16,Sigmoid 16],[Ident 16,Softmax 16,TanH 16]]","lr":"0.001","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16,TanH 16],[Ident 16,Relu 16,TanH 16]]","lr":"0.001","beta1":"0.9","beta2":"0.9","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Mom","layers":"[[Ident 16,Relu 16,Softmax 16,TanH 16],[Ident 16,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Mom","layers":"[[Ident 16,Relu 16],[Sigmoid 64]]","lr":"0.01","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Sigmoid 16,Softmax 16],[Ident 16,Sigmoid 16,Softmax 16]]","lr":"0.01","beta1":"0.999","beta2":"0.99","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Mom","layers":"[[Ident 16,Sigmoid 16,TanH 16],[Ident 16,Relu 32]]","lr":"0.01","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 32,TanH 16],[Sigmoid 48,TanH 16]]","lr":"0.01","beta1":"0.9","beta2":"0.9","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16],[Ident 48,Sigmoid 16]]","lr":"0.00001","beta1":"0.9","beta2":"0.999","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16],[Ident 16,TanH 16]]","lr":"0.001","beta1":"0.9","beta2":"0.9","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Sigmoid 16,TanH 32],[Ident 16,TanH 48]]","lr":"0.01","beta1":"0.99","beta2":"0.9","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Mom","layers":"[[Ident 16,Relu 16,Softmax 16,TanH 16],[Relu 16,Sigmoid 16,TanH 16]]","lr":"0.00001","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Softmax 16,TanH 16],[Ident 16,Sigmoid 16,Softmax 16]]","lr":"0.0001","beta1":"0.999","beta2":"0.999","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Mom","layers":"[[Ident 48,Sigmoid 16],[Ident 16,Softmax 16]]","lr":"0.0001","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adagrad","layers":"[[Sigmoid 16,Softmax 16,TanH 16],[Sigmoid 16,TanH 16]]","lr":"0.01","beta1":"","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"RMSProp","layers":"[[Ident 32,Sigmoid 16],[Ident 16,Relu 16,Softmax 16]]","lr":"0.0001","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16],[Ident 32,TanH 16]]","lr":"0.01","beta1":"0.99","beta2":"0.999","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Adagrad","layers":"[[Ident 16,Relu 16,Sigmoid 16,Softmax 16],[Relu 16,TanH 16]]","lr":"0.01","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 16,Softmax 32,TanH 16],[Ident 16,Relu 16,TanH 16]]","lr":"0.00001","beta1":"0.999","beta2":"0.999","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Relu 48,Softmax 16],[Sigmoid 32,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"0.999","beta2":"0.999","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16,Softmax 16,TanH 16],[Ident 16,Relu 16,Sigmoid 16,TanH 16]]","lr":"0.0001","beta1":"0.999","beta2":"0.99","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Mom","layers":"[[Relu 16,Sigmoid 16,Softmax 16],[Ident 48,TanH 16]]","lr":"0.0001","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"RMSProp","layers":"[[Ident 32,Softmax 16],[Relu 16,Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16,Softmax 16],[Sigmoid 16,Softmax 16]]","lr":"0.00001","beta1":"0.999","beta2":"0.9","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Relu 16,Softmax 32,TanH 16],[Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Relu 16,Softmax 16],[Ident 16,Relu 32]]","lr":"0.001","beta1":"0.999","beta2":"0.99","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Relu 32,Sigmoid 16,Softmax 16],[Ident 16,Softmax 32,TanH 16]]","lr":"0.001","beta1":"0.9","beta2":"0.999","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Mom","layers":"[[Relu 16,Sigmoid 16],[Ident 16,Sigmoid 48]]","lr":"0.0001","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Sigmoid 16,TanH 16],[Relu 16,Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"0.999","beta2":"0.99","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Softmax 16,TanH 16],[Ident 16,Relu 16,TanH 32]]","lr":"0.00001","beta1":"0.9","beta2":"0.99","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Mom","layers":"[[Relu 16,Sigmoid 16,Softmax 16],[Relu 16,Softmax 32]]","lr":"0.00001","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 32,Softmax 16,TanH 16],[Relu 16,Sigmoid 32,Softmax 16]]","lr":"0.00001","beta1":"0.9","beta2":"0.99","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Mom","layers":"[[Relu 32,Softmax 16,TanH 16],[Ident 16,TanH 16]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,TanH 16],[Relu 48,Sigmoid 16]]","lr":"0.01","beta1":"0.999","beta2":"0.999","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,Softmax 16,TanH 16],[Relu 16,Sigmoid 16,TanH 16]]","lr":"0.00001","beta1":"0.99","beta2":"0.9","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Relu 16,Sigmoid 16,Softmax 16],[Ident 16,Relu 16,Sigmoid 16,TanH 16]]","lr":"0.001","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Relu 16,Sigmoid 16],[Ident 16]]","lr":"0.00001","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Softmax 16,TanH 16],[Ident 16,Relu 16,Sigmoid 16]]","lr":"0.01","beta1":"0.9","beta2":"0.999","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 32,TanH 16],[Ident 16,Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.01","beta1":"0.99","beta2":"0.9","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[TanH 16],[Relu 16,Sigmoid 32,Softmax 16]]","lr":"0.001","beta1":"0.99","beta2":"0.9","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Mom","layers":"[[Ident 16,Sigmoid 16,TanH 16],[Ident 16,Softmax 32]]","lr":"0.0001","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,TanH 16],[Ident 16,Sigmoid 16,TanH 32]]","lr":"0.00001","beta1":"0.9","beta2":"0.99","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"RMSProp","layers":"[[Relu 48],[Ident 16,Relu 16]]","lr":"0.001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16,Softmax 32],[Ident 32,TanH 32]]","lr":"0.00001","beta1":"0.9","beta2":"0.99","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Relu 32,Sigmoid 16,Softmax 16],[Ident 16,Relu 16,Softmax 16]]","lr":"0.001","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 32,TanH 16],[Softmax 16,TanH 48]]","lr":"0.00001","beta1":"0.99","beta2":"0.999","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 32,TanH 16],[Ident 16,Relu 16]]","lr":"0.0001","beta1":"0.99","beta2":"0.99","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Relu 16,Softmax 32],[Sigmoid 16,Softmax 48]]","lr":"0.00001","beta1":"0.99","beta2":"0.9","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Relu 16,Sigmoid 16,TanH 16],[Ident 32,Softmax 16,TanH 16]]","lr":"0.01","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Softmax 16,TanH 48],[Ident 16,Relu 16,Softmax 16]]","lr":"0.0001","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"RMSProp","layers":"[[Relu 48,TanH 16],[Sigmoid 16,Softmax 16]]","lr":"0.001","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Sigmoid 48,Softmax 16],[Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.001","beta1":"0.999","beta2":"0.9","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Mom","layers":"[[Relu 16,Softmax 16,TanH 16],[Ident 32,Sigmoid 16,Softmax 16]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 32,Softmax 16],[Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.0001","beta1":"0.99","beta2":"0.99","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Relu 16,TanH 16],[Ident 16,Sigmoid 16,TanH 16]]","lr":"0.00001","beta1":"0.999","beta2":"0.99","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Relu 32,Softmax 16,TanH 16],[Ident 16,Sigmoid 16,Softmax 16]]","lr":"0.00001","beta1":"0.9","beta2":"0.9","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Mom","layers":"[[Ident 16,Sigmoid 16],[Ident 16,Relu 16,Sigmoid 16]]","lr":"0.0001","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"RMSProp","layers":"[[Ident 32,Softmax 32],[Ident 16,Relu 16,Softmax 16]]","lr":"0.0001","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adagrad","layers":"[[Ident 16,Relu 16,Softmax 16,TanH 16],[Ident 16,Relu 16,Sigmoid 16]]","lr":"0.001","beta1":"","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,Softmax 16,TanH 16],[Ident 16,Sigmoid 16,TanH 16]]","lr":"0.0001","beta1":"0.999","beta2":"0.9","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 16,Softmax 16,TanH 16],[Ident 16,Sigmoid 16]]","lr":"0.01","beta1":"0.99","beta2":"0.99","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Mom","layers":"[[Softmax 16,TanH 16],[Ident 32,Relu 16,TanH 16]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"RMSProp","layers":"[[Softmax 16,TanH 16],[Ident 16,Softmax 16]]","lr":"0.001","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Mom","layers":"[[Ident 16,Sigmoid 16,TanH 16],[Ident 16,Sigmoid 16,TanH 16]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Relu 16,Softmax 16,TanH 16],[Ident 16,Relu 16,TanH 16]]","lr":"0.01","beta1":"0.999","beta2":"0.999","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Mom","layers":"[[Softmax 16,TanH 48],[Ident 16,Softmax 48]]","lr":"0.00001","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"RMSProp","layers":"[[Sigmoid 16,Softmax 48],[TanH 16]]","lr":"0.01","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Relu 32,TanH 32],[Ident 16,Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.001","beta1":"0.999","beta2":"0.99","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Mom","layers":"[[Ident 16,Sigmoid 32,Softmax 16],[Ident 16,Relu 16,Softmax 16,TanH 16]]","lr":"0.001","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Mom","layers":"[[Ident 16,Relu 16,TanH 32],[Sigmoid 32,Softmax 16]]","lr":"0.001","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Sigmoid 16,Softmax 16,TanH 16],[Ident 16,Relu 16,TanH 32]]","lr":"0.0001","beta1":"0.9","beta2":"0.999","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adagrad","layers":"[[Sigmoid 32],[Ident 16,Sigmoid 16,TanH 32]]","lr":"0.01","beta1":"","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Relu 32,Softmax 16],[Relu 32,Softmax 16,TanH 16]]","lr":"0.001","beta1":"0.99","beta2":"0.99","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Sigmoid 16],[Ident 16,Sigmoid 16]]","lr":"0.001","beta1":"0.999","beta2":"0.9","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Mom","layers":"[[Relu 32,Sigmoid 16,Softmax 16],[Ident 16,Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Sigmoid 16,Softmax 32,TanH 16],[Sigmoid 16,Softmax 16]]","lr":"0.01","beta1":"0.99","beta2":"0.9","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Sigmoid 16,TanH 32],[Ident 16,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Mom","layers":"[[Ident 16,Relu 16,Sigmoid 16,TanH 16],[Ident 16,Relu 16,Sigmoid 16,TanH 16]]","lr":"0.00001","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 32,TanH 16],[Relu 16,Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.001","beta1":"0.99","beta2":"0.99","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 32,Sigmoid 16,Softmax 16],[Ident 16,Relu 16,TanH 32]]","lr":"0.00001","beta1":"0.99","beta2":"0.9","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Softmax 16,TanH 16],[Sigmoid 16,TanH 16]]","lr":"0.001","beta1":"0.999","beta2":"0.999","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"RMSProp","layers":"[[Relu 32,Softmax 32],[Ident 16,Sigmoid 16,TanH 16]]","lr":"0.001","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Relu 48,TanH 16],[Relu 16,Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.0001","beta1":"0.9","beta2":"0.999","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,TanH 16],[Sigmoid 16,Softmax 48]]","lr":"0.001","beta1":"0.9","beta2":"0.9","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Sigmoid 16],[Relu 16,Sigmoid 16,TanH 16]]","lr":"0.001","beta1":"0.9","beta2":"0.99","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adagrad","layers":"[[Sigmoid 16,Softmax 16,TanH 16],[Ident 32,Relu 16,Softmax 16]]","lr":"0.01","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16,TanH 16],[Ident 16,Relu 16,TanH 16]]","lr":"0.001","beta1":"0.9","beta2":"0.999","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,TanH 16],[Relu 16,Sigmoid 48]]","lr":"0.001","beta1":"0.999","beta2":"0.999","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 16,Softmax 16,TanH 16],[Ident 16,Relu 16,Softmax 16,TanH 16]]","lr":"0.01","beta1":"0.99","beta2":"0.9","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Mom","layers":"[[Ident 16,Relu 16,Sigmoid 16],[Ident 16,Relu 16,Softmax 16]]","lr":"0.0001","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,Softmax 16,TanH 16],[Ident 48]]","lr":"0.01","beta1":"0.9","beta2":"0.999","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16],[Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.0001","beta1":"0.999","beta2":"0.9","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Mom","layers":"[[Ident 16,Sigmoid 16,Softmax 16],[Ident 16,Sigmoid 32,Softmax 16]]","lr":"0.00001","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 32,Sigmoid 16],[Relu 16,Sigmoid 48]]","lr":"0.01","beta1":"0.99","beta2":"0.999","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"RMSProp","layers":"[[Softmax 16,TanH 16],[Ident 16,Relu 16,TanH 32]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,TanH 16],[Ident 16,Relu 16,Softmax 16]]","lr":"0.00001","beta1":"0.99","beta2":"0.99","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Relu 16,Softmax 16,TanH 16],[Ident 16,Sigmoid 16,Softmax 16]]","lr":"0.00001","beta1":"0.99","beta2":"0.99","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 48,Relu 16],[Relu 16,Softmax 32,TanH 16]]","lr":"0.0001","beta1":"0.99","beta2":"0.9","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Sigmoid 16,TanH 16],[Relu 16,Sigmoid 16]]","lr":"0.00001","beta1":"0.99","beta2":"0.99","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Softmax 16],[Relu 16,Softmax 32]]","lr":"0.001","beta1":"0.99","beta2":"0.9","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Relu 16,Softmax 16,TanH 16],[Ident 16,Softmax 16]]","lr":"0.01","beta1":"0.999","beta2":"0.999","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"SGD","layers":"[[Relu 16,Sigmoid 16,TanH 16],[Sigmoid 48]]","lr":"0.0001","beta1":"","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"RMSProp","layers":"[[Ident 32,Relu 16,Softmax 16],[Relu 48,Softmax 16]]","lr":"0.001","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adagrad","layers":"[[Ident 16,Relu 16],[Ident 16,Sigmoid 16,TanH 16]]","lr":"0.001","beta1":"","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Mom","layers":"[[Ident 16,Relu 16,Sigmoid 16,Softmax 16],[Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.01","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Mom","layers":"[[Ident 16,Relu 16,Sigmoid 16,Softmax 16],[Ident 16,Softmax 16,TanH 16]]","lr":"0.0001","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Relu 16,TanH 16],[Softmax 32]]","lr":"0.00001","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adagrad","layers":"[[Ident 16,Sigmoid 32,Softmax 16],[Ident 16,Relu 16,Softmax 16]]","lr":"0.00001","beta1":"","beta2":"","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"SGD","layers":"[[Relu 16,Sigmoid 16,Softmax 16],[Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.001","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Sigmoid 16],[Ident 16,Relu 16,TanH 32]]","lr":"0.001","beta1":"0.9","beta2":"0.999","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,TanH 16],[Ident 16,Sigmoid 48]]","lr":"0.0001","beta1":"0.99","beta2":"0.9","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Sigmoid 16],[Relu 16,Sigmoid 16,TanH 16]]","lr":"0.00001","beta1":"0.99","beta2":"0.9","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Relu 16,TanH 16],[Relu 16,Sigmoid 16]]","lr":"0.0001","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Relu 16,Sigmoid 16,TanH 16],[Relu 16,Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Softmax 16],[Relu 16,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"0.9","beta2":"0.999","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,Softmax 16],[Sigmoid 16,Softmax 48]]","lr":"0.00001","beta1":"0.9","beta2":"0.9","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16,Softmax 16],[Ident 16,Sigmoid 16]]","lr":"0.01","beta1":"0.999","beta2":"0.99","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Sigmoid 16,Softmax 16],[Ident 16,Sigmoid 16,TanH 16]]","lr":"0.001","beta1":"0.9","beta2":"0.999","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Sigmoid 48],[Relu 16,Sigmoid 16,TanH 16]]","lr":"0.01","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"RMSProp","layers":"[[Sigmoid 48,Softmax 16],[Relu 16,Softmax 16,TanH 32]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16],[Ident 16,Softmax 16,TanH 16]]","lr":"0.001","beta1":"0.9","beta2":"0.999","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"RMSProp","layers":"[[Relu 32],[Ident 16,Relu 16,Softmax 16]]","lr":"0.0001","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Mom","layers":"[[Ident 16,Relu 16,Softmax 16,TanH 16],[Ident 16,Softmax 16,TanH 32]]","lr":"0.001","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Sigmoid 16],[Ident 16,Relu 16,TanH 16]]","lr":"0.0001","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Mom","layers":"[[Relu 32,Sigmoid 16,Softmax 16],[Ident 16,Sigmoid 16,TanH 16]]","lr":"0.001","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Mom","layers":"[[Ident 16,Sigmoid 16,TanH 16],[Ident 16,Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.001","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Mom","layers":"[[Ident 48],[Sigmoid 16,TanH 48]]","lr":"0.01","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Softmax 16,TanH 16],[Ident 16,Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.00001","beta1":"0.999","beta2":"0.9","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Mom","layers":"[[Relu 48,Sigmoid 16],[Ident 16,Relu 16,Sigmoid 16,TanH 16]]","lr":"0.001","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adagrad","layers":"[[Ident 16,Sigmoid 16,Softmax 16],[Ident 16,Relu 16]]","lr":"0.01","beta1":"","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,Softmax 16,TanH 16],[Relu 16,Softmax 32,TanH 16]]","lr":"0.01","beta1":"0.999","beta2":"0.99","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Mom","layers":"[[Sigmoid 16,Softmax 32],[Ident 16,Relu 16,Softmax 16]]","lr":"0.01","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"RMSProp","layers":"[[Relu 16,Sigmoid 16,Softmax 32],[Relu 16,Sigmoid 16,TanH 32]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Sigmoid 16,Softmax 16,TanH 16],[Ident 16,Relu 16,Sigmoid 16,TanH 16]]","lr":"0.001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16],[Ident 16,Relu 16,Sigmoid 16]]","lr":"0.01","beta1":"0.9","beta2":"0.9","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 32,Softmax 16,TanH 16],[Relu 16,Softmax 48]]","lr":"0.01","beta1":"0.999","beta2":"0.999","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Mom","layers":"[[Relu 16,TanH 48],[Ident 16,TanH 48]]","lr":"0.01","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Mom","layers":"[[Relu 16,Sigmoid 16,TanH 16],[Ident 16,Sigmoid 16]]","lr":"0.00001","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16,TanH 16],[Sigmoid 48,TanH 16]]","lr":"0.00001","beta1":"0.999","beta2":"0.999","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Mom","layers":"[[Relu 16,Sigmoid 16,TanH 16],[Relu 16,Sigmoid 32,TanH 16]]","lr":"0.001","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Softmax 48],[Ident 16,Sigmoid 16,TanH 16]]","lr":"0.0001","beta1":"0.999","beta2":"0.999","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Softmax 16],[Relu 32,Softmax 16]]","lr":"0.00001","beta1":"0.9","beta2":"0.999","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Mom","layers":"[[Ident 16,Sigmoid 16,Softmax 16,TanH 16],[Ident 16,Relu 16,Sigmoid 16,TanH 16]]","lr":"0.00001","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Relu 32,Softmax 16,TanH 16],[Relu 32,TanH 32]]","lr":"0.01","beta1":"0.999","beta2":"0.999","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Mom","layers":"[[Ident 16,Relu 16,TanH 16],[Ident 16,Relu 32,TanH 16]]","lr":"0.001","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"RMSProp","layers":"[[Relu 16,Sigmoid 16,Softmax 16],[Ident 32,Sigmoid 16,TanH 16]]","lr":"0.00001","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Relu 48,Sigmoid 16],[Relu 16,Sigmoid 16,TanH 32]]","lr":"0.01","beta1":"0.99","beta2":"0.999","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Mom","layers":"[[Ident 16,Sigmoid 16,Softmax 16,TanH 16],[Relu 16,TanH 16]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16,TanH 16],[Relu 16,Softmax 16]]","lr":"0.001","beta1":"0.999","beta2":"0.999","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Sigmoid 16],[Ident 16,Relu 16,Softmax 16,TanH 16]]","lr":"0.0001","beta1":"0.9","beta2":"0.9","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"SGD","layers":"[[Relu 16,Softmax 48],[Ident 32,Relu 16,Sigmoid 16]]","lr":"0.001","beta1":"","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Mom","layers":"[[Ident 48,Sigmoid 16],[Ident 16,Relu 16,TanH 16]]","lr":"0.001","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adagrad","layers":"[[Ident 16,Softmax 16,TanH 16],[Relu 16,TanH 48]]","lr":"0.00001","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adagrad","layers":"[[Relu 16,Softmax 16,TanH 16],[Relu 16,TanH 48]]","lr":"0.01","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Mom","layers":"[[Sigmoid 32,Softmax 16],[Relu 16,Softmax 16]]","lr":"0.001","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"RMSProp","layers":"[[Relu 48,Softmax 16],[Ident 16,Relu 16,Sigmoid 16,TanH 16]]","lr":"0.0001","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"RMSProp","layers":"[[Ident 32,TanH 32],[Ident 16,Softmax 16,TanH 16]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Sigmoid 32,Softmax 16,TanH 16],[Ident 16,Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.0001","beta1":"0.9","beta2":"0.999","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16,Softmax 16,TanH 16],[Ident 48,Softmax 16]]","lr":"0.01","beta1":"0.99","beta2":"0.9","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Sigmoid 16,Softmax 16],[Softmax 16,TanH 32]]","lr":"0.0001","beta1":"0.9","beta2":"0.99","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16,TanH 16],[Softmax 16,TanH 16]]","lr":"0.0001","beta1":"0.999","beta2":"0.999","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Sigmoid 16,Softmax 48],[Ident 16,Relu 16,Sigmoid 16]]","lr":"0.00001","beta1":"0.99","beta2":"0.999","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Relu 16,Softmax 16,TanH 16],[Ident 16,Relu 16]]","lr":"0.001","beta1":"0.9","beta2":"0.9","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[TanH 48],[Relu 16,Sigmoid 16,TanH 16]]","lr":"0.01","beta1":"0.99","beta2":"0.99","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adagrad","layers":"[[Ident 16,Sigmoid 16,Softmax 16,TanH 16],[Ident 16,Relu 16,TanH 16]]","lr":"0.001","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,TanH 16],[Ident 16,Sigmoid 48]]","lr":"0.01","beta1":"0.999","beta2":"0.9","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Relu 32,Sigmoid 16],[Relu 16,TanH 16]]","lr":"0.0001","beta1":"0.999","beta2":"0.9","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Relu 16,Softmax 16],[Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.00001","beta1":"0.999","beta2":"0.9","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"SGD","layers":"[[Relu 16,Softmax 16,TanH 16],[Relu 16,Sigmoid 16,TanH 16]]","lr":"0.0001","beta1":"","beta2":"","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Mom","layers":"[[Ident 48,Sigmoid 16],[Ident 16,Relu 16,TanH 16]]","lr":"0.0001","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,TanH 16],[Relu 32,TanH 16]]","lr":"0.0001","beta1":"0.9","beta2":"0.9","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,Softmax 16,TanH 16],[Ident 16,Sigmoid 16,TanH 16]]","lr":"0.001","beta1":"0.999","beta2":"0.9","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Sigmoid 16,TanH 16],[Ident 16,Softmax 16,TanH 16]]","lr":"0.01","beta1":"0.9","beta2":"0.9","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Mom","layers":"[[Ident 16,TanH 16],[Ident 16,Softmax 16]]","lr":"0.001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"SGD","layers":"[[Ident 16,Softmax 16],[Ident 16,Relu 16,TanH 16]]","lr":"0.01","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Sigmoid 16,Softmax 16,TanH 16],[Relu 16,Sigmoid 48]]","lr":"0.00001","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Softmax 32,TanH 16],[Ident 16,Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.01","beta1":"0.99","beta2":"0.99","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Sigmoid 16,Softmax 16,TanH 16],[Relu 16,Sigmoid 16]]","lr":"0.01","beta1":"0.999","beta2":"0.999","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 32,TanH 32],[Ident 48]]","lr":"0.0001","beta1":"0.99","beta2":"0.999","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,TanH 32],[Ident 16,Relu 16,Sigmoid 16,TanH 16]]","lr":"0.0001","beta1":"0.999","beta2":"0.99","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16],[Ident 16,Softmax 16,TanH 32]]","lr":"0.00001","beta1":"0.9","beta2":"0.99","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,Softmax 16,TanH 16],[Ident 48,TanH 16]]","lr":"0.00001","beta1":"0.999","beta2":"0.99","costF":"CrossEntropy","inputAF":"Softmax"}
+{"optimizer":"RMSProp","layers":"[[Relu 16,Sigmoid 16,Softmax 16],[Ident 16,Relu 16,Sigmoid 16]]","lr":"0.00001","beta1":"0.999","beta2":"","costF":"MSE","inputAF":"TanH"}
+{"optimizer":"Mom","layers":"[[Relu 16,Softmax 16],[Ident 32,Sigmoid 16,Softmax 16]]","lr":"0.0001","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 48,Relu 16],[Ident 16,Sigmoid 32]]","lr":"0.0001","beta1":"0.999","beta2":"0.9","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Sigmoid 16,Softmax 16],[Ident 16,Relu 16]]","lr":"0.01","beta1":"0.999","beta2":"0.999","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Relu 16,TanH 16],[Ident 16,Sigmoid 48]]","lr":"0.0001","beta1":"0.99","beta2":"0.999","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16,Softmax 16],[Ident 16,Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.001","beta1":"0.9","beta2":"0.9","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,TanH 48],[Relu 32,Softmax 16]]","lr":"0.001","beta1":"0.9","beta2":"0.999","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Mom","layers":"[[Relu 16,Softmax 16,TanH 32],[Softmax 16,TanH 16]]","lr":"0.0001","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Sigmoid 16],[Ident 16,Relu 16,Sigmoid 32]]","lr":"0.001","beta1":"0.999","beta2":"0.99","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Relu 16,Softmax 16,TanH 16],[Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.00001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,TanH 16],[Ident 16,Relu 16,Softmax 16,TanH 16]]","lr":"0.001","beta1":"0.999","beta2":"0.999","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"RMSProp","layers":"[[Softmax 16,TanH 16],[Relu 16,Softmax 16]]","lr":"0.01","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"SGD","layers":"[[Ident 16,Softmax 16],[Ident 16,Relu 16,Softmax 16]]","lr":"0.001","beta1":"","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Ident 16,TanH 16],[Ident 16,Relu 16,TanH 16]]","lr":"0.01","beta1":"0.9","beta2":"0.99","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16],[Ident 16,Relu 48]]","lr":"0.001","beta1":"0.999","beta2":"0.999","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Mom","layers":"[[Relu 16,Softmax 16,TanH 16],[Relu 48,Softmax 16]]","lr":"0.0001","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Sigmoid 48,TanH 16],[Ident 16,Relu 16,Sigmoid 16]]","lr":"0.0001","beta1":"0.99","beta2":"0.99","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 16,Softmax 16,TanH 16],[Ident 16,Sigmoid 48]]","lr":"0.001","beta1":"0.99","beta2":"0.9","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16],[Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.001","beta1":"0.999","beta2":"0.999","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Ident 16,Softmax 32],[Relu 16,Softmax 16]]","lr":"0.00001","beta1":"0.999","beta2":"0.999","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"RMSProp","layers":"[[Relu 16,Sigmoid 16,Softmax 16,TanH 16],[Ident 16,Relu 16,Softmax 16]]","lr":"0.0001","beta1":"0.9","beta2":"","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,TanH 16],[Ident 16,Relu 16]]","lr":"0.01","beta1":"0.99","beta2":"0.999","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,Softmax 16],[Relu 16,Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.01","beta1":"0.999","beta2":"0.9","costF":"MSE","inputAF":"Sigmoid"}
+{"optimizer":"Mom","layers":"[[Ident 16,Relu 16,Sigmoid 16],[Ident 16,Relu 16,Softmax 16,TanH 16]]","lr":"0.00001","beta1":"0.99","beta2":"","costF":"MSE","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Relu 16,Softmax 16],[Ident 16,Relu 16,Sigmoid 16,Softmax 16]]","lr":"0.001","beta1":"0.99","beta2":"0.9","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,TanH 32],[Ident 16,Sigmoid 16,Softmax 16,TanH 16]]","lr":"0.01","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Mom","layers":"[[Relu 32,Sigmoid 16,Softmax 16],[Relu 16,Sigmoid 16,Softmax 32]]","lr":"0.01","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"Sigmoid"}
+{"optimizer":"Adam","layers":"[[Ident 16,Sigmoid 16,TanH 32],[Ident 16,Sigmoid 48]]","lr":"0.001","beta1":"0.99","beta2":"0.9","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"RMSProp","layers":"[[Sigmoid 16,Softmax 16],[Ident 16,TanH 48]]","lr":"0.00001","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"Relu"}
+{"optimizer":"RMSProp","layers":"[[Relu 16,Sigmoid 16,TanH 16],[Relu 48,TanH 16]]","lr":"0.00001","beta1":"0.99","beta2":"","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Mom","layers":"[[Ident 16,Softmax 16,TanH 16],[Ident 48,TanH 16]]","lr":"0.01","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"RMSProp","layers":"[[Ident 16,Relu 32,TanH 16],[Ident 16,Sigmoid 16,Softmax 16]]","lr":"0.001","beta1":"0.9","beta2":"","costF":"CrossEntropy","inputAF":"TanH"}
+{"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16,Softmax 32],[Softmax 48,TanH 16]]","lr":"0.0001","beta1":"0.9","beta2":"0.9","costF":"MSE","inputAF":"Softmax"}
+{"optimizer":"Adam","layers":"[[Ident 16,Relu 16,TanH 16],[Ident 16,Relu 16,Sigmoid 16,TanH 16]]","lr":"0.01","beta1":"0.999","beta2":"0.999","costF":"MSE","inputAF":"Relu"}
+{"optimizer":"Adam","layers":"[[Sigmoid 16,TanH 48],[Sigmoid 16,Softmax 16]]","lr":"0.001","beta1":"0.9","beta2":"0.9","costF":"MSE","inputAF":"Relu"}

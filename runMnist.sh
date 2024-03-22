@@ -13,7 +13,8 @@ TESTLBL=t10k-labels-idx1-ubyte.gz
 [ -f $(basename $TESTLBL .gz) ] || ( wget -O $TESTLBL https://storage.googleapis.com/cvdf-datasets/mnist/$TESTLBL && gunzip $TESTLBL )
 
 X=0
-[ -f configsMnist.txt ] || ./genConfigsMnist.pl | shuf | head -n 100 > configsMnist.txt
+[ -f configsMnist.txt ] || (echo "Error no configsMnist.txt found. Please generate it." ; exit 1)
+
 cat configsMnist.txt | while read CONFIG ; do
 	OPTIM=$(echo "$CONFIG" | jshon -e 'optimizer' -u );
 	LAYERS=$(echo "$CONFIG" | jshon -e 'layers' -u );
@@ -26,13 +27,6 @@ cat configsMnist.txt | while read CONFIG ; do
 	mv mnist.ann nets/$X.ann
 	mv /tmp/results-mnist-$X.txt results/
 
-	X=$(($X + 1));
-done
-
-X=0
-ls results/ | while read RESULT ; do
-	#./mkGraph.m results/$RESULT "$X"
-	#mv plot.png graphs/mnist-$X.png
 	X=$(($X + 1));
 done
 

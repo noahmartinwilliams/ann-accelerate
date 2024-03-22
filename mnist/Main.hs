@@ -80,12 +80,6 @@ getAF "Ident" = Ident (28*28)
 getAF "Softmax" = Softmax (28*28)
 getAF "TanH" = TanH (28*28)
 
--- This function helps make sure that the program frees up memory on the GPU when that memory is no longer needed (somehow).
-writer :: [String] -> IO ()
-writer [] = return ()
-writer ( head : tail ) = do
-    P.putStr head
-    writer tail
 
 main :: IO ()
 main = do
@@ -113,6 +107,5 @@ main = do
         errorsStr = P.map (\x -> (printf "%.5F" x ) P.++ "\n") errors
         bsout = block2bs (blinfo, output)
     P.putStr (P.foldr (P.++) "" errorsStr)
-    --writer errorsStr
     BS.writeFile "mnist.ann" (toStrict bsout)
 

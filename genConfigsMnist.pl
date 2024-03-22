@@ -49,12 +49,10 @@ build_layers_intern(X, L):- build_layer(Layer), X2 is X - 1, build_layers_intern
 
 build_layer(AFs5):- layer_sizes(Size), build_layer_intern(Size, AFs), sort(AFs, AFs2), build_layer_post(AFs2, AFs3), build_layer_post2(AFs3, AFs4), concat_atoms(['[', AFs4], AFs5).
 
-# transform entries into atoms.
 build_layer_post2([], '').
 build_layer_post2([layer(AF, Size)], Atom):- !, atom_number(SizeAtom, Size), concat_atoms([AF, ' ', SizeAtom, ']' ], Atom).
-build_layer_post2([layer(AF, Size)|Rest], Atoms3):- atom_number(SizeAtom, Size), concat_atoms([' ' , AF, ' ', SizeAtom, ', '], Atoms), build_layer_post2(Rest, Atoms2), atom_concat(Atoms, Atoms2, Atoms3).
+build_layer_post2([layer(AF, Size)|Rest], Atoms3):- atom_number(SizeAtom, Size), concat_atoms([AF, ' ', SizeAtom, ','], Atoms), build_layer_post2(Rest, Atoms2), atom_concat(Atoms, Atoms2, Atoms3).
 
-# find duplicates and remove them.
 build_layer_post([], []):- !.
 build_layer_post([layer(AF, Size1), layer(AF, Size2)|Rest], List):- !, Size3 is Size1 + Size2,  build_layer_post([layer(AF, Size3)|Rest], List).
 build_layer_post([layer(AF, Size)|Rest], [layer(AF, Size)|List]):- build_layer_post(Rest, List).
@@ -86,18 +84,18 @@ mk_ann('Mom', Layers, LR, Beta1, ''):- build_layers(Layers), learn_rate(LR), bet
 ann2str(Optim, Layers, LR, Beta1, Beta2, Tmp14) :- !,
 	cost_fn(Cost),
 	act_funcs(AF),
-	atom_concat('{ "optimizer":"', Optim, Tmp1), 
-	atom_concat(Tmp1, '", "layers":"', Tmp2),
+	atom_concat('{"optimizer":"', Optim, Tmp1), 
+	atom_concat(Tmp1, '","layers":"', Tmp2),
 	atom_concat(Tmp2, Layers, Tmp3),
-	atom_concat(Tmp3, '", "lr":"', Tmp4),
+	atom_concat(Tmp3, '","lr":"', Tmp4),
 	atom_concat(Tmp4, LR, Tmp5),
-	atom_concat(Tmp5, '", "beta1":"', Tmp6),
+	atom_concat(Tmp5, '","beta1":"', Tmp6),
 	atom_concat(Tmp6, Beta1, Tmp7),
-	atom_concat(Tmp7, '", "beta2":"', Tmp8),
+	atom_concat(Tmp7, '","beta2":"', Tmp8),
 	atom_concat(Tmp8, Beta2, Tmp9),
-	atom_concat(Tmp9, '", "costF":"', Tmp10),
+	atom_concat(Tmp9, '","costF":"', Tmp10),
 	atom_concat(Tmp10, Cost, Tmp11),
-	atom_concat(Tmp11, '", "inputAF":"', Tmp12),
+	atom_concat(Tmp11, '","inputAF":"', Tmp12),
 	atom_concat(Tmp12, AF, Tmp13),
 	atom_concat(Tmp13, '"}', Tmp14).
 
