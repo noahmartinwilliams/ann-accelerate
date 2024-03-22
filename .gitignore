@@ -9,3 +9,6 @@ results*.txt
 *.pdf
 *.png
 *~
+stack.yaml
+stack.yaml.lock
+tests/*
