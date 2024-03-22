@@ -1,10 +1,10 @@
-name:                accelerate-ann
+name:                ann-accelerate
 version:             0.1.0.0
-github:              "githubuser/accelerate-ann"
+github:              "noahmartinwilliams/ann-accelerate"
 license:             BSD3
-author:              "Author name here"
-maintainer:          "example@example.com"
-copyright:           "2023 Author name here"
+author:              "Noah Martin Williams"
+maintainer:          "noahmartinwilliams@gmail.com"
+copyright:           "2023 Noah Martin Williams"
 
 extra-source-files:
 - README.md
@@ -17,7 +17,7 @@ extra-source-files:
 # To avoid duplicated efforts in documentation and dealing with the
 # complications of embedding Haddock markup inside cabal files, it is
 # common to point users to the README.md file.
-description:         Please see the README on GitHub at <https://github.com/githubuser/accelerate-ann#readme>
+description:         Please see the README on GitHub at <https://github.com/githubuser/ann-accelerate#readme>
 
 dependencies:
 - base >= 4.7 && < 5
@@ -57,7 +57,7 @@ executables:
     - -rtsopts
     - -with-rtsopts=-N
     dependencies:
-    - accelerate-ann
+    - ann-accelerate
     - accelerate
     - base
     - split
@@ -74,7 +74,7 @@ executables:
     - -rtsopts
     - -with-rtsopts=-N
     dependencies:
-    - accelerate-ann
+    - ann-accelerate
     - accelerate
     - base
     - split
@@ -90,7 +90,7 @@ executables:
     - -rtsopts
     - -with-rtsopts=-N
     dependencies:
-    - accelerate-ann
+    - ann-accelerate
     - accelerate
     - base
     - split
@@ -105,7 +105,7 @@ executables:
     - -rtsopts
     - -with-rtsopts=-N
     dependencies:
-    - accelerate-ann
+    - ann-accelerate
     - accelerate
     - base
     - split
@@ -125,7 +125,7 @@ executables:
     - random
     - parallel
     - accelerate-llvm-ptx
-    - accelerate-ann
+    - ann-accelerate
     - split
     - bytestring
 
@@ -143,7 +143,7 @@ executables:
     - parallel
 
 tests:
-  accelerate-ann-test:
+  ann-accelerate-test:
     main:                Spec.hs
     source-dirs:         test
     ghc-options:
@@ -151,4 +151,4 @@ tests:
     - -rtsopts
     - -with-rtsopts=-N
     dependencies:
-    - accelerate-ann
+    - ann-accelerate
