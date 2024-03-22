@@ -1,0 +1,14 @@
+.stack-work/
+dist-newstyle/
+*.eventlog
+cabal.project
+cabal.project.local
+*.exe
+*.ann
+results*.txt
+*.pdf
+*.png
+*~
+stack.yaml
+stack.yaml.lock
+tests/*

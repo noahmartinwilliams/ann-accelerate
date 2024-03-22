@@ -1,0 +1,8 @@
+* swipl
+* bash
+* jshon
+* basename
+* wget 
+* stack/cabal/ghc (obviously).
+* shuf
+* octave
