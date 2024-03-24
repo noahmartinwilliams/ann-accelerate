@@ -7,7 +7,7 @@ This library provides simple artificial neural networks that can be used on GPUs
 ## Compilation
 
 You'll need to compile accelerate and accelerate-llvm. You'll need to use the updated version of language-c which can be found [here](https://github.com/noahmartinwilliams/language-c).
-Then you'll need to compile [c2hs](https://github.com/noahmartinwilliams/c2hs) using the language-c library with cabal.project files.
+Then you'll need to compile [c2hs](https://github.com/noahmartinwilliams/c2hs) using the language-c library with the stack.yaml file.
 
 ## Usage
 

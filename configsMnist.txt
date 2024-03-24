@@ -1,4 +1,4 @@
-{"optimizer":"Mom","layers":"[[Relu 16,Sigmoid 16,Softmax 16,TanH 16],[Ident 16,Relu 16,Softmax 16]]","lr":"0.0001","beta1":"0.999","beta2":"","costF":"CrossEntropy","inputAF":"Ident"}
+{"optimizer":"Adam","layers":"[[Relu 64]]","lr":"0.0001","beta1":"0.999","beta2":"0.9","costF":"MSE","inputAF":"Relu"}
 {"optimizer":"Adam","layers":"[[Relu 16,Softmax 16],[TanH 32]]","lr":"0.001","beta1":"0.99","beta2":"0.9","costF":"CrossEntropy","inputAF":"Sigmoid"}
 {"optimizer":"Adam","layers":"[[Ident 16,Relu 16,Softmax 16],[Ident 16,Relu 16,Softmax 16]]","lr":"0.00001","beta1":"0.9","beta2":"0.999","costF":"CrossEntropy","inputAF":"Softmax"}
 {"optimizer":"Adam","layers":"[[Relu 16,Sigmoid 16],[Ident 16,Relu 16,Softmax 16,TanH 16]]","lr":"0.0001","beta1":"0.9","beta2":"0.9","costF":"CrossEntropy","inputAF":"Sigmoid"}
