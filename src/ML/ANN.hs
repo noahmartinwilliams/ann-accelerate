@@ -1,4 +1,4 @@
-{-# LANGUAGE GADTs, DataKinds, KindSignatures, TypeOperators #-}
+{-# LANGUAGE GADTs, DataKinds, KindSignatures, TypeOperators, FlexibleContexts #-}
 module ML.ANN
     ( module ML.ANN.Costs,
     module ML.ANN.Network,
@@ -16,7 +16,8 @@ module ML.ANN
     module ML.ANN.File,
     ANN(..),
     trainOnce,
-    ML.ANN.Layer.LSpec
+    ML.ANN.Layer.LSpec,
+    normalize
     ) where
 
 import ML.ANN.Costs
@@ -41,3 +42,9 @@ trainOnce (ANN blinfo block) (costFnErr, costFnDeriv) sample = do
         (blockOutI, blockOutD) = A.unlift blockOut :: (Acc (Vector Int), Acc (Vector Double))
         output2 = A.lift (err, blockOutI, blockOutD)
     output2
+
+normalize :: (Shape sh) => Acc (Array sh Double) -> Acc (Array sh Double)
+normalize input = do
+    let squared = A.map (\x -> x * x) input
+        summed = A.the (A.map (\x -> sqrt x) (A.sum (A.flatten squared)))
+    A.map (\x -> x / summed) input

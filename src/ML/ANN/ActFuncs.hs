@@ -45,8 +45,10 @@ softmax = do
 
 dsoftmax :: (Acc (Matrix Double) -> Acc (Matrix Double))
 dsoftmax = do
-       let fn x = A.zipWith (-) (softmax x) (A.zipWith (*) (softmax x) (softmax x))
-       fn 
+    let subtract x y = A.zipWith (-) x y 
+        multiply x y = A.zipWith (*) x y
+        fn x = (softmax x) `subtract` ((softmax x) `multiply` (softmax x))
+    fn 
 
 _tanh :: (Acc (Matrix Double) -> Acc (Matrix Double))
 _tanh = A.map (\x -> tanh x) 

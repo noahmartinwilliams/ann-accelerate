@@ -54,7 +54,7 @@ main = do
     args <- getArgs
     annFD <- BS.readFile (args P.!! 0)
     (blinfo, block) <- bs2block (fromStrict annFD)
-    let fn x = calcNetwork (block2network (blinfo, (use block))) x
+    let fn x = calcNetwork (block2network (blinfo, (use block))) (normalize x)
         fn2 = runN fn
         mnistImages' = BS.drop 16 mnistImages
         mnistLabels' = BS.drop 8 mnistLabels
