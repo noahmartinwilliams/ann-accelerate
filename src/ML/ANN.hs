@@ -16,8 +16,10 @@ module ML.ANN
     module ML.ANN.File,
     ANN(..),
     trainOnce,
-    ML.ANN.Layer.LSpec,
-    normalize
+    ML.ANN.Layer.LSpec(..),
+    normalize,
+    lspecGetNumOutputs,
+    lspecGetNumInputs
     ) where
 
 import ML.ANN.Costs

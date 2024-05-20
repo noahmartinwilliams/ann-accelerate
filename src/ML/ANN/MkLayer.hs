@@ -116,3 +116,5 @@ lspecGetNumOutputs :: LSpec -> Int
 lspecGetNumOutputs [] = 0
 lspecGetNumOutputs (h : t) = (getInt h) + (lspecGetNumOutputs t)
 
+lspecGetNumInputs :: LSpec -> Int 
+lspecGetNumInputs (head : _) = getInt head
