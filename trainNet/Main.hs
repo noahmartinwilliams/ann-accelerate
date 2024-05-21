@@ -57,10 +57,10 @@ main = do
     input <- System.IO.getContents
     let inplines = endBy "\n" input
     (blinfo, blockv) <- bs2block annInBS
-    let fn = runN (\x -> \y -> trainOnce (ANN blinfo x) mseCFn y)
+    let fn = runN (\x -> \y -> trainOnce (AccANN blinfo x) mseCFn y)
         samplesll = getSamplesLL inplines
         samplesvv = P.map (\(x, y) -> ((A.fromList (Z:.(P.length x)) x :: Vector Double), (A.fromList (Z:.(P.length y)) y :: Vector Double))) samplesll
-        (errors, blockv2) = train blockv samplesvv fn 
-        errorsStr = P.map (\x -> (printf "%.7F" ((toList x) P.!! 0) )  P.++ "\n") errors
+        (errorsVs, blockv2) = train blockv samplesvv fn 
+        errorsStr = P.map (\x -> (printf "%.7F" ((toList x) P.!! 0) )  P.++ "\n") errorsVs
     writer errorsStr
     B.writeFile outnetfilename (block2bs (blinfo, blockv2))

@@ -101,15 +101,15 @@ main = do
         folded = P.foldr (P.++) [] repeated
         (blinfo, blockAV) = network2block n
         blockV = run blockAV
-        fn x y = func (ANN blinfo x) (costFn costFnT) y -- let (a, b) = A.unlift y in trainOnce (ANN blinfo x) (costFn costFnT) (A.lift (a, normalize b))
+        fn x y = func (AccANN blinfo x) (costFn costFnT) y -- let (a, b) = A.unlift y in trainOnce (ANN blinfo x) (costFn costFnT) (A.lift (a, normalize b))
         fn' = runN fn 
-        (errors, output) = train blockV fn' folded
-        errorsStr = P.map (\x -> (printf "%.5F" x ) P.++ "\n") errors
+        (errorsVs, output) = train blockV fn' folded
+        errorsStr = P.map (\x -> (printf "%.5F" x ) P.++ "\n") errorsVs
         bsout = block2bs (blinfo, output)
     P.putStr (P.foldr (P.++) "" errorsStr)
     BS.writeFile "mnist.ann" (toStrict bsout)
 
-func :: ANN -> CostFn -> Acc (Vector Double, Vector Double) -> Acc (Vector Double, Vector Int, Vector Double)
+func :: AccANN -> CostFn -> Acc (Vector Double, Vector Double) -> Acc (Vector Double, Vector Int, Vector Double)
 func ann costfn y = do
     let (a, b) = A.unlift y :: (Acc (Vector Double), Acc (Vector Double))
         b2 = normalize b

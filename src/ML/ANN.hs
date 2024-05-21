@@ -15,11 +15,12 @@ module ML.ANN
     module ML.ANN.Block,
     module ML.ANN.File,
     ANN(..),
+    AccANN(..),
     trainOnce,
     ML.ANN.Layer.LSpec(..),
     normalize,
-    lspecGetNumOutputs,
-    lspecGetNumInputs
+    lspecGetNumInputs,
+    useANN
     ) where
 
 import ML.ANN.Costs
@@ -31,10 +32,14 @@ import ML.ANN.File
 import ML.ANN.Layer
 import Data.Array.Accelerate as A
 
-data ANN = ANN BlockInfo BlockA deriving(Show)
+data AccANN = AccANN BlockInfo BlockA deriving(Show)
+data ANN = ANN BlockInfo BlockV
 
-trainOnce :: ANN -> CostFn -> Acc (Vector Double, Vector Double) -> Acc (Vector Double, Vector Int, Vector Double)
-trainOnce (ANN blinfo block) (costFnErr, costFnDeriv) sample = do
+useANN :: ANN -> AccANN
+useANN (ANN blockInfo blockV) = AccANN blockInfo (use blockV)
+
+trainOnce :: AccANN -> CostFn -> Acc (Vector Double, Vector Double) -> Acc (Vector Double, Vector Int, Vector Double)
+trainOnce (AccANN blinfo block) (costFnErr, costFnDeriv) sample = do
     let net = block2network (blinfo, block)
         (input, output) = A.unlift sample
         (ln, actual) = learnNetwork net input
