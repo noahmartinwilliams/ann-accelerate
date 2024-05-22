@@ -1,11 +1,12 @@
 {-# LANGUAGE DeriveGeneric, GADTs, TypeFamilies #-}
-module ML.ANN.Block(BlInfo(..), BlockInfo(..), BlockA, BlockV, layer2block, block2layer, network2block, block2network) where
+module ML.ANN.Block(BlInfo(..), BlockInfo(..), blockInfoGetNumInputs, BlockA, BlockV, layer2block, block2layer, network2block, block2network) where
 
 import ML.ANN.Network
 import ML.ANN.Mat
 import ML.ANN.Vect
 import ML.ANN.Layer
 import ML.ANN.Optim
+import ML.ANN.MkLayer
 
 import Data.Array.Accelerate as A
 import Prelude as P
@@ -23,6 +24,21 @@ data BlInfo = SGDBlInfo Int Int LSpec | -- numInputs numOutputs lspec
     AdamBlInfo Int Int LSpec | 
     AdamBlInpInfo LSpec
     deriving(Show, P.Eq, Generic) -- lspec
+
+blockInfoGetNumInputs :: BlockInfo -> Int
+blockInfoGetNumInputs (BlockInfo _ (head : rest)) = blinfoGetNumInputs head
+
+blinfoGetNumInputs :: BlInfo -> Int
+blinfoGetNumInputs (SGDBlInfo x _ _ ) = x
+blinfoGetNumInputs (SGDBlInpInfo lspec) = lspecGetNumInputs lspec
+blinfoGetNumInputs (MomBlInfo x _ _ ) = x
+blinfoGetNumInputs (RMSBlInpInfo lspec) = lspecGetNumInputs lspec
+blinfoGetNumInputs (RMSBlInfo x _ _ ) = x
+blinfoGetNumInputs (AdagradBlInpInfo lspec) = lspecGetNumInputs lspec
+blinfoGetNumInputs (AdagradBlInfo x _ _ ) = x
+blinfoGetNumInputs (AdamBlInpInfo lspec) = lspecGetNumInputs lspec
+blinfoGetNumInputs (AdamBlInfo x _ _ ) = x
+blinfoGetNumInputs (MomBlInpInfo lspec) = lspecGetNumInputs lspec
 
 data BlockInfo = BlockInfo Optim [BlInfo ] deriving(Show, P.Eq, Generic)
 

@@ -20,7 +20,9 @@ module ML.ANN
     ML.ANN.Layer.LSpec(..),
     normalize,
     lspecGetNumInputs,
-    useANN
+    useANN,
+    blockInfoGetNumInputs,
+    annGetNumInputs
     ) where
 
 import ML.ANN.Costs
@@ -37,6 +39,9 @@ data ANN = ANN BlockInfo BlockV
 
 useANN :: ANN -> AccANN
 useANN (ANN blockInfo blockV) = AccANN blockInfo (use blockV)
+
+annGetNumInputs :: ANN -> Int
+annGetNumInputs (ANN blinfo _) = blockInfoGetNumInputs blinfo
 
 trainOnce :: AccANN -> CostFn -> Acc (Vector Double, Vector Double) -> Acc (Vector Double, Vector Int, Vector Double)
 trainOnce (AccANN blinfo block) (costFnErr, costFnDeriv) sample = do
