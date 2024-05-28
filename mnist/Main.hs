@@ -58,7 +58,7 @@ train blockv fn (h : t) = do
 data Options = Options { optRandSeed :: Int, optTrueRand :: Bool, optLayers :: [LSpec], optOptimizer :: Optim, optCost :: CostFnT, optRepeat :: Int, optInputAF :: String}
 
 startOptions :: Options
-startOptions = Options { optRandSeed = 100, optTrueRand = False, optLayers = [[Relu 64], [Relu 64]], optOptimizer = (SGD 0.0001), optCost = MSE , optRepeat = 10, optInputAF = "Relu" }
+startOptions = Options { optRandSeed = 100, optTrueRand = False, optLayers = [[Relu 64], [Relu 64]], optOptimizer = (SGD 0.0001), optCost = MSE , optRepeat = 1, optInputAF = "Relu" }
 
 options :: [OptDescr (Options -> IO Options)]
 options = [ Option "s" ["seed"] (ReqArg (\arg -> \opt -> return opt { optRandSeed = (read arg :: Int) }) "100") "random seed",
@@ -66,7 +66,7 @@ options = [ Option "s" ["seed"] (ReqArg (\arg -> \opt -> return opt { optRandSee
             Option "l" ["layers"] (ReqArg (\arg -> \opt -> return opt { optLayers = (read arg :: [LSpec]) }) "[[Sigmoid 2], [Sigmoid 3], [Sigmoid 1]]") "specify layers",
             Option "O" ["optim"] (ReqArg (\arg -> \opt -> return opt { optOptimizer = (read arg :: Optim) }) "SGD 0.0001") "specify optimizer",
             Option "c" ["cost"] (ReqArg (\arg -> \opt -> return opt { optCost = (read arg :: CostFnT) }) "MSE" ) "specify cost function." ,
-            Option "R" ["repeat"] (ReqArg (\arg -> \opt -> return opt { optRepeat = (read arg :: Int)}) "10" ) "specify number of epochs" ,
+            Option "R" ["repeat"] (ReqArg (\arg -> \opt -> return opt { optRepeat = (read arg :: Int)}) "1" ) "specify number of epochs" ,
             Option "I" ["input-af"] (ReqArg (\arg -> \opt -> return opt { optInputAF = arg }) "Relu") "specify input activation function" ]
 
 getSeed :: Int -> Bool -> IO StdGen

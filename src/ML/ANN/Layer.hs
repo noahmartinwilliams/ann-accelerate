@@ -243,7 +243,6 @@ backpropLayer (LLayer (AdamLayer numInputs weights weightsM weightsV biases bias
         fprimeW = x `vxv` (bp `vmulv` deriv)
         fprimeB = bp `vmulv` deriv
         one = constant 1.0 :: Exp Double
-        -- Don't blame me for coming up with these horrible abreviations. You would have done the same thing.
         vdw = (beta2Exp `smulm` weightsV) `maddm` ((constant (1.0 - beta2)) `smulm` (msquare fprimeW)) -- velocity of delta weights
         vdb = (beta2Exp `smulv` biasesV) `vaddv` ((constant (1.0 - beta2)) `smulv` (vsquare fprimeB))
         mdw = (beta1Exp `smulm` weightsM) `maddm` ((constant (1.0 - beta1)) `smulm` fprimeW) -- momentum of delta weights
@@ -259,7 +258,7 @@ backpropLayer (LLayer (AdamLayer numInputs weights weightsM weightsV biases bias
         biases2 = biases `vsubv` changeBiases
         bp2 = (transp weights) `mmulv` (bp `vmulv` deriv)
         (VectI bp3) = bp2
-    ((AdamLayer numInputs weights2 weightsM weightsV biases2 biasesM biasesV lspec), bp3)
+    ((AdamLayer numInputs weights2 mdw vdw biases2 mdb vdb lspec), bp3)
 
 backpropLayer (LInpLayer (AdamInpLayer weights weightsM weightsV biases biasesM biasesV lspec) x) (Adam alpha beta1 beta2) bpInp t = do
     let deriv = dapplyActFuncs lspec ((weights `vmulv` x) `vaddv` biases)

@@ -23,7 +23,7 @@ cat configsMnist.txt | head -n 100 | while read CONFIG ; do
 	BETA2=$(echo "$CONFIG" | jshon -e 'beta2' -u );
 	INPUTAF=$(echo "$CONFIG" | jshon -e 'inputAF' -u );
 	COSTF=$(echo "$CONFIG" | jshon -e 'costF' -u);
-	stack run --rts-options=-N$(nproc) -- mnist -R 10 -l "$LAYERS" -O "($OPTIM $LR $BETA1 $BETA2)" -s 100 -c "$COSTF" -I "$INPUTAF" > /tmp/results-mnist-$X.txt 
+	stack run --rts-options=-N$(nproc) -- mnist -R 1 -l "$LAYERS" -O "($OPTIM $LR $BETA1 $BETA2)" -s 100 -c "$COSTF" -I "$INPUTAF" > /tmp/results-mnist-$X.txt 
 	mv mnist.ann nets/$X.ann
 	mv /tmp/results-mnist-$X.txt results/
 
