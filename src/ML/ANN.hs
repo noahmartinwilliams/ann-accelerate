@@ -22,7 +22,9 @@ module ML.ANN
     lspecGetNumInputs,
     useANN,
     blockInfoGetNumInputs,
-    annGetNumInputs
+    blockInfoGetNumOutputs,
+    annGetNumInputs,
+    annGetNumOutputs
     ) where
 
 import ML.ANN.Costs
@@ -42,6 +44,9 @@ useANN (ANN blockInfo blockV) = AccANN blockInfo (use blockV)
 
 annGetNumInputs :: ANN -> Int
 annGetNumInputs (ANN blinfo _) = blockInfoGetNumInputs blinfo
+
+annGetNumOutputs :: ANN -> Int 
+annGetNumOutputs (ANN blinfo _) = blockInfoGetNumOutputs blinfo
 
 trainOnce :: AccANN -> CostFn -> Acc (Vector Double, Vector Double) -> Acc (Vector Double, Vector Int, Vector Double)
 trainOnce (AccANN blinfo block) (costFnErr, costFnDeriv) sample = do

@@ -1,5 +1,5 @@
 {-# LANGUAGE DeriveGeneric, GADTs, TypeFamilies #-}
-module ML.ANN.Block(BlInfo(..), BlockInfo(..), blockInfoGetNumInputs, BlockA, BlockV, layer2block, block2layer, network2block, block2network) where
+module ML.ANN.Block(BlInfo(..), BlockInfo(..), blockInfoGetNumInputs, blockInfoGetNumOutputs, BlockA, BlockV, layer2block, block2layer, network2block, block2network) where
 
 import ML.ANN.Network
 import ML.ANN.Mat
@@ -27,6 +27,12 @@ data BlInfo = SGDBlInfo Int Int LSpec | -- numInputs numOutputs lspec
 
 blockInfoGetNumInputs :: BlockInfo -> Int
 blockInfoGetNumInputs (BlockInfo _ (head : rest)) = blinfoGetNumInputs head
+
+blockInfoGetNumOutputs :: BlockInfo -> Int
+blockInfoGetNumOutputs (BlockInfo _ list) = do
+    let rev = P.reverse list
+        (head : _) = rev
+    blinfoGetNumInputs head
 
 blinfoGetNumInputs :: BlInfo -> Int
 blinfoGetNumInputs (SGDBlInfo x _ _ ) = x

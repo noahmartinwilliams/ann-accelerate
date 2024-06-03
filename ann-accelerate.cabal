@@ -1,0 +1,166 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.36.0.
+--
+-- see: https://github.com/sol/hpack
+
+name:           ann-accelerate
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/githubuser/ann-accelerate#readme>
+homepage:       https://github.com/noahmartinwilliams/ann-accelerate#readme
+bug-reports:    https://github.com/noahmartinwilliams/ann-accelerate/issues
+author:         Noah Martin Williams
+maintainer:     noahmartinwilliams@gmail.com
+copyright:      2023 Noah Martin Williams
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    CHANGELOG.md
+
+source-repository head
+  type: git
+  location: https://github.com/noahmartinwilliams/ann-accelerate
+
+library
+  exposed-modules:
+      ML.ANN
+      ML.ANN.ActFuncs
+      ML.ANN.Block
+      ML.ANN.Costs
+      ML.ANN.File
+      ML.ANN.Layer
+      ML.ANN.Mat
+      ML.ANN.MkLayer
+      ML.ANN.Network
+      ML.ANN.Optim
+      ML.ANN.Vect
+  other-modules:
+      Paths_ann_accelerate
+  hs-source-dirs:
+      src
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts
+  build-depends:
+      accelerate
+    , accelerate-io
+    , accelerate-io-bytestring
+    , base >=4.7 && <5
+    , bytestring
+    , bytestring-conversion
+    , cereal
+    , normaldistribution
+    , random
+  default-language: Haskell2010
+
+executable calcNet
+  main-is: Main.hs
+  other-modules:
+      Paths_ann_accelerate
+  hs-source-dirs:
+      calcNet
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      accelerate
+    , accelerate-llvm-ptx
+    , ann-accelerate
+    , base
+    , bytestring
+    , split
+  default-language: Haskell2010
+
+executable genOrGate
+  main-is: Main.hs
+  other-modules:
+      Paths_ann_accelerate
+  hs-source-dirs:
+      genOrGate
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      accelerate
+    , base
+    , parallel
+    , random
+  default-language: Haskell2010
+
+executable mkNet
+  main-is: Main.hs
+  other-modules:
+      Paths_ann_accelerate
+  hs-source-dirs:
+      mkNet
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      accelerate
+    , ann-accelerate
+    , base
+    , bytestring
+    , random
+    , split
+  default-language: Haskell2010
+
+executable mnist
+  main-is: Main.hs
+  other-modules:
+      Paths_ann_accelerate
+  hs-source-dirs:
+      mnist
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      accelerate
+    , accelerate-llvm-ptx
+    , ann-accelerate
+    , base
+    , bytestring
+    , parallel
+    , random
+    , split
+  default-language: Haskell2010
+
+executable mnistTest
+  main-is: Main.hs
+  other-modules:
+      Paths_ann_accelerate
+  hs-source-dirs:
+      mnistTest
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      accelerate
+    , accelerate-llvm-ptx
+    , ann-accelerate
+    , base
+    , bytestring
+    , random
+    , split
+  default-language: Haskell2010
+
+executable trainNet
+  main-is: Main.hs
+  other-modules:
+      Paths_ann_accelerate
+  hs-source-dirs:
+      trainNet
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      accelerate
+    , accelerate-llvm-ptx
+    , ann-accelerate
+    , base
+    , bytestring
+    , parallel
+    , random
+    , split
+  default-language: Haskell2010
+
+test-suite ann-accelerate-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_ann_accelerate
+  hs-source-dirs:
+      test
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      ann-accelerate
+    , base >=4.7 && <5
+  default-language: Haskell2010
