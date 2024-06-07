@@ -22,6 +22,7 @@ mkNetwork g lspec (Adam alpha beta1 beta2) | (P.length lspec) P.>=2 = do
         layer1 = mkAdamInpLayer rands firstLayer numInputs
         numOutputs = lspecGetNumOutputs (lspec P.!! 1)
     Network (layer1 : (mkNetworkLayers mkAdamLayer rands restLayers numInputs numOutputs)) (Adam alpha beta1 beta2) (use (fromList (Z) [0]))
+
 mkNetwork g lspec (RMSProp alpha beta) | (P.length lspec) P.>=2 = do
     let rands = normals g
         numInputs = lspecGetNumOutputs (lspec P.!! 0)
@@ -38,6 +39,13 @@ mkNetwork g lspec (Mom alpha beta) | (P.length lspec) P.>=2 = do
         numOutputs = lspecGetNumOutputs (lspec P.!! 1)
     Network (layer1 : (mkNetworkLayers mkMomLayer rands restLayers numInputs numOutputs)) (Mom alpha beta) (use (fromList (Z) [0]))
 
+mkNetwork g [lspec] (SGD lr) | (P.length lspec) P.>= 2 = do
+    let rands = normals g
+        numInputs = lspecGetNumOutputs lspec
+        layer1 = mkSGDInpLayer rands lspec
+        numOutputs = lspecGetNumOutputs lspec
+    Network [layer1] (SGD lr) (use (fromList (Z) [0]))
+
 mkNetwork g lspec (SGD lr) | (P.length lspec) P.>= 2 = do
     let rands = normals g
         numInputs = lspecGetNumOutputs (lspec P.!! 0)
@@ -45,6 +53,7 @@ mkNetwork g lspec (SGD lr) | (P.length lspec) P.>= 2 = do
         layer1 = mkSGDInpLayer rands firstLayer
         numOutputs = lspecGetNumOutputs (lspec P.!! 1)
     Network (layer1 : (mkNetworkLayers mkSGDLayer rands restLayers numInputs numOutputs)) (SGD lr) (use (fromList (Z) [0]))
+
 mkNetwork g lspec (Adagrad lr) | (P.length lspec) P.>= 2 = do
     let rands = normals g
         numInputs = lspecGetNumOutputs (lspec P.!! 0)
