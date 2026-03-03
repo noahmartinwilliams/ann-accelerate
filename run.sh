@@ -1,7 +1,7 @@
 #! /bin/bash
 
 set -e
-cabal build all -j16  
+stack build -j16  
 
 X=0
 ./genConfigs.pl > configs.txt
@@ -11,8 +11,8 @@ cat configs.txt | while read CONFIG ; do
 	LR=$(echo "$CONFIG" | jshon -e 'lr' -u );
 	BETA1=$(echo "$CONFIG" | jshon -e 'beta1' -u );
 	BETA2=$(echo "$CONFIG" | jshon -e 'beta2' -u );
-	stack run mkNet -l "$LAYERS" -O "($OPTIM $LR $BETA1 $BETA2)" -s 200 -o nets/untrained$X.ann ;
-	stack run genOrGate | stack run trainNet -I nets/untrained$X.ann -O nets/trained$X.ann | tee /tmp/results$X.txt ;
+	stack run -- mkNet -l "$LAYERS" -O "($OPTIM $LR $BETA1 $BETA2)" -s 200 -o nets/untrained$X.ann ;
+	stack run genOrGate | stack run -- trainNet -I nets/untrained$X.ann -O nets/trained$X.ann | tee /tmp/results$X.txt ;
 	X=$(($X + 1));
 done
 mv /tmp/results*.txt ./results

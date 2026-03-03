@@ -1,6 +1,6 @@
 cabal-version: 1.12
 
--- This file has been generated from package.yaml by hpack version 0.36.0.
+-- This file has been generated from package.yaml by hpack version 0.39.1.
 --
 -- see: https://github.com/sol/hpack
 
@@ -49,6 +49,7 @@ library
     , bytestring
     , bytestring-conversion
     , cereal
+    , mtl
     , normaldistribution
     , random
   default-language: Haskell2010
@@ -112,6 +113,7 @@ executable mnist
     , ann-accelerate
     , base
     , bytestring
+    , cuda
     , parallel
     , random
     , split

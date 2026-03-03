@@ -1,6 +1,7 @@
 {-# LANGUAGE GADTs, DataKinds, KindSignatures, TypeOperators, FlexibleContexts #-}
 module ML.ANN.Network (Network(..), LNetwork(..), calcNetwork, mkNetwork, learnNetwork, backpropNetwork) where
 
+import Control.Monad.State.Lazy
 import Data.Array.Accelerate as A
 import Prelude as P
 import System.Random
@@ -15,6 +16,12 @@ data Network = Network [Layer] Optim (Acc (Scalar Int)) deriving(Show)
 data LNetwork = LNetwork [LLayer] Optim (Acc (Scalar Int)) deriving(Show)
 
 mkNetwork :: StdGen -> [LSpec] -> Optim -> Network
+mkNetwork g [lspec] (Adam alpha beta1 beta2) = do
+    let rands = normals g
+        numInputs = lspecGetNumOutputs lspec
+        layer = mkAdamInpLayer rands lspec numInputs
+    Network [layer] (Adam alpha beta1 beta2) (use (fromList (Z) [0]))
+
 mkNetwork g lspec (Adam alpha beta1 beta2) | (P.length lspec) P.>=2 = do
     let rands = normals g
         numInputs = lspecGetNumOutputs (lspec P.!! 0)
@@ -39,7 +46,7 @@ mkNetwork g lspec (Mom alpha beta) | (P.length lspec) P.>=2 = do
         numOutputs = lspecGetNumOutputs (lspec P.!! 1)
     Network (layer1 : (mkNetworkLayers mkMomLayer rands restLayers numInputs numOutputs)) (Mom alpha beta) (use (fromList (Z) [0]))
 
-mkNetwork g [lspec] (SGD lr) | (P.length lspec) P.>= 2 = do
+mkNetwork g [lspec] (SGD lr) = do
     let rands = normals g
         numInputs = lspecGetNumOutputs lspec
         layer1 = mkSGDInpLayer rands lspec
