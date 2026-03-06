@@ -42,7 +42,7 @@ getImages bs = do
     let unpacked = BS.unpack bs
         integers = P.map (\x -> P.fromIntegral x :: Int) unpacked
         doubles = P.map (\x -> P.fromIntegral x :: Double) integers
-        adjusted = P.map (\x -> (x - 128.0) / 128.0) doubles
+        adjusted = P.map (\x -> (x - 128.0) / 256.0) doubles
         chunked = chunksOf (28*28) adjusted
         vectored = P.map (\x -> fromList (Z:.(28*28)) x) chunked
     vectored
@@ -95,7 +95,7 @@ main = do
         mnistImages' = BS.drop 16 mnistImages 
         mnistLabels' = BS.drop 8 mnistLabels
         labelVects = getLabels mnistLabels'
-        imageVects = getImages mnistImages' `using` parBuffer numCapabilities rdeepseq
+        imageVects = getImages mnistImages' `using` parListChunk numCapabilities rpar
         zipped = P.zip imageVects labelVects
         repeated = P.take numEpochs (P.repeat zipped)
         folded = P.foldr (P.++) [] repeated
@@ -111,8 +111,8 @@ main = do
 
 func :: AccANN -> CostFn -> Acc (Vector Double, Vector Double) -> Acc (Vector Double, Vector Int, Vector Double)
 func ann costfn y = do
-    let (a, b) = A.unlift y :: (Acc (Vector Double), Acc (Vector Double))
-        b2 = normalize b
-        ab = A.lift (a, b2) :: Acc (Vector Double, Vector Double)
-    trainOnce ann costfn ab
+    --let (a, b) = A.unlift y :: (Acc (Vector Double), Acc (Vector Double))
+        --b2 = normalize b
+        --ab = A.lift (a, b2) :: Acc (Vector Double, Vector Double)
+    trainOnce ann costfn y
 

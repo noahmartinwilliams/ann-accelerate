@@ -34,8 +34,9 @@ beta2('0.9').
 beta2('0.99').
 beta2('0.999').
 
+bite_sizes(64).
 bite_sizes(32).
-bite_sizes(16).
+%bite_sizes(16).
 %bite_sizes(4).
 
 concat_atoms([], '').
@@ -100,7 +101,7 @@ ann2str(Optim, Layers, LR, Beta1, Beta2, Tmp14) :- !,
 	atom_concat(Tmp13, '"}', Tmp14).
 
 main:- mk_ann(Optim, Layers, LR, Beta1, Beta2), 
-	Prob is 1.0/100000.0, maybe(Prob), /*There are so many possible combinations that we (probably) can not fit them all on disk, so we need to cut out some of them at random.*/
+	Prob is 1.0/1000.0, maybe(Prob), /*There are so many possible combinations that we (probably) can not fit them all on disk, so we need to cut out some of them at random.*/
 	ann2str(Optim, Layers, LR, Beta1, Beta2, Str), 
 	catch(writeln(Str), _, halt(0)), 
 	fail.

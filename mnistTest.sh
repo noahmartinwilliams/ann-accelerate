@@ -9,6 +9,7 @@ ls nets/ | sort -n | while read NET ; do
 	NUMLINES=$(cat tests/$X | wc -l | sed 's/^\([0-9]*\)[[:space:]].*$/\1/g' )
 	NUMTRUES=$(cat tests/$X | grep 'True' | wc -l | sed 's/^\([0-9]\)[[:space:]]*$/\1/g')
 	echo "scale = 5 ; $NUMTRUES / $NUMLINES" | bc -lq >> tests/results-$X.txt
+	cat tests/results-$X.txt | sort | uniq -c > tests/result-$X.txt
 	X=$(($X + 1));
 done
 
