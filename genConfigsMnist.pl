@@ -17,7 +17,7 @@ num_layers(2).
 
 act_funcs('Relu').
 act_funcs('Sigmoid').
-act_funcs('Ident').
+%act_funcs('Ident').
 act_funcs('Softmax').
 act_funcs('TanH').
 
@@ -99,5 +99,9 @@ ann2str(Optim, Layers, LR, Beta1, Beta2, Tmp14) :- !,
 	atom_concat(Tmp12, AF, Tmp13),
 	atom_concat(Tmp13, '"}', Tmp14).
 
-main:- mk_ann(Optim, Layers, LR, Beta1, Beta2), ann2str(Optim, Layers, LR, Beta1, Beta2, Str), writeln(Str), fail.
+main:- mk_ann(Optim, Layers, LR, Beta1, Beta2), 
+	Prob is 1.0/100000.0, maybe(Prob), /*There are so many possible combinations that we (probably) can not fit them all on disk, so we need to cut out some of them at random.*/
+	ann2str(Optim, Layers, LR, Beta1, Beta2, Str), 
+	catch(writeln(Str), _, halt(0)), 
+	fail.
 main:- halt(0).
