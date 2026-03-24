@@ -1,6 +1,6 @@
-name:                accelerate-ann
+name:                ann-accelerate
 version:             0.1.0.0
-github:              "noahmartinwilliams/accelerate-ann"
+github:              "noahmartinwilliams/ann-accelerate"
 license:             BSD-3-Clause
 author:              "Noah Martin Williams"
 maintainer:          "noahmartinwilliams@gmail.com"
@@ -40,7 +40,7 @@ library:
   - matrix-accelerate
 
 executables:
-  accelerate-ann-exe:
+  ann-accelerate-exe:
     main:                Main.hs
     source-dirs:         app
     ghc-options:
@@ -48,10 +48,10 @@ executables:
     - -rtsopts
     - -with-rtsopts=-N
     dependencies:
-    - accelerate-ann
+    - ann-accelerate
 
 tests:
-  accelerate-ann-test:
+  ann-accelerate-test:
     main:                Spec.hs
     source-dirs:         test
     ghc-options:
@@ -59,4 +59,4 @@ tests:
     - -rtsopts
     - -with-rtsopts=-N
     dependencies:
-    - accelerate-ann
+    - ann-accelerate

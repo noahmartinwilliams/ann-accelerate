@@ -4,11 +4,11 @@ cabal-version: 2.2
 --
 -- see: https://github.com/sol/hpack
 
-name:           accelerate-ann
+name:           ann-accelerate
 version:        0.1.0.0
 description:    Please see the README on GitHub at <https://github.com/noahmartinwilliams/accelerate-ann#readme>
-homepage:       https://github.com/noahmartinwilliams/accelerate-ann#readme
-bug-reports:    https://github.com/noahmartinwilliams/accelerate-ann/issues
+homepage:       https://github.com/noahmartinwilliams/ann-accelerate#readme
+bug-reports:    https://github.com/noahmartinwilliams/ann-accelerate/issues
 author:         Noah Martin Williams
 maintainer:     noahmartinwilliams@gmail.com
 copyright:      GPL
@@ -21,16 +21,16 @@ extra-source-files:
 
 source-repository head
   type: git
-  location: https://github.com/noahmartinwilliams/accelerate-ann
+  location: https://github.com/noahmartinwilliams/ann-accelerate
 
 library
   exposed-modules:
       ML.ANN.MkLayer
       ML.ANN.Types
   other-modules:
-      Paths_accelerate_ann
+      Paths_ann_accelerate
   autogen-modules:
-      Paths_accelerate_ann
+      Paths_ann_accelerate
   hs-source-dirs:
       src
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
@@ -40,31 +40,31 @@ library
     , matrix-accelerate
   default-language: Haskell2010
 
-executable accelerate-ann-exe
+executable ann-accelerate-exe
   main-is: Main.hs
   other-modules:
-      Paths_accelerate_ann
+      Paths_ann_accelerate
   autogen-modules:
-      Paths_accelerate_ann
+      Paths_ann_accelerate
   hs-source-dirs:
       app
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      accelerate-ann
+      ann-accelerate
     , base >=4.7 && <5
   default-language: Haskell2010
 
-test-suite accelerate-ann-test
+test-suite ann-accelerate-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
-      Paths_accelerate_ann
+      Paths_ann_accelerate
   autogen-modules:
-      Paths_accelerate_ann
+      Paths_ann_accelerate
   hs-source-dirs:
       test
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      accelerate-ann
+      ann-accelerate
     , base >=4.7 && <5
   default-language: Haskell2010

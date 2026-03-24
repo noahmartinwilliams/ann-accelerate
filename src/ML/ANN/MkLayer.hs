@@ -14,3 +14,14 @@ mkWeights numIns numOuts rands = do
         r = P.drop (numOuts * numIns) rands
     (AccMat m Outp Inp, r )
 
+mkBiases :: Int -> [Double] -> (Biases, [Double])
+mkBiases numOuts rands = do
+    let b = use (fromList (Z:.numOuts:.1) (heWeightInit numOuts rands))
+        r = P.drop (numOuts) rands
+    (AccMat b Outp One, r)
+
+mkLayer :: Int -> Int -> [Double] -> LayerType -> (Layer, [Double])
+mkLayer numIns numOuts rands (SGD) = do
+    let (weights, rands') = mkWeights numIns numOuts rands
+        (biases, rands'') = mkBiases numOuts rands'
+    (Layer { lweights = weights, lbiases = biases, ltype = SGD }, rands'')

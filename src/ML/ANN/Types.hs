@@ -8,7 +8,7 @@ data One = One
 data Inp = Inp
 data Outp = Outp
 
-type Vect a b = AccMat a One b
+type Vect a b = AccMat a b One
 type Weights = AccMat Double Outp Inp 
 type Biases = Vect Double Outp
 
