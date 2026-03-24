@@ -38,6 +38,8 @@ library:
   dependencies:
   - accelerate
   - matrix-accelerate
+  - normaldistribution
+  - random
 
 executables:
   ann-accelerate-exe:
