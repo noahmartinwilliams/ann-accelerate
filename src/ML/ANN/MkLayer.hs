@@ -20,8 +20,9 @@ mkBiases numOuts rands = do
         r = P.drop (numOuts) rands
     (AccMat b Outp One, r)
 
-mkLayer :: Int -> Int -> [Double] -> LayerType -> (Layer, [Double])
-mkLayer numIns numOuts rands (SGD) = do
+mkLayer :: Int -> LSpec -> [Double] -> LayerType -> (Layer, [Double])
+mkLayer numIns lspec rands (SGD) = do
+    let numOuts = P.foldr (+) 0 (P.map (\(i, _) -> i) lspec)
     let (weights, rands') = mkWeights numIns numOuts rands
         (biases, rands'') = mkBiases numOuts rands'
-    (Layer { lweights = weights, lbiases = biases, ltype = SGD }, rands'')
+    (Layer { lweights = weights, lbiases = biases, ltype = SGD, llspec = lspec}, rands'')
