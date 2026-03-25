@@ -25,6 +25,7 @@ source-repository head
 
 library
   exposed-modules:
+      ML.ANN.ActFunc
       ML.ANN.BPLayer
       ML.ANN.InfLayer
       ML.ANN.LLayer
