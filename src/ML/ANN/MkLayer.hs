@@ -23,6 +23,13 @@ mkBiases numOuts rands = do
 mkLayer :: Int -> LSpec -> [Double] -> LayerType -> (Layer, [Double])
 mkLayer numIns lspec rands (SGD) = do
     let numOuts = P.foldr (+) 0 (P.map (\(i, _) -> i) lspec)
-    let (weights, rands') = mkWeights numIns numOuts rands
+        (weights, rands') = mkWeights numIns numOuts rands
         (biases, rands'') = mkBiases numOuts rands'
     (Layer { lweights = weights, lbiases = biases, ltype = SGD, llspec = lspec}, rands'')
+
+mkInpLayer :: LSpec -> [Double] -> LayerType -> (Layer, [Double])
+mkInpLayer lspec rands SGD = do
+    let numOuts = P.foldr (+) 0 (P.map P.fst lspec)
+        (weights, rands') = mkBiases numOuts rands
+        (biases, rands'') = mkBiases numOuts rands'
+    (InpLayer { vweights = weights, vbiases = biases, vlspec = lspec, vtype = SGD}, rands'')

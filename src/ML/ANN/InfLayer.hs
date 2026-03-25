@@ -30,3 +30,9 @@ inferLayer inp (Layer { lweights = w, lbiases = b, llspec = lspec }) = do
         m = (w `matMul` inp') `matAdd` b
         (AccMat m' One Outp) = actFuncs lspec (matTransp m )
     A.transpose m'
+inferLayer inp (InpLayer { vweights = (AccMat w Outp One) , vbiases = (AccMat b Outp One), vlspec = lspec}) = do
+    let m = A.zipWith (*) inp w
+        m' = A.zipWith (+) m b
+        m'' = AccMat (A.transpose m') One Outp
+        (AccMat m2 _ _) = actFuncs lspec m''
+    A.transpose m2
