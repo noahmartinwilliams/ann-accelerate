@@ -30,6 +30,7 @@ library
       ML.ANN.InfLayer
       ML.ANN.LLayer
       ML.ANN.MkLayer
+      ML.ANN.Network
       ML.ANN.Types
   other-modules:
       Paths_ann_accelerate

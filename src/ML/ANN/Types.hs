@@ -23,3 +23,7 @@ data Layer = Layer { lnumInputs :: Int, lweights :: Weights, lbiases :: Biases ,
 data LLayer = LLayer { llprevInput :: (AccMat Double Inp One), llayer :: Layer }
 
 data Optim = SGDOptim (Exp Double) 
+
+data Network = Network [Layer] Optim
+
+data LNetwork = LNetwork [LLayer] Optim

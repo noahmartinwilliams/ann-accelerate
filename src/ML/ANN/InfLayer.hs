@@ -8,13 +8,13 @@ import ML.ANN.Types
 import Prelude as P
 
 
-inferLayer :: Acc (Matrix Double) -> Layer -> Acc (Matrix Double)
-inferLayer inp (Layer { lweights = w, lbiases = b, llspec = lspec }) = do
+inferLayer :: Layer -> Acc (Matrix Double) -> Acc (Matrix Double)
+inferLayer (Layer { lweights = w, lbiases = b, llspec = lspec }) inp = do
     let inp' = AccMat inp Inp One
         m = (w `matMul` inp') `matAdd` b
         (AccMat m' One Outp) = actFuncs lspec (matTransp m )
     A.transpose m'
-inferLayer inp (InpLayer { vweights = (AccMat w Outp One) , vbiases = (AccMat b Outp One), vlspec = lspec}) = do
+inferLayer (InpLayer { vweights = (AccMat w Outp One) , vbiases = (AccMat b Outp One), vlspec = lspec}) inp = do
     let m = A.zipWith (*) inp w
         m' = A.zipWith (+) m b
         m'' = AccMat (A.transpose m') One Outp
