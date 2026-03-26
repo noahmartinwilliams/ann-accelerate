@@ -20,16 +20,16 @@ mkBiases numOuts rands = do
         r = P.drop (numOuts) rands
     (AccMat b Outp One, r)
 
-mkLayer :: Int -> LSpec -> [Double] -> LayerType -> (Layer, [Double])
-mkLayer numIns lspec rands (SGD) = do
+mkLayer :: Int -> LSpec -> [Double] -> (Layer, [Double])
+mkLayer numIns lspec rands = do
     let numOuts = P.foldr (+) 0 (P.map (\(i, _) -> i) lspec)
         (weights, rands') = mkWeights numIns numOuts rands
         (biases, rands'') = mkBiases numOuts rands'
-    (Layer { lweights = weights, lbiases = biases, ltype = SGD, llspec = lspec}, rands'')
+    (Layer { lnumInputs = numIns, lweights = weights, lbiases = biases, llspec = lspec}, rands'')
 
-mkInpLayer :: LSpec -> [Double] -> LayerType -> (Layer, [Double])
-mkInpLayer lspec rands SGD = do
+mkInpLayer :: LSpec -> [Double] -> (Layer, [Double])
+mkInpLayer lspec rands = do
     let numOuts = P.foldr (+) 0 (P.map P.fst lspec)
         (weights, rands') = mkBiases numOuts rands
         (biases, rands'') = mkBiases numOuts rands'
-    (InpLayer { vweights = weights, vbiases = biases, vlspec = lspec, vtype = SGD}, rands'')
+    (InpLayer { vweights = weights, vbiases = biases, vlspec = lspec}, rands'')
