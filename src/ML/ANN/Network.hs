@@ -1,6 +1,7 @@
 module ML.ANN.Network where
 
 import Data.Array.Accelerate as A
+import Data.Array.Accelerate.Matrix
 import Data.Random.Normal
 import ML.ANN.BPLayer
 import ML.ANN.InfLayer
@@ -38,3 +39,20 @@ learnNetwork (Network (h : t) optim) m = do
     let (l, m') = learnLayer h m
         ((LNetwork l' _), m'') = learnNetwork (Network t optim) m'
     (LNetwork (l : l') optim, m'')
+
+batchLearnNetwork :: Network -> [Acc (Matrix Double)] -> ([LNetwork], [Acc (Matrix Double)])
+batchLearnNetwork n inpLs = P.unzip (P.map (learnNetwork n) inpLs)
+
+
+bpNetwork :: LNetwork -> Acc (Matrix Double) -> (Network, Acc (Matrix Double))
+bpNetwork (LNetwork layers optim) bp = do
+    let bp' = AccMat bp Outp One
+        (n, (AccMat e Outp One)) = intern (P.reverse layers) bp' optim 
+    (n, e) where
+
+        intern :: [LLayer] -> AccMat Double Outp One -> Optim -> (Network, AccMat Double Outp One)
+        intern [] a o = ((Network [] o), a)
+        intern ( h : t) a opt = do
+            let (l, e) = bpLayer h opt a
+                ((Network l' _), e') = intern t e opt
+            (Network (l' P.++ [l]) opt, e')
