@@ -53,8 +53,8 @@ executables:
     - ann-accelerate
 
 tests:
-  ann-accelerate-test:
-    main:                Spec.hs
+  testAndGate:
+    main:                AndGateSpec.hs
     source-dirs:         test
     ghc-options:
     - -threaded
@@ -62,3 +62,4 @@ tests:
     - -with-rtsopts=-N
     dependencies:
     - ann-accelerate
+    - random

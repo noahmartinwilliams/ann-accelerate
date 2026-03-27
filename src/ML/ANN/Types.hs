@@ -27,3 +27,9 @@ data Optim = SGDOptim (Exp Double)
 data Network = Network [Layer] Optim
 
 data LNetwork = LNetwork [LLayer] Optim
+
+type AccBlock = Acc (Vector Int, Vector Double)
+
+data LayerInfo = LayerInfo Bool LSpec Int 
+
+data BLInfo = BLSGD [LayerInfo]

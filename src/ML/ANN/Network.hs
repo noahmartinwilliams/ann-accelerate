@@ -3,6 +3,7 @@ module ML.ANN.Network where
 import Data.Array.Accelerate as A
 import Data.Array.Accelerate.Matrix
 import Data.Random.Normal
+import ML.ANN.Block
 import ML.ANN.BPLayer
 import ML.ANN.InfLayer
 import ML.ANN.LLayer
