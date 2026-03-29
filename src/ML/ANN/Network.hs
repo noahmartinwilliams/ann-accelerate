@@ -5,6 +5,7 @@ import Data.Array.Accelerate.Matrix
 import Data.Random.Normal
 import ML.ANN.Block
 import ML.ANN.BPLayer
+import ML.ANN.ErrorFn
 import ML.ANN.InfLayer
 import ML.ANN.LLayer
 import ML.ANN.MkLayer
@@ -57,3 +58,16 @@ bpNetwork (LNetwork layers optim) bp = do
             let (l, e) = bpLayer h opt a
                 ((Network l' _), e') = intern t e opt
             (Network (l' P.++ [l]) opt, e')
+
+trainOnce :: BLInfo -> AccBlock -> Acc (Matrix Double, Matrix Double) -> Acc (Matrix Double, Matrix Double, Vector Int, Vector Double)
+trainOnce blinfo block sample = do
+    let net = block2network blinfo block
+        (inp, outp) = A.unlift sample :: (Acc (Matrix Double), Acc (Matrix Double))
+        (ln, netOut) = learnNetwork net inp
+        err = mseErrorFn netOut outp
+        derr = dmseErrorFn netOut outp
+        (net', bp) = bpNetwork ln derr
+        (_, block') = network2block net'
+        (blockI, blockD) = A.unlift block :: (Acc (Vector Int), Acc (Vector Double))
+        ret = A.lift (err, bp, blockI, blockD)
+    ret

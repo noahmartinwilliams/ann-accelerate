@@ -28,6 +28,7 @@ library
       ML.ANN.ActFunc
       ML.ANN.Block
       ML.ANN.BPLayer
+      ML.ANN.ErrorFn
       ML.ANN.InfLayer
       ML.ANN.LLayer
       ML.ANN.MkLayer
@@ -48,33 +49,36 @@ library
     , random
   default-language: Haskell2010
 
-executable ann-accelerate-exe
-  main-is: Main.hs
-  other-modules:
-      Paths_ann_accelerate
-  autogen-modules:
-      Paths_ann_accelerate
-  hs-source-dirs:
-      app
-  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
-  build-depends:
-      ann-accelerate
-    , base >=4.7 && <5
-  default-language: Haskell2010
-
 test-suite testAndGate
   type: exitcode-stdio-1.0
   main-is: AndGateSpec.hs
   other-modules:
-      Spec
       Paths_ann_accelerate
   autogen-modules:
       Paths_ann_accelerate
   hs-source-dirs:
-      test
-  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+      test/andGate
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
   build-depends:
-      ann-accelerate
+      accelerate
+    , ann-accelerate
+    , base >=4.7 && <5
+    , random
+  default-language: Haskell2010
+
+test-suite testBlock
+  type: exitcode-stdio-1.0
+  main-is: BlockSpec.hs
+  other-modules:
+      Paths_ann_accelerate
+  autogen-modules:
+      Paths_ann_accelerate
+  hs-source-dirs:
+      test/block/
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
+  build-depends:
+      accelerate
+    , ann-accelerate
     , base >=4.7 && <5
     , random
   default-language: Haskell2010

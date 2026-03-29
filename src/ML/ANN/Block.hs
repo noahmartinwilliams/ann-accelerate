@@ -21,14 +21,19 @@ network2block (Network layers optim@(SGDOptim lr)) = do
     let lr' = A.unit lr
         lr'' = A.replicate (constant (Z:.(1 :: Int))) lr' :: Acc (Vector Double)
         lspecs = P.map getllspec layers
-        numOuts = P.map getLSpecNumOuts lspecs
+        numIns = getNumIns layers
         bools = P.map isInpLayer layers
         (aints, adoubles) = P.unzip (P.map (layer2block optim) layers)
         numLayers = P.length layers
         aints' = P.foldl (A.++) (use (fromList (Z:.1) [numLayers])) aints
         adoubles' = P.foldl (A.++) lr'' adoubles
-        blinfo = P.zipWith3 LayerInfo bools lspecs numOuts
+        blinfo = P.zipWith3 LayerInfo bools lspecs numIns
     (BLSGD blinfo, A.lift (aints', adoubles')) where
+
+        getNumIns :: [Layer] -> [Int]
+        getNumIns [] = []
+        getNumIns ((InpLayer { vlspec = vl}) : rest) = (getLSpecNumOuts vl) : (getNumIns rest)
+        getNumIns ((Layer { lnumInputs = ni}) : rest) = ni : (getNumIns rest)
 
         layer2block :: Optim -> Layer -> (Acc (Vector Int), Acc (Vector Double))
         layer2block (SGDOptim _) (InpLayer { vweights = (AccMat w _ _) , vbiases = (AccMat b _ _)}) = do
@@ -43,11 +48,10 @@ network2block (Network layers optim@(SGDOptim lr)) = do
 block2network :: BLInfo -> AccBlock -> Network
 block2network (BLSGD ls) accblock = do
     let (accIs, accDs) = A.unlift accblock
-        accNumLayers = A.take (constant 1) accIs
         accIs' = A.drop (constant 1) accIs
-        lr = (A.take (constant 1) accDs) A.!! (constant 0)
+        lr = A.the (A.reshape (constant Z) (A.take (constant 1) accDs ))
         accDs' = A.drop (constant 1) accDs
-        layers = intern ls accIs accDs 
+        layers = intern ls accIs' accDs'
     Network layers (SGDOptim lr) where
 
         intern :: [LayerInfo] -> Acc (Vector Int) -> Acc (Vector Double) -> [Layer] 
@@ -59,7 +63,7 @@ block2network (BLSGD ls) accblock = do
                 biasesR = A.drop (constant numIns) weightsR
                 weightsM = AccMat (A.reshape (constant (Z:.numIns:.1)) weightsV) Outp One
                 biasesM = AccMat (A.reshape (constant (Z:.numIns:.1)) biasesV) Outp One
-            ((InpLayer { vweights = weightsM, vbiases = biasesM, vlspec = lspec}) : intern rest ints biasesR)
+            ((InpLayer { vweights = weightsM, vbiases = biasesM, vlspec = lspec}) : (intern rest ints biasesR))
 
         intern ((LayerInfo False lspec numIns) : rest) ints doubles = do
             let numOuts = getLSpecNumOuts lspec

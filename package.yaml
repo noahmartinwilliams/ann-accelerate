@@ -41,25 +41,23 @@ library:
   - normaldistribution
   - random
 
-executables:
-  ann-accelerate-exe:
-    main:                Main.hs
-    source-dirs:         app
-    ghc-options:
-    - -threaded
-    - -rtsopts
-    - -with-rtsopts=-N
-    dependencies:
-    - ann-accelerate
-
 tests:
-  testAndGate:
-    main:                AndGateSpec.hs
-    source-dirs:         test
-    ghc-options:
+  testBlock: 
+    main:                BlockSpec.hs
+    source-dirs:         test/block/
+    ghc-otpions:
     - -threaded
-    - -rtsopts
-    - -with-rtsopts=-N
     dependencies:
+    - accelerate
+    - ann-accelerate
+    - random
+
+  testAndGate: 
+    main:                AndGateSpec.hs
+    source-dirs:         test/andGate
+    ghc-otpions:
+    - -threaded
+    dependencies:
+    - accelerate
     - ann-accelerate
     - random
