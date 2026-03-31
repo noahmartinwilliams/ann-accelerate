@@ -17,7 +17,7 @@ import System.Random
 main :: IO ()
 main = do
     g <- getStdGen
-    let n = mkNetwork g [[(2, Sigmoid)], [(3, Sigmoid)], [(1, Sigmoid)]] (SGDOptim (constant 0.001))
+    let n = mkNetwork g [[(2, Sigmoid)], [(3, Sigmoid)], [(1, Sigmoid)]] (SGDOptim (constant 0.001)) (mseErrorFn, dmseErrorFn)
         (blinfo, block) = network2block n
         (_, rblock) = A.unlift block :: (Acc (Vector Int), Acc (Vector Double))
         n' = block2network blinfo block

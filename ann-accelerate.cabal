@@ -58,7 +58,7 @@ test-suite testAndGate
       Paths_ann_accelerate
   hs-source-dirs:
       test/andGate
-  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded
   build-depends:
       accelerate
     , ann-accelerate
@@ -75,10 +75,33 @@ test-suite testBlock
       Paths_ann_accelerate
   hs-source-dirs:
       test/block/
-  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded
   build-depends:
       accelerate
     , ann-accelerate
     , base >=4.7 && <5
     , random
+  default-language: Haskell2010
+
+test-suite testMnist
+  type: exitcode-stdio-1.0
+  main-is: MnistSpec.hs
+  other-modules:
+      Paths_ann_accelerate
+  autogen-modules:
+      Paths_ann_accelerate
+  hs-source-dirs:
+      test/mnist
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded
+  build-depends:
+      accelerate
+    , accelerate-llvm-ptx
+    , aeson
+    , ann-accelerate
+    , base >=4.7 && <5
+    , bytestring
+    , containers
+    , mtl
+    , random
+    , split
   default-language: Haskell2010

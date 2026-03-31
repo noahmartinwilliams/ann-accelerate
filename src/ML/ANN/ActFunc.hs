@@ -44,6 +44,7 @@ actFuncs ((i, af) : rest) m = do
 
 dactFunc :: ActFunc -> AccMat Double a b -> AccMat Double a b
 dactFunc Sigmoid (AccMat m a b) = AccMat (A.map dsigmoid m) a b
+dactFunc Relu (AccMat m a b) = AccMat (A.map (\x -> (x A.>= (constant 0.0)) A.? (constant 1.0, constant 0.0)) m) a b
 
 dactFuncs :: LSpec -> AccMat Double One Outp -> AccMat Double One Outp
 dactFuncs [] (AccMat m _ _) = AccMat m One Outp

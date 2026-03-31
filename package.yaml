@@ -45,7 +45,7 @@ tests:
   testBlock: 
     main:                BlockSpec.hs
     source-dirs:         test/block/
-    ghc-otpions:
+    ghc-options:
     - -threaded
     dependencies:
     - accelerate
@@ -55,9 +55,25 @@ tests:
   testAndGate: 
     main:                AndGateSpec.hs
     source-dirs:         test/andGate
-    ghc-otpions:
+    ghc-options:
     - -threaded
     dependencies:
     - accelerate
     - ann-accelerate
     - random
+
+  testMnist:
+    main:                MnistSpec.hs
+    source-dirs:         test/mnist
+    ghc-options:
+    - -threaded
+    dependencies:
+    - accelerate
+    - ann-accelerate
+    - accelerate-llvm-ptx
+    - random
+    - aeson
+    - bytestring
+    - split
+    - containers
+    - mtl

@@ -86,18 +86,6 @@ extra-deps:
       - accelerate-llvm
       - accelerate-llvm-ptx
       - accelerate-llvm-native
-  - git: https://github.com/AccelerateHS/accelerate-io.git
-    commit: ab29ca6c4f96f1f346b8c196e268d1b44cd51a2e
-    subdirs:
-      - accelerate-io
-      - accelerate-io-JuicyPixels
-      - accelerate-io-array
-      - accelerate-io-bmp
-      - accelerate-io-bytestring
-      - accelerate-io-cereal
-      - accelerate-io-repa
-      - accelerate-io-serialise
-      - accelerate-io-vector
   - monadLib-3.10.3@sha256:026ba169762e63f0fe5f5c78829808f522a28730043bc3ad9b7c146baedf709f,637
   - git: https://github.com/noahmartinwilliams/c2hs.git
     commit: de305049768c2204b59eff66e38defc36628a104

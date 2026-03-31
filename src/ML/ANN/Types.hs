@@ -13,7 +13,7 @@ type Weights = AccMat Double Outp Inp
 type VWeights = Vect Double Outp 
 type Biases = Vect Double Outp
 
-data ActFunc = Sigmoid | Relu | SoftMax
+data ActFunc = Sigmoid | Relu | SoftMax deriving(Read)
 
 type LSpec = [(Int, ActFunc)]
 
@@ -24,12 +24,15 @@ data LLayer = LLayer { llprevInput :: (AccMat Double Inp One), llayer :: Layer }
 
 data Optim = SGDOptim (Exp Double) 
 
-data Network = Network [Layer] Optim
+data Network = Network [Layer] Optim ErrorFn
 
-data LNetwork = LNetwork [LLayer] Optim
+data LNetwork = LNetwork [LLayer] Optim ErrorFn
 
 type AccBlock = Acc (Vector Int, Vector Double)
 
 data LayerInfo = LayerInfo Bool LSpec Int 
 
-data BLInfo = BLSGD [LayerInfo]
+data BLInfo = BLSGD [LayerInfo] ErrorFn
+
+type ErrorFn = ((Acc (Matrix Double) -> Acc (Matrix Double) -> Acc (Matrix Double)), (Acc (Matrix Double) -> Acc (Matrix Double) -> Acc (Matrix Double)))
+

@@ -17,7 +17,7 @@ isInpLayer (Layer {}) = False
 isInpLayer (InpLayer {} ) = True
 
 network2block :: Network -> (BLInfo, AccBlock)
-network2block (Network layers optim@(SGDOptim lr)) = do
+network2block (Network layers optim@(SGDOptim lr) errfn) = do
     let lr' = A.unit lr
         lr'' = A.replicate (constant (Z:.(1 :: Int))) lr' :: Acc (Vector Double)
         lspecs = P.map getllspec layers
@@ -28,7 +28,7 @@ network2block (Network layers optim@(SGDOptim lr)) = do
         aints' = P.foldl (A.++) (use (fromList (Z:.1) [numLayers])) aints
         adoubles' = P.foldl (A.++) lr'' adoubles
         blinfo = P.zipWith3 LayerInfo bools lspecs numIns
-    (BLSGD blinfo, A.lift (aints', adoubles')) where
+    (BLSGD blinfo errfn, A.lift (aints', adoubles')) where
 
         getNumIns :: [Layer] -> [Int]
         getNumIns [] = []
@@ -46,13 +46,13 @@ network2block (Network layers optim@(SGDOptim lr)) = do
             (is, ds)
 
 block2network :: BLInfo -> AccBlock -> Network
-block2network (BLSGD ls) accblock = do
+block2network (BLSGD ls errfn) accblock = do
     let (accIs, accDs) = A.unlift accblock
         accIs' = A.drop (constant 1) accIs
         lr = A.the (A.reshape (constant Z) (A.take (constant 1) accDs ))
         accDs' = A.drop (constant 1) accDs
         layers = intern ls accIs' accDs'
-    Network layers (SGDOptim lr) where
+    Network layers (SGDOptim lr) errfn where
 
         intern :: [LayerInfo] -> Acc (Vector Int) -> Acc (Vector Double) -> [Layer] 
         intern [] _ _ = []

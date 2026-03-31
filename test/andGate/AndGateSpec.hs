@@ -4,6 +4,7 @@ import Data.Array.Accelerate as A
 import Data.Array.Accelerate.Interpreter
 import ML.ANN.ActFunc
 import ML.ANN.Block
+import ML.ANN.ErrorFn
 import ML.ANN.Network
 import ML.ANN.Types
 import Prelude as P
@@ -21,7 +22,7 @@ genSamples g = do
 main :: IO ()
 main = do
     let g = mkStdGen 100
-        n = mkNetwork g [[(2, Sigmoid)], [(5, Sigmoid)], [(1, Sigmoid)]] (SGDOptim (constant 0.01))
+        n = mkNetwork g [[(2, Sigmoid)], [(5, Sigmoid)], [(1, Sigmoid)]] (SGDOptim (constant 0.01)) (mseErrorFn, dmseErrorFn)
         (blinfo, blockA) = network2block n
         block = run blockA
         fn = runN (trainOnce blinfo )
