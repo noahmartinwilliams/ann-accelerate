@@ -87,6 +87,9 @@ test-suite testMnist
   type: exitcode-stdio-1.0
   main-is: MnistSpec.hs
   other-modules:
+      Conf
+      Neural
+      Samps
       Paths_ann_accelerate
   autogen-modules:
       Paths_ann_accelerate
