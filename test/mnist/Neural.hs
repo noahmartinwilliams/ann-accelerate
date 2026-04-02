@@ -50,6 +50,18 @@ testResults net samps = do
     errs
 
 getNeural :: StdGen -> String -> Reader Conf Network
+getNeural g "Adam" = do
+    cnf <- ask
+    let lr1 = lr cnf
+        b1 = beta1 cnf
+        b2 = beta2 cnf
+        errFn = getErrorFn (costF cnf)
+        mbs = miniBatchSize cnf
+        lsp = read (layers cnf) :: [LSpec]
+        net = mkNetwork g ([((28*28), Sigmoid)] : lsp) (AdamOptim (constant lr1) (constant b1) (constant b2)) errFn
+    return net
+
+
 getNeural g "SGD" = do
     cnf <- ask
     let lr1 = lr cnf

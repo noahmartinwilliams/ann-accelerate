@@ -17,12 +17,12 @@ data ActFunc = Sigmoid | Relu | SoftMax deriving(Read)
 
 type LSpec = [(Int, ActFunc)]
 
-data Layer = Layer { lnumInputs :: Int, lweights :: Weights, lbiases :: Biases , llspec :: LSpec} | 
-    InpLayer { vweights :: VWeights, vbiases :: Biases, vlspec :: LSpec}
+data Layer = Layer { lnumInputs :: Int, lweights :: Weights, lbiases :: Biases , llspec :: LSpec, lweightsMom :: Weights, lbiasesMom :: Biases, lweightsVel :: Weights, lbiasesVel :: Biases} | 
+    InpLayer { vweights :: VWeights, vbiases :: Biases, vlspec :: LSpec, vweightsMom :: VWeights, vbiasesMom :: Biases, vweightsVel :: VWeights, vbiasesVel :: Biases }
 
 data LLayer = LLayer { llprevInput :: (AccMat Double Inp One), llayer :: Layer }
 
-data Optim = SGDOptim (Exp Double) 
+data Optim = SGDOptim (Exp Double) | AdamOptim (Exp Double) (Exp Double) (Exp Double)
 
 data Network = Network [Layer] Optim ErrorFn
 
@@ -32,7 +32,7 @@ type AccBlock = Acc (Vector Int, Vector Double)
 
 data LayerInfo = LayerInfo Bool LSpec Int 
 
-data BLInfo = BLSGD [LayerInfo] ErrorFn
+data BLInfo = BLSGD [LayerInfo] ErrorFn | BLAdam [LayerInfo] ErrorFn
 
 type ErrorFn = ((Acc (Matrix Double) -> Acc (Matrix Double) -> Acc (Matrix Double)), (Acc (Matrix Double) -> Acc (Matrix Double) -> Acc (Matrix Double)))
 

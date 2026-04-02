@@ -25,11 +25,20 @@ mkLayer numIns lspec rands = do
     let numOuts = P.foldr (+) 0 (P.map (\(i, _) -> i) lspec)
         (weights, rands') = mkWeights numIns numOuts rands
         (biases, rands'') = mkBiases numOuts rands'
-    (Layer { lnumInputs = numIns, lweights = weights, lbiases = biases, llspec = lspec}, rands'')
+        zerosW = use (A.fromList (Z:.numOuts:.numIns) (P.repeat 0.0))
+        zerosV = use (A.fromList (Z:.numOuts:.1) (P.repeat 0.0))
+        wM = AccMat zerosW Outp Inp
+        wV = AccMat zerosW Outp Inp
+        bM = AccMat zerosV Outp One
+        bV = AccMat zerosV Outp One
+        l = Layer { lnumInputs = numIns, lweights = weights, lbiases = biases, lweightsVel = wV, lbiasesVel = bV, lweightsMom = wM, lbiasesMom = bM, llspec = lspec}
+    (l, rands'')
 
 mkInpLayer :: LSpec -> [Double] -> (Layer, [Double])
 mkInpLayer lspec rands = do
     let numOuts = P.foldr (+) 0 (P.map P.fst lspec)
         (weights, rands') = mkBiases numOuts rands
         (biases, rands'') = mkBiases numOuts rands'
-    (InpLayer { vweights = weights, vbiases = biases, vlspec = lspec}, rands'')
+        zerosV = AccMat (use (A.fromList (Z:.numOuts:.1) (P.repeat 0.0))) Outp One
+        l = InpLayer {vweights = weights, vbiases = biases, vlspec = lspec, vweightsMom = zerosV, vweightsVel = zerosV, vbiasesMom = zerosV, vbiasesVel = zerosV}
+    (l, rands'')

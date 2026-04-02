@@ -31,6 +31,7 @@ library
       ML.ANN.ErrorFn
       ML.ANN.InfLayer
       ML.ANN.LLayer
+      ML.ANN.LSpec
       ML.ANN.MkLayer
       ML.ANN.Network
       ML.ANN.Types

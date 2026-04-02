@@ -68,7 +68,7 @@ packages:
 
 extra-deps:
   - git: https://github.com/noahmartinwilliams/matrix-accelerate.git
-    commit: 6c43fbf3419bb3c1f3dd7b9b57982bd22dfc8532
+    commit: 842f450ae5dde3a3447ce23d19d10326ec37dcad
   - git: https://github.com/tomsmeding/cuda.git
     commit: 003205b521b1b3c21ad7e0c14f268e8b84d9bc03 # runtime-split branch
     subdirs:
