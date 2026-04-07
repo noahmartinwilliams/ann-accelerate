@@ -22,11 +22,12 @@ import System.Random
 
 main :: IO ()
 main = do
+    hSetBuffering stdout (BlockBuffering Nothing)
     c <- readFile "configsMnist.txt"
     let lines = endBy "\n" c
         g = 100
-    trainImgs <- B.readFile "train-images-idx3-ubyte"
-    trainAnswers <- B.readFile "train-labels-idx1-ubyte"
+    trainImgs <- B.readFile "train-images.idx3-ubyte"
+    trainAnswers <- B.readFile "train-labels.idx1-ubyte"
     testImgs <- B.readFile "t10k-images-idx3-ubyte"
     testAnswers <- B.readFile "t10k-labels-idx1-ubyte"
     let configs = P.filter (isJust) (P.map getConf lines)

@@ -18,7 +18,7 @@ import Prelude as P
 import System.IO
 import System.Random
 
-data Conf = Conf { inputAF :: String, miniBatchSize :: Int, layers :: String, optimizer :: String, lr :: Double, beta1 :: Double, beta2 :: Double, costF :: String } deriving(Generic, Show)
+data Conf = Conf { numEpochs :: Int, inputAF :: String, miniBatchSize :: Int, layers :: String, optimizer :: String, lr :: Double, beta1 :: Double, beta2 :: Double, costF :: String } deriving(Generic, Show)
 
 instance ToJSON Conf where
     toEncoding = genericToEncoding defaultOptions
@@ -29,3 +29,5 @@ getConf :: String -> Maybe Conf
 getConf inp = do
     let bs = fromString inp
     Data.Aeson.decode bs :: Maybe Conf
+
+type Fn = ((Vector Int, Vector Double) -> (Matrix Double, Matrix Double) -> (Matrix Double, Matrix Double, Vector Int, Vector Double))

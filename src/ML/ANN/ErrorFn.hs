@@ -4,8 +4,14 @@ module ML.ANN.ErrorFn where
 import Data.Array.Accelerate as A
 import Prelude as P
 
-mseErrorFn :: (Shape sh, Elt e, A.Num e) => Acc (Array sh e) -> Acc (Array sh e) -> Acc (Array sh e)
-mseErrorFn x y = let diff = A.zipWith (-) x y in A.zipWith (*) diff diff 
+mseErrorFn :: (Shape sh) => Acc (Array sh Double) -> Acc (Array sh Double) -> Acc (Array sh Double)
+mseErrorFn x y = do
+    let diff = A.zipWith (-) x y 
+        len = A.length (A.flatten x)
+    A.map (\x -> x / (A.fromIntegral len :: Exp Double)) (A.zipWith (*) diff diff )
 
-dmseErrorFn :: (Shape sh, Elt e, A.Num e) => Acc (Array sh e) -> Acc (Array sh e) -> Acc (Array sh e)
-dmseErrorFn y x = let diff = A.zipWith (-) y x in A.zipWith (+) diff diff
+dmseErrorFn :: (Shape sh) => Acc (Array sh Double) -> Acc (Array sh Double) -> Acc (Array sh Double)
+dmseErrorFn y x = do
+    let diff = A.zipWith (-) y x 
+        len = A.length (A.flatten x)
+    A.map (\x -> x / (A.fromIntegral len :: Exp Double)) (A.zipWith (+) diff diff )

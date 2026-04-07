@@ -55,6 +55,7 @@ bpLayer (LLayer { llprevInput = prevInput, llayer = l@(Layer { lnumInputs = ni, 
         wv = lweightsVel l
         bm = lbiasesMom l
         bv = lbiasesVel l
+        t = lnumTimes l
         one = constant 1.0
         epsilon = constant 0.00000001
         x = (w `matMul` prevInput ) `matAdd` b
@@ -65,8 +66,10 @@ bpLayer (LLayer { llprevInput = prevInput, llayer = l@(Layer { lnumInputs = ni, 
         dw = ((x `matZipMul` deriv) `matZipMul` bp) `matMul` (matTransp onesV)
         wm' = (beta1 `matScale` wm) `matAdd` ((one - beta1) `matScale` dw)
         wv' = (beta2 `matScale` wv) `matAdd` ((one - beta2) `matScale` (dw `matZipMul` dw))
-        wmhat = (one / (one - beta1)) `matScale` wm'
-        wvhat = (one / (one - beta2)) `matScale` wv'
+        b1t = beta1 A.^ t
+        b2t = beta2 A.^ t
+        wmhat = (one / (one - b1t)) `matScale` wm'
+        wvhat = (one / (one - b2t)) `matScale` wv'
         wvhatsqrt = wvhat `matMap` (\x -> one / ((sqrt x) + epsilon))
         w' = w `matSub` (lr `matScale` (wmhat `matZipMul` wvhatsqrt))
 
@@ -79,7 +82,7 @@ bpLayer (LLayer { llprevInput = prevInput, llayer = l@(Layer { lnumInputs = ni, 
         bvhatsqrt = bvhat `matMap` (\x -> one / ((sqrt x) + epsilon))
         b' = b `matSub` (lr `matScale` (bmhat `matZipMul` bvhatsqrt))
         (AccMat bp'' Inp One) = wT `matMul` bp
-    (l { lweights = w', lbiases = b', lweightsMom = wm', lweightsVel = wv', lbiasesMom = bm', lbiasesVel = bv' }, AccMat bp'' Outp One)
+    (l { lweights = w', lbiases = b', lweightsMom = wm', lweightsVel = wv', lbiasesMom = bm', lbiasesVel = bv', lnumTimes = (t + (constant 1)) }, AccMat bp'' Outp One)
 
 bpLayer (LLayer { llprevInput = (AccMat prev _ _), llayer = l@(InpLayer { vweights = w, vbiases = b, vlspec = lspec })}) (AdamOptim lr beta1 beta2) bp = do
     let wm = vweightsMom l
@@ -87,6 +90,7 @@ bpLayer (LLayer { llprevInput = (AccMat prev _ _), llayer = l@(InpLayer { vweigh
         bm = vbiasesMom l
         bv = vbiasesVel l
         one = constant 1.0
+        t = vnumTimes l
         epsilon = constant 0.00000001
         prev' = AccMat prev Outp One
         ni = getLSpecNumOuts lspec
@@ -96,8 +100,10 @@ bpLayer (LLayer { llprevInput = (AccMat prev _ _), llayer = l@(InpLayer { vweigh
         dw = ((x `matZipMul` deriv) `matZipMul` bp) 
         wm' = (beta1 `matScale` wm) `matAdd` ((one - beta1) `matScale` dw)
         wv' = (beta2 `matScale` wv) `matAdd` ((one - beta2) `matScale` (dw `matZipMul` dw))
-        wmhat = (one / (one - beta1)) `matScale` wm'
-        wvhat = (one / (one - beta2)) `matScale` wv'
+        b1t = beta1 A.^ t
+        b2t = beta2 A.^ t
+        wmhat = (one / (one - b1t)) `matScale` wm'
+        wvhat = (one / (one - b2t)) `matScale` wv'
         wvhatsqrt = wvhat `matMap` (\x -> one / ((sqrt x) + epsilon))
         w' = w `matSub` (lr `matScale` (wmhat `matZipMul` wvhatsqrt))
 
@@ -110,4 +116,4 @@ bpLayer (LLayer { llprevInput = (AccMat prev _ _), llayer = l@(InpLayer { vweigh
         bvhatsqrt = bvhat `matMap` (\x -> one / ((sqrt x) + epsilon))
         b' = b `matSub` (lr `matScale` (bmhat `matZipMul` bvhatsqrt))
         (AccMat bp' Outp One) = w `matZipMul` bp
-    (l { vweights = w', vbiases = b', vweightsMom = wm', vweightsVel = wv', vbiasesMom = bm', vbiasesVel = bv' }, AccMat bp' Outp One)
+    (l { vweights = w', vbiases = b', vweightsMom = wm', vweightsVel = wv', vbiasesMom = bm', vbiasesVel = bv', vnumTimes = (t + (constant 1)) }, AccMat bp' Outp One)

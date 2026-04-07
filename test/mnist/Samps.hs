@@ -40,4 +40,4 @@ bs2Mat mbs bs = do
     let uped = B.unpack bs
         asDoubles = P.map (\x -> P.fromIntegral x :: Double) uped
         scaled = P.map (\x -> (x - 128.0) / 128.0) asDoubles
-    A.fromList (Z:.(28*28):.mbs) scaled
+    I.run (A.transpose (use (A.fromList (Z:.mbs:.(28*28)) scaled )))

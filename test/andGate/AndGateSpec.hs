@@ -22,11 +22,11 @@ genSamples g = do
 main :: IO ()
 main = do
     let g = mkStdGen 100
-        n = mkNetwork g [[(2, Sigmoid)], [(5, Sigmoid)], [(1, Sigmoid)]] (SGDOptim (constant 0.01)) (mseErrorFn, dmseErrorFn)
+        n = mkNetwork g [[(2, Relu)], [(5, Relu)], [(1, Relu)]] (SGDOptim (constant 0.01)) (mseErrorFn, dmseErrorFn)
         (blinfo, blockA) = network2block n
         block = run blockA
         fn = runN (trainOnce blinfo )
-        numSamples = 2048
+        numSamples = 4096
         samples = P.take numSamples (genSamples g)
         (err0, _, _, _) = fn block (samples P.!! 0)
         (errs, _, _, _) = runner fn block samples

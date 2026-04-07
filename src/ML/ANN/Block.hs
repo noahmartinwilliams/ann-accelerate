@@ -50,13 +50,13 @@ getNumIns ((InpLayer { vlspec = vl}) : rest) = (getLSpecNumOuts vl) : (getNumIns
 getNumIns ((Layer { lnumInputs = ni}) : rest) = ni : (getNumIns rest)
 
 layer2block :: Optim -> Layer -> (Acc (Vector Int), Acc (Vector Double))
-layer2block (SGDOptim _) (InpLayer { vweights = (AccMat w _ _) , vbiases = (AccMat b _ _)}) = do
+layer2block (SGDOptim _) l@(InpLayer { vweights = (AccMat w _ _) , vbiases = (AccMat b _ _)}) = do
     let ds = (A.flatten w) A.++ (A.flatten b)
-        is = use (A.fromList (Z:.0) [])
+        is = A.reshape (constant (Z:.1)) (A.unit (vnumTimes l))
     (is, ds)
-layer2block (SGDOptim _) (Layer { lweights = (AccMat w _ _), lbiases = (AccMat b _ _ )}) = do
+layer2block (SGDOptim _) l@(Layer { lweights = (AccMat w _ _), lbiases = (AccMat b _ _ )}) = do
     let ds = (A.flatten w) A.++ (A.flatten b)
-        is = use (A.fromList (Z:.0) [])
+        is = A.reshape (constant (Z:.1)) (A.unit (lnumTimes l))
     (is, ds)
 layer2block (AdamOptim _ _ _) l@(Layer {}) = do
     let (AccMat w _ _) = lweights l
@@ -65,8 +65,9 @@ layer2block (AdamOptim _ _ _) l@(Layer {}) = do
         (AccMat wm _ _) = lweightsMom l
         (AccMat bv _ _) = lbiasesVel l
         (AccMat bm _ _) = lbiasesMom l
+        numTimes = lnumTimes l
         ds = (A.flatten w) A.++ (A.flatten b) A.++ (A.flatten wm) A.++ (A.flatten bm) A.++ (A.flatten wv) A.++ (A.flatten bv)
-        is = use (A.fromList (Z:.0) [])
+        is = A.reshape (constant (Z:.1)) (A.unit numTimes)
     (is, ds)
 layer2block (AdamOptim _ _ _) l@(InpLayer {}) = do
     let (AccMat w _ _) = vweights l
@@ -75,8 +76,9 @@ layer2block (AdamOptim _ _ _) l@(InpLayer {}) = do
         (AccMat wm _ _ ) = vweightsMom l
         (AccMat bv _ _ ) = vbiasesVel l
         (AccMat bm _ _ ) = vbiasesMom l
+        numTimes = vnumTimes l
         ds = (A.flatten w) A.++ (A.flatten b) A.++ (A.flatten wm) A.++ (A.flatten bm) A.++ (A.flatten wv) A.++ (A.flatten bv)
-        is = use (A.fromList (Z:.0) [])
+        is = A.reshape (constant (Z:.1)) (A.unit numTimes)
     (is, ds)
 
 block2network :: BLInfo -> AccBlock -> Network
@@ -92,17 +94,21 @@ block2network (BLSGD ls errfn) accblock = do
         intern [] _ _ = []
         intern ((LayerInfo True lspec numIns) : rest) ints doubles = do
             let weightsV = A.take (constant numIns) doubles
+                numTimes = A.the (A.reshape (constant Z) (A.take (constant 1) ints ))
+                ints' = A.drop (constant 1) ints
                 weightsR = A.drop (constant numIns) doubles
                 biasesV = A.take (constant numIns) weightsR
                 biasesR = A.drop (constant numIns) weightsR
                 weightsM = AccMat (A.reshape (constant (Z:.numIns:.1)) weightsV) Outp One
                 biasesM = AccMat (A.reshape (constant (Z:.numIns:.1)) biasesV) Outp One
                 zerosV = AccMat (use (A.fromList (Z:.numIns:.1) (P.repeat 0.0))) Outp One
-                layer = InpLayer { vlspec = lspec, vweights = weightsM, vbiases = biasesM, vweightsMom = zerosV, vbiasesMom = zerosV, vweightsVel = zerosV}
-            (layer : (intern rest ints biasesR))
+                layer = InpLayer { vnumTimes = numTimes, vlspec = lspec, vweights = weightsM, vbiases = biasesM, vweightsMom = zerosV, vbiasesMom = zerosV, vweightsVel = zerosV}
+            (layer : (intern rest ints' biasesR))
 
         intern ((LayerInfo False lspec numIns) : rest) ints doubles = do
             let numOuts = getLSpecNumOuts lspec
+                numTimes = A.the (A.reshape (constant Z) (A.take (constant 1) ints ))
+                ints' = A.drop (constant 1) ints
                 numWeights = constant (numIns * numOuts)
                 weightsV = A.take numWeights doubles
                 restWeights = A.drop numWeights doubles
@@ -112,8 +118,8 @@ block2network (BLSGD ls errfn) accblock = do
                 restDoubles = A.drop (constant numOuts) restWeights
                 zerosM = AccMat (use (A.fromList (Z:.numOuts:.numIns) (P.repeat 0.0))) Outp Inp
                 zerosV = AccMat (use (A.fromList (Z:.numOuts:.1) (P.repeat 0.0))) Outp One
-                layer = Layer { llspec = lspec, lnumInputs = numIns, lweights = weightsM, lbiases = biasesM, lbiasesMom = zerosV, lbiasesVel = zerosV, lweightsMom = zerosM, lweightsVel = zerosM}
-            (layer : (intern rest ints restDoubles))
+                layer = Layer { lnumTimes = numTimes, llspec = lspec, lnumInputs = numIns, lweights = weightsM, lbiases = biasesM, lbiasesMom = zerosV, lbiasesVel = zerosV, lweightsMom = zerosM, lweightsVel = zerosM}
+            (layer : (intern rest ints' restDoubles))
 
 block2network (BLAdam ls errFn) accblock = do
     let (accIs, accDs) = A.unlift accblock :: (Acc (Vector Int), Acc (Vector Double))
@@ -130,7 +136,9 @@ block2network (BLAdam ls errFn) accblock = do
         intern [] _ _ = []
         intern ((LayerInfo True lspec numIns) : rest) ints doubles = do
             let numIns' = constant numIns
-            let weightsV = A.take numIns' doubles
+                numTimes = A.the (A.reshape (constant Z) (A.take (constant 1) ints ))
+                ints' = A.drop (constant 1) ints
+                weightsV = A.take numIns' doubles
                 weightsR = A.drop numIns' doubles
                 biasesV = A.take numIns' weightsR
                 biasesR = A.drop numIns' weightsR
@@ -144,11 +152,13 @@ block2network (BLAdam ls errFn) accblock = do
                 weightsVelR = A.drop numIns' biasesMomR
                 biasesVel = A.reshape (constant (Z:.numIns:.1)) (A.take numIns' weightsVelR)
                 biasesVelR = A.drop numIns' weightsVelR
-                layer = InpLayer { vweights = weightsM, vbiases = biasesM, vbiasesMom = (AccMat biasesMom Outp One), vbiasesVel = (AccMat biasesVel Outp One), vweightsMom = (AccMat weightsMom Outp One), vweightsVel = (AccMat weightsVel Outp One)}
-            (layer : (intern rest ints biasesVelR))
+                layer = InpLayer { vnumTimes = numTimes, vweights = weightsM, vbiases = biasesM, vbiasesMom = (AccMat biasesMom Outp One), vbiasesVel = (AccMat biasesVel Outp One), vweightsMom = (AccMat weightsMom Outp One), vweightsVel = (AccMat weightsVel Outp One)}
+            (layer : (intern rest ints' biasesVelR))
 
         intern ((LayerInfo True lspec numIns) : rest) ints doubles = do
             let numOuts = getLSpecNumOuts lspec
+                numTimes = A.the (A.reshape (constant Z) (A.take (constant 1) ints ))
+                ints' = A.drop (constant 1) ints
                 numOuts' = constant numOuts
                 numWeights = constant (numIns * numOuts)
                 weightsV = A.take numWeights doubles
@@ -165,6 +175,6 @@ block2network (BLAdam ls errFn) accblock = do
                 weightsVelR = A.drop numWeights biasesMomR
                 biasesVel = A.reshape (constant (Z:.numOuts:.1)) (A.take numOuts' weightsVelR)
                 biasesVelR = A.drop numOuts' weightsVelR
-                layer = Layer { lweights = weightsM, lbiases = biasesM, lbiasesMom = (AccMat biasesMom Outp One), lbiasesVel = (AccMat biasesVel Outp One), lweightsMom = (AccMat weightsMom Outp Inp), lweightsVel = (AccMat weightsVel Outp Inp)}
-            (layer : (intern rest ints biasesVelR))
+                layer = Layer { lnumTimes = numTimes, lweights = weightsM, lbiases = biasesM, lbiasesMom = (AccMat biasesMom Outp One), lbiasesVel = (AccMat biasesVel Outp One), lweightsMom = (AccMat weightsMom Outp Inp), lweightsVel = (AccMat weightsVel Outp Inp)}
+            (layer : (intern rest ints' biasesVelR))
 

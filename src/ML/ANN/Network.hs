@@ -87,7 +87,7 @@ trainMiniBatch miniSize blinfo block sample = do
         outsAvged = avg outs
         bpsAvged = A.replicate (constant (Z:.All:.(1 :: Int))) (avg bps)
         (err, _) = networkGetErrorFn net'
-        err' = err (A.replicate (constant (Z:.All:.(1 :: Int))) outsAvged) outp
+        err' = (A.replicate (constant (Z:.All:.(1 :: Int))) (A.sum (err outs outp))) 
         (_, block') = network2block net'
         (blockI, blockD) = A.unlift block' :: (Acc (Vector Int), Acc (Vector Double))
     A.lift (err', bpsAvged, blockI, blockD) where
@@ -112,14 +112,14 @@ trainMiniBatch miniSize blinfo block sample = do
 
 
 avgNets :: [Network] -> Network
-avgNets (h : ns) = let added = P.foldr addNets h ns in scaleNet (constant (P.fromIntegral (P.length (h : ns)) :: Double)) added
+avgNets (h : ns) = let added = P.foldr addNets h ns in scaleNet (constant (1.0 / (P.fromIntegral (P.length (h : ns)) :: Double))) added
 
 scaleNet :: Exp Double -> Network -> Network
 scaleNet s (Network ls o e) = Network (P.map (scaleLayer s) ls) o e
 
 scaleLayer :: Exp Double -> Layer -> Layer
-scaleLayer s l@(InpLayer { vweights = vw, vbiases = vb}) = l { vweights = (matScale s vw), vbiases = (matScale s vb)}
-scaleLayer s l@(Layer { lweights = lw, lbiases = lb}) = l { lweights = (matScale s lw), lbiases = (matScale s lb)}
+scaleLayer s l@(InpLayer { vweights = vw, vbiases = vb, vbiasesMom = vbm, vbiasesVel = vbv, vweightsMom = vwm, vweightsVel=vwv}) = l { vweights = (matScale s vw), vbiases = (matScale s vb), vbiasesMom = (s `matScale` vbm), vbiasesVel = (s `matScale` vbv) , vweightsMom = (s `matScale` vwm), vweightsVel = (s `matScale` vwv)}
+scaleLayer s l@(Layer { lweights = lw, lbiases = lb, lbiasesMom = lbm, lbiasesVel = lbv, lweightsMom = lwm, lweightsVel = lwv}) = l { lweights = (matScale s lw), lbiases = (matScale s lb), lbiasesMom = (s `matScale` lbm), lbiasesVel = (s `matScale` lbv), lweightsMom = (s `matScale` lwm), lweightsVel = (s `matScale` lwv)}
 
 addNets :: Network -> Network -> Network
 addNets (Network layers o e) (Network layers' o' e') = do
@@ -127,12 +127,20 @@ addNets (Network layers o e) (Network layers' o' e') = do
     (Network layers'' o e)
 
 addLayer :: Layer -> Layer -> Layer
-addLayer i@(InpLayer { vweights = vw, vbiases = vb}) (InpLayer { vweights = vw', vbiases = vb'}) = do
+addLayer i@(InpLayer { vweights = vw, vbiases = vb, vweightsMom = vwm, vbiasesMom = vbm, vweightsVel = vwv, vbiasesVel = vbv}) (InpLayer { vweights = vw', vbiases = vb', vweightsMom = vwm', vbiasesMom = vbm', vweightsVel = vwv', vbiasesVel = vbv'}) = do
     let vw'' = vw `matAdd` vw'
         vb'' = vb `matAdd` vb'
-    i { vweights = vw'', vbiases = vb''}
+        vwm'' = vwm `matAdd` vwm'
+        vbm'' = vbm `matAdd` vbm'
+        vbv'' = vbv `matAdd` vbv'
+        vwv'' = vwv `matAdd` vwv'
+    i { vweights = vw'', vbiases = vb'', vweightsMom = vwm'', vweightsVel = vwv'', vbiasesMom = vbm'', vbiasesVel = vbv'' }
 
-addLayer i@(Layer { lweights = lw, lbiases = lb}) (Layer { lweights = lw', lbiases = lb'}) = do
+addLayer i@(Layer { lweights = lw, lbiases = lb, lweightsMom = lwm, lweightsVel = lwv, lbiasesMom = lbm, lbiasesVel = lbv}) (Layer { lweights = lw', lbiases = lb', lweightsVel = lwv', lweightsMom = lwm', lbiasesVel = lbv', lbiasesMom = lbm' }) = do
     let lw'' = lw `matAdd` lw'
         lb'' = lb `matAdd` lb'
-    i { lweights = lw'', lbiases = lb''}
+        lwm'' = lwm `matAdd` lwm'
+        lbm'' = lbm `matAdd` lbm'
+        lwv'' = lwv `matAdd` lwv'
+        lbv'' = lbv `matAdd` lbv'
+    i { lweights = lw'', lbiases = lb'', lweightsMom = lwm'', lweightsVel = lwv'', lbiasesMom = lbm'', lbiasesVel = lbv''}

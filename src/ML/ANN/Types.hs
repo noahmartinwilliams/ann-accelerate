@@ -17,8 +17,8 @@ data ActFunc = Sigmoid | Relu | SoftMax deriving(Read)
 
 type LSpec = [(Int, ActFunc)]
 
-data Layer = Layer { lnumInputs :: Int, lweights :: Weights, lbiases :: Biases , llspec :: LSpec, lweightsMom :: Weights, lbiasesMom :: Biases, lweightsVel :: Weights, lbiasesVel :: Biases} | 
-    InpLayer { vweights :: VWeights, vbiases :: Biases, vlspec :: LSpec, vweightsMom :: VWeights, vbiasesMom :: Biases, vweightsVel :: VWeights, vbiasesVel :: Biases }
+data Layer = Layer { lnumTimes :: Exp Int, lnumInputs :: Int, lweights :: Weights, lbiases :: Biases , llspec :: LSpec, lweightsMom :: Weights, lbiasesMom :: Biases, lweightsVel :: Weights, lbiasesVel :: Biases} | 
+    InpLayer { vnumTimes :: Exp Int, vweights :: VWeights, vbiases :: Biases, vlspec :: LSpec, vweightsMom :: VWeights, vbiasesMom :: Biases, vweightsVel :: VWeights, vbiasesVel :: Biases }
 
 data LLayer = LLayer { llprevInput :: (AccMat Double Inp One), llayer :: Layer }
 
