@@ -69,8 +69,8 @@ packages:
 extra-deps:
   - git: https://github.com/noahmartinwilliams/matrix-accelerate.git
     commit: 842f450ae5dde3a3447ce23d19d10326ec37dcad
-  - git: https://github.com/tomsmeding/cuda.git
-    commit: 003205b521b1b3c21ad7e0c14f268e8b84d9bc03 # runtime-split branch
+  - git: https://github.com/tmcdonell/cuda.git
+    commit: d1beaca127a5cbe2432de242e140692c07b9ebeb
     subdirs:
       - cuda
       - cuda-runtime
@@ -81,7 +81,7 @@ extra-deps:
     commit: c22387ed2e00b00a6c79dcec5d22b53874da91fc
 
   - git: https://github.com/AccelerateHS/accelerate-llvm.git
-    commit: 0e3323d5130fbc5d5d471df97b1a42fcb07a2572
+    commit: 1b3acb629cf90b0fbcecb985e4349c3055d70ee2
     subdirs:
       - accelerate-llvm
       - accelerate-llvm-ptx

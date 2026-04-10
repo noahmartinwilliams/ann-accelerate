@@ -17,12 +17,14 @@ import ML.ANN.Network
 import ML.ANN.Types
 import Neural
 import Prelude as P
+import System.Directory
 import System.IO
 import System.Random
 
 main :: IO ()
 main = do
-    hSetBuffering stdout (BlockBuffering Nothing)
+    createDirectoryIfMissing False "/tmp/results"
+    hSetBuffering stdout (BlockBuffering (Just 512))
     c <- readFile "configsMnist.txt"
     let lines = endBy "\n" c
         g = 100

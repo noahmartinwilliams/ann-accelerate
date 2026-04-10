@@ -39,5 +39,5 @@ bs2Mat :: Int -> B.ByteString -> Matrix Double
 bs2Mat mbs bs = do
     let uped = B.unpack bs
         asDoubles = P.map (\x -> P.fromIntegral x :: Double) uped
-        scaled = P.map (\x -> (x - 128.0) / 128.0) asDoubles
+        scaled = P.map (\x -> x / 255.0) asDoubles
     I.run (A.transpose (use (A.fromList (Z:.mbs:.(28*28)) scaled )))

@@ -14,6 +14,7 @@ import ML.ANN.Types
 import Prelude as P
 import Samps
 import System.Random
+import Text.Printf
 
 runNeural :: Int -> Int -> B.ByteString -> B.ByteString -> B.ByteString -> B.ByteString -> Reader Conf (String, String, String, String)
 runNeural seed lineNo imgs answers testImgs testAnswers = do
@@ -32,15 +33,21 @@ runNeural seed lineNo imgs answers testImgs testAnswers = do
         block' = I.run block
         fn = PTX.runN (trainMiniBatch mbs blinfo )
         (errs, _, vi, vd) = runNeural' epochs fn block' samps
-        (err' : errs') = P.map (show) errs
+        (err' : errs') = P.map (showErrs) errs
         retStr = P.foldl (\x -> \y -> x P.++ "\n" P.++ y) err' errs'
-        retName = "/tmp/results/result-" P.++ (show lineNo) P.++ ".txt"
+        retName = "/tmp/results/errs-" P.++ (show lineNo) P.++ ".txt"
         retName' = "/tmp/results/test-" P.++ (show lineNo) P.++ ".txt"
         net' = block2network blinfo (use (vi, vd))
         testRes = testResults net' samps'
-        (err'' : errs'') = P.map (show) testRes
+        (err'' : errs'') = P.map (printf "%.5f") testRes
         retStr' = P.foldl (\x -> \y -> x P.++ "\n" P.++ y)  err'' errs''
     (return (retName, retStr, retName', retStr'))
+
+showErrs :: [Double] -> String
+showErrs l = do
+    let (lStr : lRest) = P.map (printf "%.5f") l
+        lCommas = P.foldl (\x -> \y -> x P.++ "," P.++ y) lStr lRest
+    lCommas
 
 testResults :: Network -> [(Matrix Double, Matrix Double)] -> [Double]
 testResults net samps = do
@@ -63,9 +70,8 @@ getNeural g "Adam" = do
         mbs = miniBatchSize cnf
         lsp = read (layers cnf) :: [LSpec]
         iaf = read (inputAF cnf) :: ActFunc
-        net = mkNetwork g ([((28*28), iaf)] : lsp) (AdamOptim (constant lr1) (constant b1) (constant b2)) errFn
+        net = mkNetwork g (([((28*28), iaf)] : lsp) P.++ [[(10, SoftMax)]]) (AdamOptim (constant lr1) (constant b1) (constant b2)) errFn
     return net
-
 
 getNeural g "SGD" = do
     cnf <- ask
@@ -74,7 +80,7 @@ getNeural g "SGD" = do
         mbs = (miniBatchSize cnf)
         lsp = read (layers cnf) :: [LSpec]
         iaf = read (inputAF cnf) :: ActFunc
-        net = mkNetwork g ([((28*28), iaf)] : lsp) (SGDOptim (constant lr1)) errFn
+        net = mkNetwork g (([((28*28), iaf)] : lsp) P.++ [[(10, SoftMax)]]) (SGDOptim (constant lr1)) errFn
     return net
 
 runNeural' :: Int -> Fn -> (Vector Int, Vector Double) -> [(Matrix Double, Matrix Double)] -> ([[Double]], [Matrix Double], Vector Int, Vector Double)
@@ -90,13 +96,15 @@ runNeural' i fn block samples = do
             runner :: Fn -> (Vector Int, Vector Double) -> [(Matrix Double, Matrix Double)] -> ([[Double]], [Matrix Double], Vector Int, Vector Double)
             runner fn bl [last] = do
                 let (errs, bps, vi, vd) = fn bl last 
-                ([((A.toList errs))], [bps], vi, vd) 
+                    l = A.toList errs
+                ([P.sum l : l], [bps], vi, vd) 
                     
             runner fn bl (first : rest) = do
                 let (err, bp, vi, vd) = fn bl first
                     (err', bp', vi', vd') = runner fn (vi, vd) rest
                     errL = ((A.toList err))
-                (errL : err', bp : bp', vi', vd')
+                (((P.sum errL) : errL) : err', bp : bp', vi', vd')
 
 getErrorFn :: String -> ErrorFn
 getErrorFn "MSE" = (mseErrorFn, dmseErrorFn)
+getErrorFn "CrossEntropy" = (crossEntropyErrorFn, dcrossEntropyErrorFn)
