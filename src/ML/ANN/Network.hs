@@ -73,46 +73,51 @@ trainOnce blinfo block sample = do
         derr = derrFn netOut outp
         (net', bp) = bpNetwork ln derr
         (_, block') = network2block net'
-        (blockI, blockD) = A.unlift block :: (Acc (Vector Int), Acc (Vector Double))
+        (blockI, blockD) = A.unlift block' :: (Acc (Vector Int), Acc (Vector Double))
         ret = A.lift (err, bp, blockI, blockD)
     ret
 
-trainMiniBatch :: Int -> BLInfo -> AccBlock -> Acc (Matrix Double, Matrix Double) -> Acc (Matrix Double, Matrix Double, Vector Int, Vector Double)
+trainMiniBatch :: Int -> BLInfo -> AccBlock -> Acc (Matrix Double, Matrix Double) -> Acc (Vector Double, Vector Int, Vector Double)
 trainMiniBatch miniSize blinfo block sample = do
-    let net = block2network blinfo block
-        (inp, outp) = A.unlift sample :: (Acc (Matrix Double), Acc (Matrix Double))
-        (nets, outs, bps) = trainIntern miniSize net inp outp
-        net' = avgNets nets
-        avg x = A.map (\y -> y / (constant (P.fromIntegral miniSize :: Double))) (A.sum x)
-        outsAvged = avg outs
-        bpsAvged = A.replicate (constant (Z:.All:.(1 :: Int))) (avg bps)
-        (err, _) = networkGetErrorFn net'
-        err' = (A.replicate (constant (Z:.All:.(1 :: Int))) (A.sum (err outs outp))) 
-        (_, block') = network2block net'
-        (blockI, blockD) = A.unlift block' :: (Acc (Vector Int), Acc (Vector Double))
-    A.lift (err', bpsAvged, blockI, blockD) where
+    let (inp, outp) = A.unlift sample :: (Acc (Matrix Double), Acc (Matrix Double))
+        (vi, vd) = A.unlift block :: (Acc (Vector Int), Acc (Vector Double))
+        empty = A.fromList (Z:.10:.1) (P.take 10 (P.repeat 0.0)) :: (Matrix Double)
+        ret = awhile test (trainOnce' blinfo) (A.lift ((use empty), inp, outp, vi, vd))  
+        (errs, _, _, vi', vd') = A.unlift ret :: (Acc (Matrix Double), Acc (Matrix Double), Acc (Matrix Double), Acc (Vector Int), Acc (Vector Double))
+        net = block2network blinfo (A.lift (vi', vd'))
+        scaled = scaleNet (constant (P.fromIntegral miniSize :: Double)) net
+        (_, block') = network2block scaled
+        (vi'', vd'') = A.unlift block' :: (Acc (Vector Int), Acc (Vector Double))
+    A.lift (A.sum errs, vi'', vd'') where
+
+        test :: Acc (Matrix Double, Matrix Double, Matrix Double, Vector Int, Vector Double) -> Acc (Scalar Bool)
+        test bl = do
+            let (_, inp, _, _, _) = A.unlift bl :: (Acc (Matrix Double), Acc (Matrix Double), Acc (Matrix Double), Acc (Vector Int), Acc (Vector Double))
+            A.unit (A.not (A.null inp))
         
-        trainIntern :: Int -> Network -> Acc (Matrix Double) -> Acc (Matrix Double) -> ([Network], Acc (Matrix Double), Acc (Matrix Double))
-        trainIntern 1 net inp outp = do
-            let inp' = A.take (constant 1) inp
+        trainOnce' :: BLInfo -> Acc (Matrix Double, Matrix Double, Matrix Double, Vector Int, Vector Double) -> Acc (Matrix Double, Matrix Double, Matrix Double, Vector Int, Vector Double)
+        trainOnce' blinfo' block' = do
+            let (errs, inp, outp, vi, vd) = A.unlift block' :: (Acc (Matrix Double), Acc (Matrix Double), Acc (Matrix Double), Acc (Vector Int), Acc (Vector Double))
+                inp' = A.take (constant 1) inp
                 outp' = A.take (constant 1) outp
-                (blinfo, block) = network2block net
-                trained = trainOnce blinfo block (A.lift (inp', outp'))
-                (err, bp, vi, vd) = A.unlift trained :: (Acc (Matrix Double), Acc (Matrix Double), Acc (Vector Int), Acc (Vector Double))
-            ([(block2network blinfo (A.lift (vi, vd)))], err, bp)
-        trainIntern ms net inp outp = do
-            let inp' = A.take (constant 1) inp
-                outp' = A.take (constant 1) outp
-                (blinfo, block) = network2block net
-                trained = trainOnce blinfo block (A.lift (inp', outp'))
-                (err, bp, vi, vd) = A.unlift trained :: (Acc (Matrix Double), Acc (Matrix Double), Acc (Vector Int), Acc (Vector Double))
-                net' = block2network blinfo (A.lift (vi, vd))
-                (nets, err', bp') = trainIntern (ms - 1) net (A.drop (constant 1) inp) (A.drop (constant 1) outp)
-            (net' : nets , err A.++ err' , bp A.++ bp')
+                block'' = A.lift (vi, vd)
+                net1 = block2network blinfo' block''
+                trained = trainOnce blinfo' block'' (A.lift (inp', outp'))
+                (err, _, vi', vd') = A.unlift trained :: (Acc (Matrix Double), Acc (Matrix Double), Acc (Vector Int), Acc (Vector Double))
+                net2 = block2network blinfo' (A.lift (vi', vd'))
+                net3 = addNets net1 net2
+                (_, trained') = network2block net3
+                (vi'', vd'') = A.unlift trained' :: (Acc (Vector Int), Acc (Vector Double))
+                inp'' = A.drop (constant 1) inp
+                outp'' = A.drop (constant 1) outp
+                errs' = err A.++ errs
+            A.lift (errs', inp'', outp'', vi'', vd'')
 
 
 avgNets :: [Network] -> Network
-avgNets (h : ns) = let added = P.foldr addNets h ns in scaleNet (constant (1.0 / (P.fromIntegral (P.length (h : ns)) :: Double))) added
+avgNets (h : ns) = do
+    let den = constant (1.0 / (P.fromIntegral (P.length (h : ns)) :: Double))
+    P.foldr (\x -> \y -> addNets (scaleNet den x) y) (scaleNet den h) ns 
 
 scaleNet :: Exp Double -> Network -> Network
 scaleNet s (Network ls o e) = Network (P.map (scaleLayer s) ls) o e

@@ -1,10 +1,11 @@
 module Samps where
 
+import Control.Parallel.Strategies
 import Data.Array.Accelerate as A
 import Data.Array.Accelerate.Interpreter as I
-import Data.Array.Accelerate.LLVM.PTX as PTX
 import Data.List.Split
 import qualified Data.ByteString as B
+import GHC.Conc
 import Prelude as P
 
 bs2Answer :: B.ByteString -> Matrix Double
@@ -29,7 +30,7 @@ mkSamps mbs imgs answers = do
         answerMats = bsSplitEvery mbs answers
         answerMats' = chunksOf mbs (P.map bs2Answer answerMats)
         answerMats'' = P.map combineAnswers answerMats'
-    P.zip imgMats answerMats''
+    (P.zip imgMats answerMats'') `using` (parBuffer numCapabilities rdeepseq)
 
 bsSplitEvery :: Int -> B.ByteString -> [B.ByteString]
 bsSplitEvery i bs | (B.null bs) = []
@@ -39,5 +40,5 @@ bs2Mat :: Int -> B.ByteString -> Matrix Double
 bs2Mat mbs bs = do
     let uped = B.unpack bs
         asDoubles = P.map (\x -> P.fromIntegral x :: Double) uped
-        scaled = P.map (\x -> x / 255.0) asDoubles
+        scaled = P.map (\x -> (x / 255.0) ) asDoubles
     I.run (A.transpose (use (A.fromList (Z:.mbs:.(28*28)) scaled )))

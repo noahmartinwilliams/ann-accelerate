@@ -8,13 +8,13 @@ mseErrorFn :: (Shape sh) => Acc (Array sh Double) -> Acc (Array sh Double) -> Ac
 mseErrorFn x y = do
     let diff = A.zipWith (-) x y 
         len = A.length (A.flatten x)
-    A.map (\x -> x / (A.fromIntegral len :: Exp Double)) (A.zipWith (*) diff diff )
+    A.map (\z -> z / (A.fromIntegral len :: Exp Double)) (A.zipWith (*) diff diff )
 
 dmseErrorFn :: (Shape sh) => Acc (Array sh Double) -> Acc (Array sh Double) -> Acc (Array sh Double)
-dmseErrorFn y x = do
-    let diff = A.zipWith (-) y x 
+dmseErrorFn x y = do
+    let diff = A.zipWith (-) x y
         len = A.length (A.flatten x)
-    A.map (\x -> x / (A.fromIntegral len :: Exp Double)) (A.zipWith (+) diff diff )
+    A.map (\z -> (constant 2.0) * z / (A.fromIntegral len :: Exp Double)) diff
 
 crossEntropyErrorFn :: (Shape sh) => Acc (Array sh Double) -> Acc (Array sh Double) -> Acc (Array sh Double)
 crossEntropyErrorFn realAnswer expectedAnswer = do

@@ -6,7 +6,7 @@ import ML.ANN.Types
 import Prelude as P
 
 heWeightInit :: Int -> [Double] -> [Double]
-heWeightInit numIns rands = P.map (\x -> x * 2.0 / (sqrt (P.fromIntegral numIns :: Double))) rands
+heWeightInit numIns rands = P.map (\x -> x * (sqrt (2.0 / (P.fromIntegral numIns :: Double)))) rands
 
 mkWeights :: Int -> Int -> [Double] -> (Weights, [Double])
 mkWeights numIns numOuts rands = do
@@ -31,7 +31,7 @@ mkLayer numIns lspec rands = do
         wV = AccMat zerosW Outp Inp
         bM = AccMat zerosV Outp One
         bV = AccMat zerosV Outp One
-        l = Layer { lnumTimes = 0, lnumInputs = numIns, lweights = weights, lbiases = biases, lweightsVel = wV, lbiasesVel = bV, lweightsMom = wM, lbiasesMom = bM, llspec = lspec}
+        l = Layer { lnumTimes = (constant 1), lnumInputs = numIns, lweights = weights, lbiases = biases, lweightsVel = wV, lbiasesVel = bV, lweightsMom = wM, lbiasesMom = bM, llspec = lspec}
     (l, rands'')
 
 mkInpLayer :: LSpec -> [Double] -> (Layer, [Double])
@@ -40,5 +40,5 @@ mkInpLayer lspec rands = do
         (weights, rands') = mkBiases numOuts numOuts rands
         (biases, rands'') = mkBiases numOuts numOuts rands'
         zerosV = AccMat (use (A.fromList (Z:.numOuts:.1) (P.repeat 0.0))) Outp One
-        l = InpLayer {vnumTimes = 0, vweights = weights, vbiases = biases, vlspec = lspec, vweightsMom = zerosV, vweightsVel = zerosV, vbiasesMom = zerosV, vbiasesVel = zerosV}
+        l = InpLayer {vnumTimes = (constant 1), vweights = weights, vbiases = biases, vlspec = lspec, vweightsMom = zerosV, vweightsVel = zerosV, vbiasesMom = zerosV, vbiasesVel = zerosV}
     (l, rands'')

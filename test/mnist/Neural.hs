@@ -1,5 +1,6 @@
 module Neural where
 
+import Debug.Trace
 import Conf
 import Control.Monad.Reader
 import Data.Array.Accelerate as A
@@ -20,34 +21,43 @@ runNeural :: Int -> Int -> B.ByteString -> B.ByteString -> B.ByteString -> B.Byt
 runNeural seed lineNo imgs answers testImgs testAnswers = do
     let gen = mkStdGen seed
     cnf <- ask
+    epochs <- reader numEpochs
     neural <- getNeural gen ( optimizer cnf)
+    mbs <- reader miniBatchSize
     let imgs' = B.drop 16 imgs
         answers' = B.drop 8 answers
         testImgs' = B.drop 16 imgs
         testAnswers' = B.drop 8 testAnswers
-        samps = mkSamps (miniBatchSize cnf) imgs' answers'
+        retName = "/tmp/results/errs-" P.++ (show lineNo) P.++ ".txt"
+        retName' = "/tmp/results/test-" P.++ (show lineNo) P.++ ".txt"
+        samps = mkSamps mbs imgs' answers'
         samps' = mkSamps 1 testImgs' testAnswers'
-        mbs = miniBatchSize cnf
-        epochs = numEpochs cnf
         (blinfo, block) = network2block neural
         block' = I.run block
         fn = PTX.runN (trainMiniBatch mbs blinfo )
-        (errs, _, vi, vd) = runNeural' epochs fn block' samps
-        (err' : errs') = P.map (showErrs) errs
-        retStr = P.foldl (\x -> \y -> x P.++ "\n" P.++ y) err' errs'
-        retName = "/tmp/results/errs-" P.++ (show lineNo) P.++ ".txt"
-        retName' = "/tmp/results/test-" P.++ (show lineNo) P.++ ".txt"
-        net' = block2network blinfo (use (vi, vd))
-        testRes = testResults net' samps'
-        (err'' : errs'') = P.map (printf "%.5f") testRes
-        retStr' = P.foldl (\x -> \y -> x P.++ "\n" P.++ y)  err'' errs''
-    (return (retName, retStr, retName', retStr'))
+        (errs, vi, vd) = runNeural' (P.length samps) epochs fn block' samps
+    if errs P.== []
+    then
+        return (retName, "", retName', "")
+    else do
+        let (err' : errs') = P.map (showErrs) errs
+            retStr = P.foldl (\x -> \y -> x P.++ "\n" P.++ y) err' errs'
+            net' = block2network blinfo (use (vi, vd))
+            testRes = testResults net' samps'
+        if testRes P.== []
+        then
+            return (retName, retStr, retName', "")
+        else do
+            let (err'' : errs'') = P.map (printf "%.5f") testRes
+                retStr' = P.foldl (\x -> \y -> x P.++ "\n" P.++ y)  err'' errs''
+            return (retName, retStr, retName', retStr')
 
 showErrs :: [Double] -> String
 showErrs l = do
-    let (lStr : lRest) = P.map (printf "%.5f") l
+    let (l'' : l') = l
+    let (lStr : lRest) = P.map (printf "%.5f") l'
         lCommas = P.foldl (\x -> \y -> x P.++ "," P.++ y) lStr lRest
-    lCommas
+    (printf "%.5f" l'') P.++ "," P.++ lCommas
 
 testResults :: Network -> [(Matrix Double, Matrix Double)] -> [Double]
 testResults net samps = do
@@ -58,16 +68,16 @@ testResults net samps = do
         results' = P.map (A.toList) results
         err a b = P.sum (P.zipWith (\x -> \y -> (x - y) * (x - y)) a b)
         errs = P.map (\(x, y) -> (err x y) / 10.0) (P.zip outps' results')
-    errs
+    P.takeWhile (\x -> (P.isNaN x) P.== False) errs
 
 getNeural :: StdGen -> String -> Reader Conf Network
 getNeural g "Adam" = do
     cnf <- ask
-    let lr1 = lr cnf
-        b1 = beta1 cnf
-        b2 = beta2 cnf
-        errFn = getErrorFn (costF cnf)
-        mbs = miniBatchSize cnf
+    lr1 <- reader lr
+    b1 <- reader beta1
+    b2 <- reader beta2
+    mbs <- reader miniBatchSize
+    let errFn = getErrorFn (costF cnf)
         lsp = read (layers cnf) :: [LSpec]
         iaf = read (inputAF cnf) :: ActFunc
         net = mkNetwork g (([((28*28), iaf)] : lsp) P.++ [[(10, SoftMax)]]) (AdamOptim (constant lr1) (constant b1) (constant b2)) errFn
@@ -75,35 +85,46 @@ getNeural g "Adam" = do
 
 getNeural g "SGD" = do
     cnf <- ask
-    let lr1 = lr cnf
-        errFn = getErrorFn (costF cnf)
-        mbs = (miniBatchSize cnf)
-        lsp = read (layers cnf) :: [LSpec]
+    lr1 <- reader lr
+    errFn <- reader costF
+    mbs <- reader miniBatchSize
+    let lsp = read (layers cnf) :: [LSpec]
+        errFn' = getErrorFn errFn
         iaf = read (inputAF cnf) :: ActFunc
-        net = mkNetwork g (([((28*28), iaf)] : lsp) P.++ [[(10, SoftMax)]]) (SGDOptim (constant lr1)) errFn
+        net = mkNetwork g (([((28*28), iaf)] : lsp) P.++ [[(10, SoftMax)]]) (SGDOptim (constant lr1)) errFn'
     return net
 
-runNeural' :: Int -> Fn -> (Vector Int, Vector Double) -> [(Matrix Double, Matrix Double)] -> ([[Double]], [Matrix Double], Vector Int, Vector Double)
-runNeural' i fn block samples = do
-    if i P.== 1
+runNeural' :: Int -> Int -> Fn -> (Vector Int, Vector Double) -> [(Matrix Double, Matrix Double)] -> ([[Double]], Vector Int, Vector Double)
+runNeural' numSamps 1 fn block samples = runner fn block samples
+runNeural' numSamps i fn block samples = do
+    let (errs, bi, bd) = (runner fn block samples)
+        (errs', bi', bd') = runNeural' numSamps (i - 1) fn (bi, bd) samples
+    if P.isNaN ((errs P.!! 0) P.!! 0)
     then
-        (runner fn block samples) 
-    else do
-        let (errs, bps, bi, bd) = runner fn block samples
-            (errs', bps', bi', bd') = runNeural' (i - 1) fn (bi, bd) samples
-        (errs P.++ errs', bps P.++ bps', bi', bd') where
+        (errs, bi, bd)
+    else
+        (errs P.++ errs', bi', bd') 
 
-            runner :: Fn -> (Vector Int, Vector Double) -> [(Matrix Double, Matrix Double)] -> ([[Double]], [Matrix Double], Vector Int, Vector Double)
-            runner fn bl [last] = do
-                let (errs, bps, vi, vd) = fn bl last 
-                    l = A.toList errs
-                ([P.sum l : l], [bps], vi, vd) 
-                    
-            runner fn bl (first : rest) = do
-                let (err, bp, vi, vd) = fn bl first
-                    (err', bp', vi', vd') = runner fn (vi, vd) rest
-                    errL = ((A.toList err))
-                (((P.sum errL) : errL) : err', bp : bp', vi', vd')
+runner :: Fn -> (Vector Int, Vector Double) -> [(Matrix Double, Matrix Double)] -> ([[Double]], Vector Int, Vector Double)
+runner fn bl [last] = do
+    let (errs, vi, vd) = fn bl last 
+        l = A.toList errs
+        summed = P.sum l
+    if P.isNaN summed
+    then
+        ([], vi, vd)
+    else
+        ([summed : l], vi, vd) 
+        
+runner fn bl (first : rest) = do
+    let (err, vi, vd) = fn bl first
+        (err', vi', vd') = runner fn (vi, vd) rest
+        errL = (A.toList err)
+    if P.isNaN (P.sum errL)
+    then
+        ([], vi, vd)
+    else
+        (((P.sum errL) : errL) : err', vi', vd')
 
 getErrorFn :: String -> ErrorFn
 getErrorFn "MSE" = (mseErrorFn, dmseErrorFn)

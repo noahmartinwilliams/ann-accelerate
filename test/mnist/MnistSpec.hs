@@ -18,13 +18,14 @@ import ML.ANN.Types
 import Neural
 import Prelude as P
 import System.Directory
+import System.Exit
 import System.IO
 import System.Random
 
 main :: IO ()
 main = do
     createDirectoryIfMissing False "/tmp/results"
-    hSetBuffering stdout (BlockBuffering (Just 512))
+    hSetBuffering stdout (LineBuffering)
     c <- readFile "configsMnist.txt"
     let lines = endBy "\n" c
         g = 100
@@ -42,7 +43,13 @@ main = do
 saveResults :: [(String, String, String, String)] -> IO ()
 saveResults [] = return ()
 saveResults ((fname, fcontents, fname', fcontents') : tail) = do
+    putStrLn fcontents
     writeFile fname fcontents
-    writeFile fname' fcontents'
-    saveResults tail
+    putStrLn fcontents'
+    if (P.length (endBy "\n" fcontents') ) P./= 10000
+    then
+        exitFailure
+    else do
+        writeFile fname' fcontents'
+        saveResults tail
 
