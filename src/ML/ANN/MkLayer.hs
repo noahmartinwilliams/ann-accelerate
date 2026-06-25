@@ -10,13 +10,13 @@ heWeightInit numIns rands = P.map (\x -> x * (sqrt (2.0 / (P.fromIntegral numIns
 
 mkWeights :: Int -> Int -> [Double] -> (Weights, [Double])
 mkWeights numIns numOuts rands = do
-    let m = use (fromList (Z:.numOuts:.numIns) (heWeightInit numIns rands))
+    let m = use (fromList (Z:.numOuts:.numIns) (heWeightInit (numOuts + numIns) rands))
         r = P.drop (numOuts * numIns) rands
     (AccMat m Outp Inp, r )
 
 mkBiases :: Int -> Int -> [Double] -> (Biases, [Double])
 mkBiases numIns numOuts rands = do
-    let b = use (fromList (Z:.numOuts:.1) (heWeightInit numIns rands))
+    let b = use (fromList (Z:.numOuts:.1) (heWeightInit (numIns + numOuts) rands))
         r = P.drop (numOuts) rands
     (AccMat b Outp One, r)
 

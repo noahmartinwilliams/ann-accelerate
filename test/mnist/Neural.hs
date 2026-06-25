@@ -117,7 +117,7 @@ runner fn bl [last] = do
         ([summed : l], vi, vd) 
         
 runner fn bl (first : rest) = do
-    let (err, vi, vd) = fn bl first
+    let (err,  vi, vd) = fn bl first
         (err', vi', vd') = runner fn (vi, vd) rest
         errL = (A.toList err)
     if P.isNaN (P.sum errL)

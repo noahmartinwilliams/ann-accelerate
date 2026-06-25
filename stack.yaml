@@ -66,10 +66,6 @@ packages:
 # Allow a newer minor version of GHC than the snapshot specifies
 # compiler-check: newer-minor
 
-flags:
-  accelerate:
-    debug: true
-
 extra-deps:
   - git: https://github.com/noahmartinwilliams/matrix-accelerate.git
     commit: 842f450ae5dde3a3447ce23d19d10326ec37dcad

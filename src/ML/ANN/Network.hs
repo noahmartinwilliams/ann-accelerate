@@ -78,6 +78,9 @@ trainOnce blinfo block sample = do
     ret
 
 trainMiniBatch :: Int -> BLInfo -> AccBlock -> Acc (Matrix Double, Matrix Double) -> Acc (Vector Double, Vector Int, Vector Double)
+trainMiniBatch 1 blinfo block sample = do
+    let (a', b', c, d) = A.unlift (trainOnce blinfo block sample) :: (Acc (Matrix Double), Acc (Matrix Double), Acc (Vector Int), Acc (Vector Double))
+    A.lift (A.flatten a', c, d)
 trainMiniBatch miniSize blinfo block sample = do
     let (inp, outp) = A.unlift sample :: (Acc (Matrix Double), Acc (Matrix Double))
         (vi, vd) = A.unlift block :: (Acc (Vector Int), Acc (Vector Double))
@@ -85,7 +88,7 @@ trainMiniBatch miniSize blinfo block sample = do
         ret = awhile test (trainOnce' blinfo) (A.lift ((use empty), inp, outp, vi, vd))  
         (errs, _, _, vi', vd') = A.unlift ret :: (Acc (Matrix Double), Acc (Matrix Double), Acc (Matrix Double), Acc (Vector Int), Acc (Vector Double))
         net = block2network blinfo (A.lift (vi', vd'))
-        scaled = scaleNet (constant (P.fromIntegral miniSize :: Double)) net
+        scaled = scaleNet (constant (1.0 / (P.fromIntegral miniSize :: Double))) net
         (_, block') = network2block scaled
         (vi'', vd'') = A.unlift block' :: (Acc (Vector Int), Acc (Vector Double))
     A.lift (A.sum errs, vi'', vd'') where
@@ -105,19 +108,22 @@ trainMiniBatch miniSize blinfo block sample = do
                 trained = trainOnce blinfo' block'' (A.lift (inp', outp'))
                 (err, _, vi', vd') = A.unlift trained :: (Acc (Matrix Double), Acc (Matrix Double), Acc (Vector Int), Acc (Vector Double))
                 net2 = block2network blinfo' (A.lift (vi', vd'))
-                net3 = addNets net1 net2
+                net3 = (addNets net1 net2)
                 (_, trained') = network2block net3
-                (vi'', vd'') = A.unlift trained' :: (Acc (Vector Int), Acc (Vector Double))
+                trained'' = combineBlocks block'' trained'
+                (vi'', vd'') = A.unlift trained'' :: (Acc (Vector Int), Acc (Vector Double))
                 inp'' = A.drop (constant 1) inp
                 outp'' = A.drop (constant 1) outp
                 errs' = err A.++ errs
             A.lift (errs', inp'', outp'', vi'', vd'')
 
-
-avgNets :: [Network] -> Network
-avgNets (h : ns) = do
-    let den = constant (1.0 / (P.fromIntegral (P.length (h : ns)) :: Double))
-    P.foldr (\x -> \y -> addNets (scaleNet den x) y) (scaleNet den h) ns 
+combineBlocks :: Acc (Vector Int, Vector Double) -> Acc (Vector Int, Vector Double) -> Acc (Vector Int, Vector Double)
+combineBlocks a b = do
+    let (_, ad) = A.unlift a :: (Acc (Vector Int), Acc (Vector Double))
+        (_, bd) = A.unlift b :: (Acc (Vector Int), Acc (Vector Double))
+        apb = A.zipWith (+) ad bd
+        summed = A.sum apb
+    acond (A.the (A.map A.isNaN summed)) a b 
 
 scaleNet :: Exp Double -> Network -> Network
 scaleNet s (Network ls o e) = Network (P.map (scaleLayer s) ls) o e
@@ -127,7 +133,7 @@ scaleLayer s l@(InpLayer { vweights = vw, vbiases = vb, vbiasesMom = vbm, vbiase
 scaleLayer s l@(Layer { lweights = lw, lbiases = lb, lbiasesMom = lbm, lbiasesVel = lbv, lweightsMom = lwm, lweightsVel = lwv}) = l { lweights = (matScale s lw), lbiases = (matScale s lb), lbiasesMom = (s `matScale` lbm), lbiasesVel = (s `matScale` lbv), lweightsMom = (s `matScale` lwm), lweightsVel = (s `matScale` lwv)}
 
 addNets :: Network -> Network -> Network
-addNets (Network layers o e) (Network layers' o' e') = do
+addNets (Network layers o e) (Network layers' _ _) = do
     let layers'' = P.zipWith addLayer layers layers'
     (Network layers'' o e)
 
