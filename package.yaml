@@ -63,13 +63,13 @@ tests:
     - random
 
   testMnist:
-    main:                MnistSpec.hs
+    main:                Spec.hs
     source-dirs:         test/mnist
     ghc-options:
     - -threaded
     - -rtsopts
-    - -with-rtsopts=-N
     dependencies:
+    - mtl
     - accelerate
     - ann-accelerate
     - accelerate-llvm-ptx
@@ -78,7 +78,7 @@ tests:
     - bytestring
     - split
     - containers
-    - mtl
     - directory
+    - deepseq
     - parallel
     - matrix-accelerate

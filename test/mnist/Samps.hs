@@ -2,9 +2,9 @@ module Samps where
 
 import Control.Parallel.Strategies
 import Data.Array.Accelerate as A
-import Data.Array.Accelerate.Interpreter as I
-import Data.List.Split
 import qualified Data.ByteString as B
+import Data.List.Split
+import Types
 import GHC.Conc
 import Prelude as P
 
@@ -21,16 +21,19 @@ bs2Answer bs | (B.head bs) P.== 8 = fromList (Z:.10:.1) [0.0, 0.0, 0.0, 0.0, 0.0
 bs2Answer bs | (B.head bs) P.== 9 = fromList (Z:.10:.1) [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0]
 
 combineAnswers :: [Matrix Double] -> Matrix Double
-combineAnswers (h : ls) = I.run (P.foldl (A.++) (use h) (P.map use ls))
+combineAnswers ms = do
+    let ls = P.foldr (P.++) [] (P.map (A.toList) ms)
+        l = P.length ms
+    A.fromList (Z:.1:.10*l) ls
 
-mkSamps :: Int -> B.ByteString -> B.ByteString -> [(Matrix Double, Matrix Double)]
-mkSamps mbs imgs answers = do
+getSamps :: Int -> B.ByteString -> B.ByteString -> [(Matrix Double, Matrix Double)]
+getSamps mbs imgs answers = do
     let splitImgs = bsSplitEvery (mbs * 28 * 28) imgs
         imgMats = P.map (bs2Mat mbs) splitImgs
         answerMats = bsSplitEvery mbs answers
         answerMats' = chunksOf mbs (P.map bs2Answer answerMats)
         answerMats'' = P.map combineAnswers answerMats'
-    (P.zip imgMats answerMats'') `using` (parBuffer numCapabilities rdeepseq)
+    (P.zip imgMats answerMats'') `using` (parListChunk numCapabilities rdeepseq)
 
 bsSplitEvery :: Int -> B.ByteString -> [B.ByteString]
 bsSplitEvery i bs | (B.null bs) = []
@@ -41,4 +44,9 @@ bs2Mat mbs bs = do
     let uped = B.unpack bs
         asDoubles = P.map (\x -> P.fromIntegral x :: Double) uped
         scaled = P.map (\x -> (x / 255.0) ) asDoubles
-    I.run (A.transpose (use (A.fromList (Z:.mbs:.(28*28)) scaled )))
+    (A.fromList (Z:.mbs:.(28*28)) scaled )
+
+prepareSamp :: Acc (Matrix Double, Matrix Double) -> Acc (Matrix Double, Matrix Double)
+prepareSamp m = do
+    let (l1, l2) = A.unlift m :: (Acc (Matrix Double), Acc (Matrix Double))
+    A.lift (A.transpose l1, A.transpose l2)

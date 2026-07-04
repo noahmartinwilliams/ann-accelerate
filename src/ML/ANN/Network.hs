@@ -79,7 +79,7 @@ trainOnce blinfo block sample = do
 
 trainMiniBatch :: Int -> BLInfo -> AccBlock -> Acc (Matrix Double, Matrix Double) -> Acc (Vector Double, Vector Int, Vector Double)
 trainMiniBatch 1 blinfo block sample = do
-    let (a', b', c, d) = A.unlift (trainOnce blinfo block sample) :: (Acc (Matrix Double), Acc (Matrix Double), Acc (Vector Int), Acc (Vector Double))
+    let (a', _, c, d) = A.unlift (trainOnce blinfo block sample) :: (Acc (Matrix Double), Acc (Matrix Double), Acc (Vector Int), Acc (Vector Double))
     A.lift (A.flatten a', c, d)
 trainMiniBatch miniSize blinfo block sample = do
     let (inp, outp) = A.unlift sample :: (Acc (Matrix Double), Acc (Matrix Double))
