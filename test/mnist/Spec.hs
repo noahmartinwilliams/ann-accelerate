@@ -29,10 +29,10 @@ main = do
     let lines = endBy "\n" c
         confs = P.map getConf lines
         filtered = P.filter (isJust) confs
-        unJusted = P.map (\(Just x) -> x) filtered
+        (frist: unJusted) = P.map (\(Just x) -> x) filtered
         nums = [0..]
         seed = mkStdGen 100
-    runner (SampFiles { testImgs = B.drop 16 ti, testAnswers = B.drop 8 ta, trainImgs = B.drop 16 tri, trainAnswers = B.drop 8 tra}) (defaultState seed) (P.zip nums unJusted)  (A.fromList (Z:.1) [1], A.fromList (Z:.1) [1.0])
+    runner (SampFiles { testImgs = B.drop 16 ti, testAnswers = B.drop 8 ta, trainImgs = B.drop 16 tri, trainAnswers = B.drop 8 tra}) (defaultState seed frist) (P.zip nums unJusted)  (A.fromList (Z:.1) [1], A.fromList (Z:.1) [1.0])
 
 
 openFileS :: St -> IO St
@@ -67,9 +67,12 @@ runner sf st ((i, c) : r) block = do
     let g = mkStdGen 100
         ((str, vi, vd), st') = runState (runReaderT (runner' block g sf i) c ) st
     st'' <- doIO st' str
-    if (stTestPhase st'') P.&& ((stTestImgs st'') P.== [])
+    if (stTestPhase st'') P.&& ((stTestImgs st'') P.== []) P.&& ((stNumEpochs st'') P.== 0)
     then do
-        runner sf (defaultState g) r block
+        runner sf (st'' {stNumEpochs = (stNumEpochs st'') - 1}) ((i, c) : r) block
+    else if (stTestPhase st'') P.&& ((stTestImgs st'') P.== [])
+    then
+        runner sf (defaultState g c) r block
     else do
         runner sf st'' ((i, c) : r) (vi, vd)
 

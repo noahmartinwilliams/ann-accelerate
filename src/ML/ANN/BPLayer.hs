@@ -32,14 +32,12 @@ bpLayer (LLayer { llprevInput = prevInput, llayer = l@(Layer { lnumInputs = ni, 
     let wT = matTransp w
         x = (w `matMul` prevInput ) `matAdd` b
         deriv = (dactFuncs lspec x)
-        onesV = AccMat (use (fromList (Z:.ni:.1) (P.repeat 1.0))) Inp One
-        bp' = bp `matMul` (matTransp onesV)
         dw = (((x `matZipMul` deriv) `matZipMul` bp) `matMul` (matTransp prevInput))  
         w' = w `matSub` (lr `matScale` dw)
         db = (deriv `matZipMul` bp)
         b' = b `matSub` (lr `matScale` db)
-        (AccMat bp'' Inp One) = wT `matMul` ((bp `matZipMul` deriv) `matZipMul` x)
-    (l { lweights = w', lbiases = b'}, AccMat bp'' Outp One)
+        (AccMat bp' Inp One) = wT `matMul` ((bp `matZipMul` deriv) `matZipMul` x)
+    (l { lweights = w', lbiases = b'}, AccMat bp' Outp One)
 
 bpLayer (LLayer { llprevInput = prev, llayer = layer@(InpLayer { vweights = w, vbiases = b, vlspec = lspec })}) (SGDOptim lr) bp = do
     let (AccMat prev' Inp One) = prev
@@ -59,7 +57,7 @@ bpLayer (LLayer { llprevInput = prevInput, llayer = l@(Layer { lweights = w, lbi
         bv = lbiasesVel l
         t = lnumTimes l
         one = constant 1.0
-        epsilon = constant 0.01
+        epsilon = constant 0.0000001
         x = (w `matMul` prevInput ) `matAdd` b
         deriv = (dactFuncs lspec x)
 
@@ -90,7 +88,7 @@ bpLayer (LLayer { llprevInput = (AccMat prev _ _), llayer = l@(InpLayer { vweigh
         bv = vbiasesVel l
         one = constant 1.0
         t = vnumTimes l
-        epsilon = constant 0.01
+        epsilon = constant 0.0000001
         prev' = AccMat prev Outp One
         x = (w `matZipMul` prev' ) `matAdd` b
         deriv = (dactFuncs lspec x)

@@ -68,5 +68,6 @@ runTrainer block = do
         (err, vi, vd) = tfn block samp'
         err' = P.map (\x -> printf "%.5f" x) (A.toList err)
         err'' = P.foldr (\x -> \y -> x P.++ "," P.++ y) "\n" err'
+        totalErr = P.sum (A.toList err)
     modify (\s -> s { stTrainImgs = r, stFileToWrite = err''})
-    return (err'', vi, vd)
+    return ((printf "%.6f" totalErr) P.++ "," P.++ err'', vi, vd)
