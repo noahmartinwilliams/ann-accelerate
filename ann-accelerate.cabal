@@ -28,6 +28,7 @@ library
       ML.ANN.ActFunc
       ML.ANN.Block
       ML.ANN.BPLayer
+      ML.ANN.BString
       ML.ANN.ErrorFn
       ML.ANN.InfLayer
       ML.ANN.LLayer
@@ -45,6 +46,8 @@ library
   build-depends:
       accelerate
     , base >=4.7 && <5
+    , binary
+    , bytestring
     , matrix-accelerate
     , normaldistribution
     , random

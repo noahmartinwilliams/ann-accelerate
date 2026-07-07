@@ -37,6 +37,8 @@ library:
   source-dirs: src
   dependencies:
   - accelerate
+  - binary
+  - bytestring
   - matrix-accelerate
   - normaldistribution
   - random

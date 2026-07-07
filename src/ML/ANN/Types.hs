@@ -1,12 +1,13 @@
+{-# LANGUAGE DeriveGeneric #-}
 module ML.ANN.Types where
 
 import Data.Array.Accelerate as A
 import Data.Array.Accelerate.Matrix 
 import Prelude as P
 
-data One = One
-data Inp = Inp
-data Outp = Outp
+data One = One deriving(Generic)
+data Inp = Inp deriving(Generic)
+data Outp = Outp deriving(Generic)
 
 type Vect a b = AccMat a b One
 type Weights = AccMat Double Outp Inp 
