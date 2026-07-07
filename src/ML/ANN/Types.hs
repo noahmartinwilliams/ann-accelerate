@@ -25,15 +25,17 @@ data LLayer = LLayer { llprevInput :: (AccMat Double Inp One), llayer :: Layer }
 
 data Optim = SGDOptim (Exp Double) | AdamOptim (Exp Double) (Exp Double) (Exp Double)
 
-data Network = Network [Layer] Optim ErrorFn
+data Network = Network [Layer] Optim ErrorFnT
 
-data LNetwork = LNetwork [LLayer] Optim ErrorFn
+data LNetwork = LNetwork [LLayer] Optim ErrorFnT
 
 type AccBlock = Acc (Vector Int, Vector Double)
 
 data LayerInfo = LayerInfo Bool LSpec Int 
 
-data BLInfo = BLSGD [LayerInfo] ErrorFn | BLAdam [LayerInfo] ErrorFn
+data BLInfo = BLSGD [LayerInfo] ErrorFnT | BLAdam [LayerInfo] ErrorFnT
+
+data ErrorFnT = MSEErrorFn | CrossEntropyErrorFn 
 
 type ErrorFn = ((Acc (Matrix Double) -> Acc (Matrix Double) -> Acc (Matrix Double)), (Acc (Matrix Double) -> Acc (Matrix Double) -> Acc (Matrix Double)))
 

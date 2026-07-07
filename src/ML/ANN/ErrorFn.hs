@@ -2,6 +2,7 @@
 module ML.ANN.ErrorFn where
 
 import Data.Array.Accelerate as A
+import ML.ANN.Types
 import Prelude as P
 
 mseErrorFn :: (Shape sh) => Acc (Array sh Double) -> Acc (Array sh Double) -> Acc (Array sh Double)
@@ -29,3 +30,7 @@ dcrossEntropyErrorFn realAnswer expectedAnswer = do
         one = constant 1.0
         bp = A.zipWith (\a -> \b -> (b / a) - ((one - b) / (one - a))) realAnswer expectedAnswer
     A.map (\x -> - x / (A.fromIntegral len :: Exp Double)) bp
+
+lookupErrorFnT :: ErrorFnT -> ErrorFn
+lookupErrorFnT MSEErrorFn = (mseErrorFn, dmseErrorFn)
+lookupErrorFnT CrossEntropyErrorFn = (crossEntropyErrorFn, dcrossEntropyErrorFn)

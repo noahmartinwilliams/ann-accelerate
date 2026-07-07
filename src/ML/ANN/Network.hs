@@ -13,7 +13,7 @@ import ML.ANN.Types
 import Prelude as P
 import System.Random
 
-mkNetwork :: StdGen -> [LSpec] -> Optim -> ErrorFn -> Network
+mkNetwork :: StdGen -> [LSpec] -> Optim -> ErrorFnT -> Network
 mkNetwork gen (first : lspecLs) optim errf = do
     let norms = normals gen
         (inpLayer, norms') = mkInpLayer first norms 
@@ -31,7 +31,7 @@ mkNetwork gen (first : lspecLs) optim errf = do
 
 
 networkGetErrorFn :: Network -> ErrorFn
-networkGetErrorFn (Network _ _ e) = e
+networkGetErrorFn (Network _ _ e) = lookupErrorFnT e
 
 inferNetwork :: Network -> Acc (Matrix Double) -> Acc (Matrix Double)
 inferNetwork (Network [l] _ _ ) x = inferLayer l x
