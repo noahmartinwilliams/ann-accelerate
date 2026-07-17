@@ -12,11 +12,21 @@ import Prelude as P
 
 instance Binary Network where
     put (Network layers optim errorfn) = do
+        put (0x7F :: Word8)
+        put (65 :: Word8) -- A
+        put (78 :: Word8) -- N
+        put (78 :: Word8) -- N
+        put (0 :: Word8)
         layers2bs layers optim 
         optim2bs optim
         errorFnT2bs errorfn
 
     get = do
+        _ <- getWord8
+        _ <- getWord8
+        _ <- getWord8
+        _ <- getWord8
+        _ <- getWord8
         nl <- get 
         ls <- bs2layers nl
         optim <- bs2optim

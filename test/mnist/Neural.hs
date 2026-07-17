@@ -3,71 +3,43 @@ module Neural where
 import Control.Monad.Reader
 import Control.Monad.State
 import Data.Array.Accelerate as A
-import Data.Array.Accelerate.LLVM.PTX as PTX
+import Data.Array.Accelerate.Interpreter
+import Data.ByteString as B
 import ML.ANN.Block
 import ML.ANN.ErrorFn
 import ML.ANN.Network
 import ML.ANN.Types
 import Prelude as P
-import Samps
 import System.Random
-import Text.Printf
+import Samps
 import Types
 
-mkNeuralFns :: StdGen -> Int -> SampFiles -> Mon (TrainFn, [(Matrix Double, Matrix Double)], (Vector Int, Vector Double), [(Matrix Double, Matrix Double)] )
-mkNeuralFns seed runNo sampFiles = do
+getNeural :: StdGen -> Mon ()
+getNeural g = do
     errfn <- reader costF
     opt <- reader optimizer
     mbs <- reader miniBatchSize
-    let errFn' = getErrorFn errfn
-    neural <- getNeural seed opt
-    let (blinfo, block) = network2block neural
-        block' = PTX.run block
-    let trainFn = PTX.runN (\x -> \y -> trainMiniBatch mbs blinfo x (prepareSamp y))
-        trainSamps = getSamps mbs (trainImgs sampFiles) (trainAnswers sampFiles)
-        testSamps = getSamps 1 (testImgs sampFiles) (testAnswers sampFiles)
-    modify (\s -> s { stBLInfo = Just blinfo})
-    return (trainFn, trainSamps, PTX.run block, testSamps)
-
-    
-getErrorFn :: String -> ErrorFn
-getErrorFn "MSE" = (mseErrorFn, dmseErrorFn)
-getErrorFn "CrossEntropy" = (crossEntropyErrorFn, dcrossEntropyErrorFn)
-
-getNeural :: StdGen -> String -> Mon Network
-getNeural g "Adam" = do
-    cnf <- ask
-    lr1 <- reader lr
+    lyrs <- reader layers
+    iaf <- reader inputAF
+    learnRate <- reader lr
     b1 <- reader beta1
     b2 <- reader beta2
-    mbs <- reader miniBatchSize
-    let errFn = getErrorFn (costF cnf)
-        lsp = read (layers cnf) :: [LSpec]
-        iaf = read (inputAF cnf) :: ActFunc
-        net = mkNetwork g (([((28*28), iaf)] : lsp) P.++ [[(10, SoftMax)]]) (AdamOptim (constant lr1) (constant b1) (constant b2)) errFn
-    return net
+    let iaf' = getAF iaf
+    let n = mkNetwork g ([[(28*28, iaf')] ] P.++ (getLayers lyrs) P.++ [[(10, SoftMax)]]) (getOptim opt learnRate b1 b2) (getErrfn errfn) 
+        (blinfo, ablock) = network2block n
+        block = run ablock
+    modify (\s -> s { stBlock = block, stBLInfo = blinfo})
 
-getNeural g "SGD" = do
-    cnf <- ask
-    lr1 <- reader lr
-    errFn <- reader costF
-    mbs <- reader miniBatchSize
-    let lsp = read (layers cnf) :: [LSpec]
-        errFn' = getErrorFn errFn
-        iaf = read (inputAF cnf) :: ActFunc
-        net = mkNetwork g (([((28*28), iaf)] : lsp) P.++ [[(10, SoftMax)]]) (SGDOptim (constant lr1)) errFn'
-    return net
+getLayers :: String -> [LSpec]
+getLayers str = read str :: [LSpec]
 
+getErrfn :: String -> ErrorFnT
+getErrfn "MSE" = MSEErrorFn
+getErrfn "CrossEntropy" = CrossEntropyErrorFn
 
-runTrainer ::  (Vector Int, Vector Double) -> Mon (String, Vector Int, Vector Double)
-runTrainer block = do
-    samp <- gets stTrainImgs
-    jtfn <- gets stTrainFn
-    let (Just tfn) = jtfn
-        (samp' : r) = samp
-        (err, vi, vd) = tfn block samp'
-        err' = P.map (\x -> printf "%.5f" x) (A.toList err)
-        err'' = P.foldr (\x -> \y -> x P.++ "," P.++ y) "\n" err'
-        totalErr = P.sum (A.toList err)
-    modify (\s -> s { stTrainImgs = r, stFileToWrite = err''})
-    return ((printf "%.6f" totalErr) P.++ "," P.++ err'', vi, vd)
+getOptim :: String -> Double -> Double -> Double -> Optim
+getOptim "SGD" lr _ _ = SGDOptim (constant lr)
+getOptim "Adam" lr b1 b2 = AdamOptim (constant lr) (constant b1) (constant b2)
+
+getAF :: String -> ActFunc
+getAF str = read str :: ActFunc

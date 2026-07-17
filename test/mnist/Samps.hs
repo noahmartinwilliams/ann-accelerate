@@ -24,19 +24,19 @@ combineAnswers :: [Matrix Double] -> Matrix Double
 combineAnswers ms = do
     let ls = P.foldr (P.++) [] (P.map (A.toList) ms)
         l = P.length ms
-    A.fromList (Z:.1:.10*l) ls
+    A.fromList (Z:.10:.l) ls
 
 getSamps :: Int -> B.ByteString -> B.ByteString -> [(Matrix Double, Matrix Double)]
 getSamps mbs imgs answers = do
     let splitImgs = bsSplitEvery (mbs * 28 * 28) imgs
         imgMats = P.map (bs2Mat mbs) splitImgs
-        answerMats = bsSplitEvery mbs answers
+        answerMats = bsSplitEvery 1 answers
         answerMats' = chunksOf mbs (P.map bs2Answer answerMats)
         answerMats'' = P.map combineAnswers answerMats'
     (P.zip imgMats answerMats'') `using` (parListChunk numCapabilities rdeepseq)
 
 bsSplitEvery :: Int -> B.ByteString -> [B.ByteString]
-bsSplitEvery i bs | (B.null bs) = []
+bsSplitEvery _ bs | (B.null bs) = []
 bsSplitEvery i bs = (B.take i bs ) : (bsSplitEvery i (B.drop i bs))
 
 bs2Mat :: Int -> B.ByteString -> Matrix Double
@@ -44,9 +44,9 @@ bs2Mat mbs bs = do
     let uped = B.unpack bs
         asDoubles = P.map (\x -> P.fromIntegral x :: Double) uped
         scaled = P.map (\x -> (x / 255.0) ) asDoubles
-    (A.fromList (Z:.mbs:.(28*28)) scaled )
+    (A.fromList (Z:.(28*28):.mbs) scaled )
 
 prepareSamp :: Acc (Matrix Double, Matrix Double) -> Acc (Matrix Double, Matrix Double)
 prepareSamp m = do
     let (l1, l2) = A.unlift m :: (Acc (Matrix Double), Acc (Matrix Double))
-    A.lift (A.transpose l1, A.transpose l2)
+    A.lift (l1, l2)

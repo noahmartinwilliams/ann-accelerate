@@ -88,26 +88,32 @@ test-suite testBlock
     , random
   default-language: Haskell2010
 
-test-suite testMnist
+test-suite testMnist2
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
+      Misc
       Neural
       Samps
+      Saver
+      SideEff
       Tester
+      Trainer
       Types
       Paths_ann_accelerate
   autogen-modules:
       Paths_ann_accelerate
   hs-source-dirs:
-      test/mnist
+      test/mnist2
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts
   build-depends:
       accelerate
+    , accelerate-llvm-native
     , accelerate-llvm-ptx
     , aeson
     , ann-accelerate
     , base >=4.7 && <5
+    , binary
     , bytestring
     , containers
     , deepseq

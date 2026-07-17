@@ -1,103 +1,96 @@
 module Main where
 
-import Control.DeepSeq
 import Control.Monad.Reader
 import Control.Monad.State
-import Control.Parallel.Strategies
+import Data.Aeson
 import Data.Array.Accelerate as A
-import qualified Data.ByteString as B
+import Data.Array.Accelerate.Interpreter
+import Data.ByteString as BS
 import Data.List.Split
+import Data.Map
 import Data.Maybe
-import ML.ANN.Types
+import ML.ANN.Block
 import ML.ANN.Network
+import ML.ANN.Types
 import Neural
 import Prelude as P
+import Samps
+import Saver
+import SideEff
 import System.Directory
-import System.IO
 import System.Random
 import Tester
+import Trainer
 import Types
 
 main :: IO ()
 main = do
     createDirectoryIfMissing False "/tmp/results/"
-    c <- readFile "configsMnist.txt"
-    tri <- B.readFile "train-images.idx3-ubyte"
-    tra <- B.readFile "train-labels.idx1-ubyte"
-    ti <- B.readFile "t10k-images-idx3-ubyte"
-    ta <- B.readFile "t10k-labels-idx1-ubyte"
+    h1 <- BS.readFile "train-images.idx3-ubyte"
+    h2 <- BS.readFile "train-labels.idx1-ubyte"
+    h3 <- BS.readFile "t10k-images-idx3-ubyte"
+    h4 <- BS.readFile "t10k-labels-idx1-ubyte"
+    c <- P.readFile "configsMnist.txt"
     let lines = endBy "\n" c
-        confs = P.map getConf lines
-        filtered = P.filter (isJust) confs
-        (frist: unJusted) = P.map (\(Just x) -> x) filtered
+    let configs = P.map (\x -> Data.Aeson.decode (fromString x)) lines
+        filtered = P.filter (isJust) configs
+        configs' = P.map (\(Just x) -> x ) filtered
         nums = [0..]
-        seed = mkStdGen 100
-    runner (SampFiles { testImgs = B.drop 16 ti, testAnswers = B.drop 8 ta, trainImgs = B.drop 16 tri, trainAnswers = B.drop 8 tra}) (defaultState seed frist) (P.zip nums unJusted)  (A.fromList (Z:.1) [1], A.fromList (Z:.1) [1.0])
+    go configs' nums (h1, h2, h3, h4)
 
 
-openFileS :: St -> IO St
-openFileS s@(St { stFileToOpen = "" }) = return s
-openFileS s@(St { stFileToOpen = fname }) = do
-    handle <- openFile fname WriteMode 
-    hSetBuffering handle (BlockBuffering Nothing)
-    return (s { stOpenFile = handle, stFileToOpen = "" })
+defTrain :: BLInfo -> Acc (Vector Int, Vector Double) -> Acc (Matrix Double, Matrix Double) -> Acc (Vector Double, (Vector Int, Vector Double))
+defTrain blinfo block samp = do
+    let res = trainOnce blinfo block samp
+        (a, _, block') = A.unlift res :: (Acc (Matrix Double), Acc (Matrix Double), Acc (Vector Int, Vector Double))
+    A.lift (A.flatten a, block')
 
-doIO :: St -> String -> IO St
-doIO st str = do
-    if (stCloseFile st)
-    then do
-        writeFileS st str
-        hClose (stOpenFile st)
-        s <- openFileS st
-        return (s { stFileToOpen = "" , stFileToWrite = "", stCloseFile = False})
-    else if ((stFileToOpen st) P.== "")
-    then do
-        writeFileS st str
-        return st
-    else do
-        openFileS st
-
-writeFileS :: St -> String -> IO ()
-writeFileS s@(St { stOpenFile = h}) str = do
-    hPutStr h str
-
-runner :: SampFiles -> St -> [(Int, Conf)] -> (Vector Int, Vector Double) -> IO ()
-runner _ _ [] _ = return ()
-runner sf st ((i, c) : r) block = do
+defStuff :: (BLInfo, (Vector Int, Vector Double), TestFn, TrainFn)
+defStuff = do
     let g = mkStdGen 100
-        ((str, vi, vd), st') = runState (runReaderT (runner' block g sf i) c ) st
-    st'' <- doIO st' str
-    if (stTestPhase st'') P.&& ((stTestImgs st'') P.== []) P.&& ((stNumEpochs st'') P.== 0)
+        n = mkNetwork g [[(100, Sigmoid)], [(10, Sigmoid)], [(1, Sigmoid)]] (SGDOptim (constant 0.0001)) MSEErrorFn
+        (blinfo, block) = (network2block n)
+        testfn = runN (inferNetwork n)
+        trainfn = runN (defTrain blinfo)
+    (blinfo, run block, testfn, trainfn)
+        
+go :: [Conf] -> [Int] -> SampSource -> IO ()
+go [] _ _ = return ()
+go (hc : rc) (hi : ri) sampSources@(h1, h2, h3, h4) = do
+    let (blinfo, block, testfn, trainfn) = defStuff
+    runner' hc (St {stTestSamps = getSamps 1 (BS.drop 16 h3) (BS.drop 8 h4), stPhase = Start, stBLInfo = blinfo, stTrainSamps = getSamps (miniBatchSize hc) (BS.drop 16 h1) (BS.drop 8 h2), stBlock = block, stFilesToWrite = Data.Map.empty, stFilesToOpen = [], stFiles = Data.Map.empty, stFilesToClose = []}) trainfn testfn hi (numEpochs hc)
+    go rc ri sampSources 
+
+runner :: Int -> TrainFn -> TestFn -> Mon (Bool, TrainFn, TestFn)
+runner num train test = do
+    phase <- gets stPhase
+    if phase P.== Start
     then do
-        runner sf (st'' {stNumEpochs = (stNumEpochs st'') - 1}) ((i, c) : r) block
-    else if (stTestPhase st'') P.&& ((stTestImgs st'') P.== [])
+        getNeural (mkStdGen 100) 
+        train' <- runTrainer num train
+        test' <- runTester num test
+        runSaver num
+        return (False, train', test')
+    else do
+        train' <- runTrainer num train
+        test' <- runTester num test
+        runSaver num
+        phase <- gets stPhase
+        if phase P.== Done
+        then
+            return (True, train', test')
+        else
+            return (False, train', test')
+    
+runner' :: Conf -> St -> TrainFn -> TestFn -> Int -> Int -> IO ()
+runner' c st train test num epochNum = do
+    let ((finished, train', test'), st') = runState (runReaderT (runner num train test) c) st
+    st'' <- doIO  st'
+    if finished P.&& (epochNum P.== 0)
     then
-        runner sf (defaultState g c) r block
-    else do
-        runner sf st'' ((i, c) : r) (vi, vd)
-
-
-runner' :: (Vector Int, Vector Double) -> StdGen -> SampFiles -> Int -> Mon (String, Vector Int, Vector Double)
-runner' (blockArgI, blockArgD) g sf i = do
-    let errsFile = "/tmp/results/errs-" P.++ (show i) P.++ ".txt" 
-        testFile = "/tmp/results/test-" P.++ (show i) P.++ ".txt"
-    (trainer, trainSamps, (blockI, blockD), testSamps) <- mkNeuralFns g i sf
-    ti <- gets stTrainImgs
-    started <- gets stStart
-    testPhase <- gets stTestPhase
-    if (ti P.== []) P.&& started
-    then do
-        modify (\s -> s { stCloseFile = False, stFileToWrite = "", stFileToOpen = errsFile })
-        modify (\s -> s { stStart = False, stTrainFn = Just trainer, stTrainImgs = trainSamps, stTestImgs = testSamps, stTestPhase = False})
-        return ("", blockI, blockD)
-    else if (ti P.== []) P.&& (testPhase P.== False)
-    then do
-        modify (\s -> s {stFileToOpen = testFile, stCloseFile = True, stTestPhase = True})
-        return ("", blockArgI, blockArgD)
-    else if testPhase
-    then do
-        mkTester (blockArgI, blockArgD)
-        runTester (blockArgI, blockArgD)
-    else do
-        runTrainer (blockArgI, blockArgD)
-
+        return ()
+    else if finished 
+    then
+        runner' c st'' train' test' num (epochNum - 1)
+    else
+        runner' c st'' train' test' num epochNum

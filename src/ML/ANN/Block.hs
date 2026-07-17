@@ -178,3 +178,14 @@ block2network (BLAdam ls errFn) accblock = do
                 layer = Layer { lnumTimes = numTimes, lweights = weightsM, lbiases = biasesM, lbiasesMom = (AccMat biasesMom Outp One), lbiasesVel = (AccMat biasesVel Outp One), lweightsMom = (AccMat weightsMom Outp Inp), lweightsVel = (AccMat weightsVel Outp Inp)}
             (layer : (intern rest ints' biasesVelR))
 
+splitHypParams :: BLInfo -> AccBlock -> (Acc (Vector Int), Acc (Vector Double), Acc (Vector Double))
+splitHypParams (BLSGD _ _) accblock = do
+    let (accInt, accDouble) = A.unlift accblock :: (Acc (Vector Int), Acc (Vector Double))
+        hypParams = A.take (constant 1) accDouble :: Acc (Vector Double)
+        params = A.drop (constant 1) accDouble :: Acc (Vector Double)
+    (accInt, hypParams, params)
+splitHypParams (BLAdam _ _) accblock = do
+    let (accInt, accDouble) = A.unlift accblock :: (Acc (Vector Int), Acc (Vector Double))
+        hypParams = A.take (constant 3) accDouble
+        params = A.drop (constant 3) accDouble
+    (accInt, hypParams, params)

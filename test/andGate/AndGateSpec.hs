@@ -22,14 +22,14 @@ genSamples g = do
 main :: IO ()
 main = do
     let g = mkStdGen 100
-        n = mkNetwork g [[(2, Relu)], [(5, Relu)], [(1, Relu)]] (SGDOptim (constant 0.01)) (mseErrorFn, dmseErrorFn)
+        n = mkNetwork g [[(2, Relu)], [(5, Relu)], [(1, Relu)]] (SGDOptim (constant 0.01)) MSEErrorFn
         (blinfo, blockA) = network2block n
         block = run blockA
         fn = runN (trainOnce blinfo )
         numSamples = 4096
         samples = P.take numSamples (genSamples g)
-        (err0, _, _, _) = fn block (samples P.!! 0)
-        (errs, _, _, _) = runner fn block samples
+        (err0, _, _) = fn block (samples P.!! 0)
+        (errs, _, _) = runner fn block samples
         last = errs P.!! (numSamples - 1)
     if (P.sum (A.toList last)) P.> (P.sum (A.toList err0))
     then
@@ -37,8 +37,8 @@ main = do
     else
         exitSuccess
 
-runner :: ((Vector Int, Vector Double) -> (Matrix Double, Matrix Double) -> (Matrix Double, Matrix Double, Vector Int, Vector Double)) -> (Vector Int, Vector Double) -> [(Matrix Double, Matrix Double)] -> ([Matrix Double], [Matrix Double], Vector Int, Vector Double)
+runner :: ((Vector Int, Vector Double) -> (Matrix Double, Matrix Double) -> (Matrix Double, Matrix Double, (Vector Int, Vector Double))) -> (Vector Int, Vector Double) -> [(Matrix Double, Matrix Double)] -> ([Matrix Double], [Matrix Double], (Vector Int, Vector Double))
 runner fn block (sample : rest) = do
-    let (err, bp, blockI, blockD) = fn block sample
-        (err', bp', blockI', blockD') = runner fn (blockI, blockD) rest
-    (err : err', bp : bp', blockI', blockD')
+    let (err, bp, block') = fn block sample
+        (err', bp', block'') = runner fn block' rest
+    (err : err', bp : bp', block'')

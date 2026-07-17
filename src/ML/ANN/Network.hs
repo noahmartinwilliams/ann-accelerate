@@ -63,7 +63,7 @@ bpNetwork (LNetwork layers optim errfn) bp = do
                 ((Network l' _ errfn), e') = intern t e opt
             (Network (l' P.++ [l]) opt errfn, e')
 
-trainOnce :: BLInfo -> AccBlock -> Acc (Matrix Double, Matrix Double) -> Acc (Matrix Double, Matrix Double, Vector Int, Vector Double)
+trainOnce :: BLInfo -> AccBlock -> Acc (Matrix Double, Matrix Double) -> Acc (Matrix Double, Matrix Double, (Vector Int, Vector Double))
 trainOnce blinfo block sample = do
     let net = block2network blinfo block
         (inp, outp) = A.unlift sample :: (Acc (Matrix Double), Acc (Matrix Double))
@@ -73,49 +73,58 @@ trainOnce blinfo block sample = do
         derr = derrFn netOut outp
         (net', bp) = bpNetwork ln derr
         (_, block') = network2block net'
-        (blockI, blockD) = A.unlift block' :: (Acc (Vector Int), Acc (Vector Double))
-        ret = A.lift (err, bp, blockI, blockD)
+        block'' = A.unlift block' :: (Acc (Vector Int), Acc (Vector Double))
+        ret = A.lift (err, bp, block'')
     ret
 
-trainMiniBatch :: Int -> BLInfo -> AccBlock -> Acc (Matrix Double, Matrix Double) -> Acc (Vector Double, Vector Int, Vector Double)
+type AccInp = Acc (Matrix Double)
+type AccOutp = Acc (Matrix Double)
+type InpA = Matrix Double
+type OutpA = Matrix Double
+type AccErrs = Acc (Matrix Double)
+type ErrsA = Matrix Double
+type HypParamsA = Vector Double
+type AccHypParams = Acc (Vector Double)
+type IntHypParamsA = Vector Int
+type AccIntHypParams = Acc (Vector Int)
+type ParamsA = Matrix Double
+type AccParams = Acc (Matrix Double)
+
+type AccNetState = Acc (ErrsA, InpA, OutpA, IntHypParamsA, HypParamsA, ParamsA)
+type NetStateAcc = (AccErrs, AccInp, AccOutp, AccIntHypParams, AccHypParams, AccParams)
+
+trainMiniBatch :: Int -> BLInfo -> AccBlock -> Acc (Matrix Double, Matrix Double) -> Acc (Vector Double, (Vector Int, Vector Double))
 trainMiniBatch 1 blinfo block sample = do
-    let (a', _, c, d) = A.unlift (trainOnce blinfo block sample) :: (Acc (Matrix Double), Acc (Matrix Double), Acc (Vector Int), Acc (Vector Double))
-    A.lift (A.flatten a', c, d)
+    let (a', _, c) = A.unlift (trainOnce blinfo block sample) :: (Acc (Matrix Double), Acc (Matrix Double), Acc (Vector Int, Vector Double))
+    A.lift (A.flatten a', c)
 trainMiniBatch miniSize blinfo block sample = do
     let (inp, outp) = A.unlift sample :: (Acc (Matrix Double), Acc (Matrix Double))
-        (vi, vd) = A.unlift block :: (Acc (Vector Int), Acc (Vector Double))
         empty = A.fromList (Z:.10:.1) (P.take 10 (P.repeat 0.0)) :: (Matrix Double)
-        ret = awhile test (trainOnce' blinfo) (A.lift ((use empty), inp, outp, vi, vd))  
-        (errs, _, _, vi', vd') = A.unlift ret :: (Acc (Matrix Double), Acc (Matrix Double), Acc (Matrix Double), Acc (Vector Int), Acc (Vector Double))
-        net = block2network blinfo (A.lift (vi', vd'))
-        scaled = scaleNet (constant (1.0 / (P.fromIntegral miniSize :: Double))) net
-        (_, block') = network2block scaled
-        (vi'', vd'') = A.unlift block' :: (Acc (Vector Int), Acc (Vector Double))
-    A.lift (A.sum errs, vi'', vd'') where
+        (hi, hd, p) = splitHypParams blinfo block
+        netState = A.lift (empty, inp, outp, hi, hd, A.replicate (A.lift (Z:.All:.(1::Int))) p)
+        ret = awhile test (trainOnce' blinfo) netState  
+        (errs, _, _, hi', hd', p') = A.unlift ret :: NetStateAcc
+        divideMS = A.map (\x -> x / (constant (P.fromIntegral miniSize :: Double)))
+        p'' = divideMS (A.sum p')
+        block' = A.lift (hi', hd' A.++ p'') :: AccBlock
+    A.lift (divideMS (A.sum errs), block') where
 
-        test :: Acc (Matrix Double, Matrix Double, Matrix Double, Vector Int, Vector Double) -> Acc (Scalar Bool)
+        test :: AccNetState -> Acc (Scalar Bool)
         test bl = do
-            let (_, inp, _, _, _) = A.unlift bl :: (Acc (Matrix Double), Acc (Matrix Double), Acc (Matrix Double), Acc (Vector Int), Acc (Vector Double))
-            A.unit (A.not (A.null inp))
+            let (_, inps, _, _, _, _) = A.unlift bl :: NetStateAcc
+            A.unit (A.not (A.null inps))
         
-        trainOnce' :: BLInfo -> Acc (Matrix Double, Matrix Double, Matrix Double, Vector Int, Vector Double) -> Acc (Matrix Double, Matrix Double, Matrix Double, Vector Int, Vector Double)
-        trainOnce' blinfo' block' = do
-            let (errs, inp, outp, vi, vd) = A.unlift block' :: (Acc (Matrix Double), Acc (Matrix Double), Acc (Matrix Double), Acc (Vector Int), Acc (Vector Double))
-                inp' = A.take (constant 1) inp
-                outp' = A.take (constant 1) outp
-                block'' = A.lift (vi, vd)
-                net1 = block2network blinfo' block''
-                trained = trainOnce blinfo' block'' (A.lift (inp', outp'))
-                (err, _, vi', vd') = A.unlift trained :: (Acc (Matrix Double), Acc (Matrix Double), Acc (Vector Int), Acc (Vector Double))
-                net2 = block2network blinfo' (A.lift (vi', vd'))
-                net3 = (addNets net1 net2)
-                (_, trained') = network2block net3
-                trained'' = combineBlocks block'' trained'
-                (vi'', vd'') = A.unlift trained'' :: (Acc (Vector Int), Acc (Vector Double))
+        trainOnce' :: BLInfo -> AccNetState -> AccNetState
+        trainOnce' blinfo' netState' = do
+            let (errs, inp, outp, intHypParams, hypParams, params) = A.unlift netState' :: NetStateAcc
+                newBlock = A.lift (intHypParams, (hypParams A.++ (A.flatten (A.take (constant 1) params))))
+                trained = trainOnce blinfo' newBlock (A.lift (inp, outp))
+                (err, _, newBlock') = A.unlift trained :: (Acc (Matrix Double), Acc (Matrix Double), Acc (Vector Int, Vector Double))
+                (_, _, params') = splitHypParams blinfo' newBlock'
                 inp'' = A.drop (constant 1) inp
                 outp'' = A.drop (constant 1) outp
                 errs' = err A.++ errs
-            A.lift (errs', inp'', outp'', vi'', vd'')
+            A.lift (errs', inp'', outp'', intHypParams, hypParams, (A.replicate (A.lift (Z:.All:.(1::Int))) params') A.++ params)
 
 combineBlocks :: Acc (Vector Int, Vector Double) -> Acc (Vector Int, Vector Double) -> Acc (Vector Int, Vector Double)
 combineBlocks a b = do

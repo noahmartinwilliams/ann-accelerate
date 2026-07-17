@@ -31,6 +31,8 @@ data LNetwork = LNetwork [LLayer] Optim ErrorFnT
 
 type AccBlock = Acc (Vector Int, Vector Double)
 
+type Block = (Vector Int, Vector Double)
+
 data LayerInfo = LayerInfo Bool LSpec Int 
 
 data BLInfo = BLSGD [LayerInfo] ErrorFnT | BLAdam [LayerInfo] ErrorFnT

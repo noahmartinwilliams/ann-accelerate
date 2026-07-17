@@ -10,13 +10,13 @@ heWeightInit numIns rands = P.map (\x -> x * (sqrt (2.0 / (P.fromIntegral numIns
 
 mkWeights :: Int -> Int -> [Double] -> (Weights, [Double])
 mkWeights numIns numOuts rands = do
-    let m = use (fromList (Z:.numOuts:.numIns) (heWeightInit (numOuts ) rands))
+    let m = use (fromList (Z:.numOuts:.numIns) (heWeightInit (numIns ) rands))
         r = P.drop (numOuts * numIns) rands
     (AccMat m Outp Inp, r )
 
 mkBiases :: Int -> Int -> [Double] -> (Biases, [Double])
 mkBiases numIns numOuts rands = do
-    let b = use (fromList (Z:.numOuts:.1) (heWeightInit (numOuts) rands))
+    let b = use (fromList (Z:.numOuts:.1) (heWeightInit (numIns) rands))
         r = P.drop (numOuts) rands
     (AccMat b Outp One, r)
 
@@ -37,8 +37,8 @@ mkLayer numIns lspec rands = do
 mkInpLayer :: LSpec -> [Double] -> (Layer, [Double])
 mkInpLayer lspec rands = do
     let numOuts = P.foldr (+) 0 (P.map P.fst lspec)
-        (weights, rands') = mkBiases numOuts numOuts rands
-        (biases, rands'') = mkBiases numOuts numOuts rands'
+        (weights, rands') = mkBiases 1 1 rands
+        (biases, rands'') = mkBiases 1 1 rands'
         zerosV = AccMat (use (A.fromList (Z:.numOuts:.1) (P.repeat 0.0))) Outp One
         l = InpLayer {vnumTimes = (constant 1), vweights = weights, vbiases = biases, vlspec = lspec, vweightsMom = zerosV, vweightsVel = zerosV, vbiasesMom = zerosV, vbiasesVel = zerosV}
     (l, rands'')
