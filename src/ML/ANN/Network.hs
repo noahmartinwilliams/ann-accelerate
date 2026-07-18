@@ -46,10 +46,6 @@ learnNetwork (Network (h : t) optim errfn) m = do
         ((LNetwork l' _ errfn'), m'') = learnNetwork (Network t optim errfn) m'
     (LNetwork (l : l') optim errfn', m'')
 
-batchLearnNetwork :: Network -> [Acc (Matrix Double)] -> ([LNetwork], [Acc (Matrix Double)])
-batchLearnNetwork n inpLs = P.unzip (P.map (learnNetwork n) inpLs)
-
-
 bpNetwork :: LNetwork -> Acc (Matrix Double) -> (Network, Acc (Matrix Double))
 bpNetwork (LNetwork layers optim errfn) bp = do
     let bp' = AccMat bp Outp One
@@ -60,8 +56,8 @@ bpNetwork (LNetwork layers optim errfn) bp = do
         intern [] a o = ((Network [] o errfn), a)
         intern ( h : t) a opt = do
             let (l, e) = bpLayer h opt a
-                ((Network l' _ errfn), e') = intern t e opt
-            (Network (l' P.++ [l]) opt errfn, e')
+                ((Network l' _ errfn'), e') = intern t e opt
+            (Network (l' P.++ [l]) opt errfn', e')
 
 trainOnce :: BLInfo -> AccBlock -> Acc (Matrix Double, Matrix Double) -> Acc (Matrix Double, Matrix Double, (Vector Int, Vector Double))
 trainOnce blinfo block sample = do
@@ -100,14 +96,15 @@ trainMiniBatch 1 blinfo block sample = do
 trainMiniBatch miniSize blinfo block sample = do
     let (inp, outp) = A.unlift sample :: (Acc (Matrix Double), Acc (Matrix Double))
         empty = A.fromList (Z:.10:.1) (P.take 10 (P.repeat 0.0)) :: (Matrix Double)
-        (hi, hd, p) = splitHypParams blinfo block
+        block' = incNumTimes block
+        (hi, hd, p) = splitHypParams blinfo block'
         netState = A.lift (empty, inp, outp, hi, hd, A.replicate (A.lift (Z:.All:.(1::Int))) p)
         ret = awhile test (trainOnce' blinfo) netState  
         (errs, _, _, hi', hd', p') = A.unlift ret :: NetStateAcc
         divideMS = A.map (\x -> x / (constant (P.fromIntegral miniSize :: Double)))
         p'' = divideMS (A.sum p')
-        block' = A.lift (hi', hd' A.++ p'') :: AccBlock
-    A.lift (divideMS (A.sum errs), block') where
+        block'' = A.lift (hi', hd' A.++ p'') :: AccBlock
+    A.lift (divideMS (A.sum errs), block'') where
 
         test :: AccNetState -> Acc (Scalar Bool)
         test bl = do

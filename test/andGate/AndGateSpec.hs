@@ -1,7 +1,7 @@
 module Main where
 
 import Data.Array.Accelerate as A
-import Data.Array.Accelerate.Interpreter
+import Data.Array.Accelerate.LLVM.Native
 import ML.ANN.ActFunc
 import ML.ANN.Block
 import ML.ANN.ErrorFn
@@ -26,7 +26,7 @@ main = do
         (blinfo, blockA) = network2block n
         block = run blockA
         fn = runN (trainOnce blinfo )
-        numSamples = 4096
+        numSamples = 1024
         samples = P.take numSamples (genSamples g)
         (err0, _, _) = fn block (samples P.!! 0)
         (errs, _, _) = runner fn block samples

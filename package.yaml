@@ -61,6 +61,7 @@ tests:
     - -threaded
     dependencies:
     - accelerate
+    - accelerate-llvm-native
     - ann-accelerate
     - random
 

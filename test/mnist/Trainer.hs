@@ -39,8 +39,8 @@ runTrainer i tfn = do
         let (samp1 : sampsr) = samps 
             (res1, block') = tfn block samp1
             res1' = (err2Str res1)
+        --writer trainerFile (BS.pack ((show block) P.++ "\n"))
         writer trainerFile (BS.pack res1')
-        --writer trainerFile (BS.pack ((show block') P.++ "\n"))
         modify (\s -> s { stBlock = block', stTrainSamps = sampsr})
         return tfn
     else

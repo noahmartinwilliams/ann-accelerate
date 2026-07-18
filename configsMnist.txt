@@ -1,2 +1,2 @@
-{"numEpochs":10,"miniBatchSize":60,"optimizer":"Adam","layers":"[[(32, Relu)]]","lr":0.00001,"beta1":0.9,"beta2":0.999,"costF":"CrossEntropy","inputAF":"Relu"}
+{"numEpochs":10,"miniBatchSize":20,"optimizer":"Adam","layers":"[[(32, Relu)], [(32, Relu)]]","lr":0.0001,"beta1":0.9,"beta2":0.999,"costF":"CrossEntropy","inputAF":"Relu"}
 {"numEpochs":1,"miniBatchSize":1,"optimizer":"SGD","layers":"[[(64, Relu)],[(32, Relu)]]","lr":0.0001,"beta1":0.9,"beta2":0.999,"costF":"MSE","inputAF":"Relu"}
