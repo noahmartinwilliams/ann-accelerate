@@ -27,7 +27,7 @@ bpLayer (LLayer { llprevInput = prev, llayer = layer@(InpLayer { vweights = w, v
         prev'' = AccMat prev' Outp One
         x = (w `matZipMul` prev'') `matAdd` b
         deriv = (dactFuncs lspec x)
-        w' = w `matSub` (lr `matScale` (deriv `matZipMul` (bp `matZipMul` x)))
+        w' = w `matSub` (lr `matScale` ((deriv `matZipMul` (bp `matZipMul` x)) `matZipMul` prev''))
         b' = b `matSub` (lr `matScale` ((bp `matZipMul` deriv)) `matZipMul` x)
         bp' = w `matZipMul` ((deriv `matZipMul` bp) `matZipMul` x)
     ( layer { vweights = w', vbiases = b' }, bp')
