@@ -10,24 +10,6 @@ import ML.ANN.MkLayer
 import ML.ANN.Types
 import Prelude as P
 
-batchBPLayers :: [LLayer] -> Optim -> [AccMat Double Outp One] -> (Layer, AccMat Double Outp One)
-batchBPLayers llayers (SGDOptim lr) bpLayers = do
-    let (layers, (fbps : bps)) = P.unzip (P.zipWith (\x -> \bp -> bpLayer x (SGDOptim lr) bp) llayers bpLayers)
-        ws = P.map lweights layers
-        bs = P.map lbiases layers
-        numLayers = P.length llayers
-        numLayersD = constant (1.0 / (P.fromIntegral numLayers :: Double))
-        (firstWs : wsRest) = ws
-        (firstBs : bsRest) = bs
-        ws' = avgMs firstWs wsRest numLayersD
-        bs' = avgMs firstBs bsRest numLayersD
-        firstLayer = layers P.!! 0
-    (firstLayer { lweights = ws', lbiases = bs'}, avgMs fbps bps numLayersD) where
-
-        avgMs :: AccMat Double a b -> [AccMat Double a b] -> Exp Double -> AccMat Double a b
-        avgMs m l d = d `matScale` (P.foldl matAdd m l )
-
-
 bpLayer :: LLayer -> Optim -> AccMat Double Outp One -> (Layer, AccMat Double Outp One)
 bpLayer (LLayer { llprevInput = prevInput, llayer = l@(Layer { lweights = w, lbiases = b, llspec = lspec})}) (SGDOptim lr) bp = do
     let wT = matTransp w
@@ -35,7 +17,7 @@ bpLayer (LLayer { llprevInput = prevInput, llayer = l@(Layer { lweights = w, lbi
         deriv = (dactFuncs lspec x)
         dw = (((x `matZipMul` deriv) `matZipMul` bp) `matMul` (matTransp prevInput))  
         w' = w `matSub` (lr `matScale` dw)
-        db = (deriv `matZipMul` bp)
+        db = ((deriv `matZipMul` bp) `matZipMul` x)
         b' = b `matSub` (lr `matScale` db)
         (AccMat bp' Inp One) = wT `matMul` ((bp `matZipMul` deriv) `matZipMul` x)
     (l { lweights = w', lbiases = b'}, AccMat bp' Outp One)
@@ -46,7 +28,7 @@ bpLayer (LLayer { llprevInput = prev, llayer = layer@(InpLayer { vweights = w, v
         x = (w `matZipMul` prev'') `matAdd` b
         deriv = (dactFuncs lspec x)
         w' = w `matSub` (lr `matScale` (deriv `matZipMul` (bp `matZipMul` x)))
-        b' = b `matSub` (lr `matScale` (deriv `matZipMul` bp))
+        b' = b `matSub` (lr `matScale` ((bp `matZipMul` deriv)) `matZipMul` x)
         bp' = w `matZipMul` ((deriv `matZipMul` bp) `matZipMul` x)
     ( layer { vweights = w', vbiases = b' }, bp')
 
@@ -65,7 +47,7 @@ bpLayer (LLayer { llprevInput = prevInput, llayer = l@(Layer { lweights = w, lbi
         deriv = (dactFuncs lspec x)
 
         dw = ((((bp `matZipMul` deriv) `matZipMul` x) `matMul` (matTransp prevInput)) ) 
-        db = (bp `matZipMul` deriv)
+        db = (bp `matZipMul` deriv) `matZipMul` x
 
         wm' = (beta1 `matScale` wm) `matAdd` ((one - beta1) `matScale` dw)
         bm' = (beta1 `matScale` bm) `matAdd` ((one - beta1) `matScale` db)
@@ -97,8 +79,8 @@ bpLayer (LLayer { llprevInput = (AccMat prev _ _), llayer = l@(InpLayer { vweigh
         x = (w `matZipMul` prev' ) `matAdd` b
         deriv = (dactFuncs lspec x)
 
-        dw = ((x `matZipMul` deriv) `matZipMul` bp) 
-        db = (deriv `matZipMul` bp)
+        dw = ((x `matZipMul` deriv) `matZipMul` bp) `matZipMul` prev'
+        db = (deriv `matZipMul` bp) `matZipMul` x
         b1t = beta1 A.^ t
         b2t = beta2 A.^ t
         wm' = (beta1 `matScale` wm ) `matAdd` ((one - beta1) `matScale` dw)

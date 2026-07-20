@@ -21,6 +21,7 @@ openFiles s@(St { stFilesToOpen = (sfto : r)}) = do
     h <- openFile sfto WriteMode
     let m = stFiles s
     let m' = insert sfto h m
+    hSetBuffering h LineBuffering
     openFiles (s { stFilesToOpen = r, stFiles = m'})
 
 writeFiles :: St -> IO St
