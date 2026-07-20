@@ -14,9 +14,9 @@ type Weights = AccMat Double Outp Inp
 type VWeights = Vect Double Outp 
 type Biases = Vect Double Outp
 
-data ActFunc = Sigmoid | Relu | SoftMax deriving(Read)
+data ActFunc = Sigmoid | Relu | SoftMax deriving(Read, Show)
 
-type LSpec = [(Int, ActFunc)]
+type LSpec = [(Int, ActFunc)]  
 
 data Layer = Layer { lnumTimes :: Exp Int, lnumInputs :: Int, lweights :: Weights, lbiases :: Biases , llspec :: LSpec, lweightsMom :: Weights, lbiasesMom :: Biases, lweightsVel :: Weights, lbiasesVel :: Biases} | 
     InpLayer { vnumTimes :: Exp Int, vweights :: VWeights, vbiases :: Biases, vlspec :: LSpec, vweightsMom :: VWeights, vbiasesMom :: Biases, vweightsVel :: VWeights, vbiasesVel :: Biases }
@@ -33,11 +33,11 @@ type AccBlock = Acc (Vector Int, Vector Double)
 
 type Block = (Vector Int, Vector Double)
 
-data LayerInfo = LayerInfo Bool LSpec Int 
+data LayerInfo = LayerInfo Bool LSpec Int deriving(Show)
 
-data BLInfo = BLSGD [LayerInfo] ErrorFnT | BLAdam [LayerInfo] ErrorFnT
+data BLInfo = BLSGD [LayerInfo] ErrorFnT | BLAdam [LayerInfo] ErrorFnT deriving(Show)
 
-data ErrorFnT = MSEErrorFn | CrossEntropyErrorFn 
+data ErrorFnT = MSEErrorFn | CrossEntropyErrorFn deriving(Show)
 
 type ErrorFn = ((Acc (Matrix Double) -> Acc (Matrix Double) -> Acc (Matrix Double)), (Acc (Matrix Double) -> Acc (Matrix Double) -> Acc (Matrix Double)))
 

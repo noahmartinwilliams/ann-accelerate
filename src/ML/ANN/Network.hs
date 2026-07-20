@@ -8,6 +8,7 @@ import ML.ANN.BPLayer
 import ML.ANN.ErrorFn
 import ML.ANN.InfLayer
 import ML.ANN.LLayer
+import ML.ANN.LSpec
 import ML.ANN.MkLayer
 import ML.ANN.Types
 import Prelude as P
@@ -17,17 +18,17 @@ mkNetwork :: StdGen -> [LSpec] -> Optim -> ErrorFnT -> Network
 mkNetwork gen (first : lspecLs) optim errf = do
     let norms = normals gen
         (inpLayer, norms') = mkInpLayer first norms 
-    (Network (inpLayer : (restOfLayers first lspecLs norms')) optim errf) where
+    (Network (inpLayer : (restOfLayers lspecLs norms' (numOuts first ))) optim errf) where
 
-        numIns :: LSpec -> Int
-        numIns l = P.foldr (+) 0 (P.map P.fst l)
+        numOuts :: LSpec -> Int
+        numOuts l = P.foldr (+) 0 (P.map P.fst l)
 
-        restOfLayers :: LSpec -> [LSpec] -> [Double] -> [Layer]
-        restOfLayers _ [] _ = []
-        restOfLayers lspec [lspec'] rands = let (l, _) = mkLayer (numIns lspec) lspec' rands in [l]
-        restOfLayers lspec (lspec' : rest) rands = do
-            let (l, rands') = mkLayer (numIns lspec) lspec' rands
-            l : (restOfLayers lspec' rest rands')
+        restOfLayers :: [LSpec] -> [Double] -> Int -> [Layer]
+        restOfLayers  [] _ _ = []
+        restOfLayers [lspec'] rands numIns = let (l, _) = mkLayer numIns lspec' rands in [l]
+        restOfLayers (lspec' : rest) rands numIns = do
+            let (l, rands') = mkLayer numIns lspec' rands
+            l : (restOfLayers rest rands' (numOuts lspec'))
 
 
 networkGetErrorFn :: Network -> ErrorFn
@@ -95,7 +96,8 @@ trainMiniBatch 1 blinfo block sample = do
     A.lift (A.flatten a', c)
 trainMiniBatch miniSize blinfo block sample = do
     let (inp, outp) = A.unlift sample :: (Acc (Matrix Double), Acc (Matrix Double))
-        empty = A.fromList (Z:.10:.1) (P.take 10 (P.repeat 0.0)) :: (Matrix Double)
+        numEnds = getBlockNumOuts blinfo
+        empty = A.fromList (Z:.numEnds:.1) (P.take numEnds (P.repeat 0.0)) :: (Matrix Double)
         block' = incNumTimes block
         (hi, hd, p) = splitHypParams blinfo block'
         netState = A.lift (empty, inp, outp, hi, hd, A.replicate (A.lift (Z:.All:.(1::Int))) p)
@@ -161,3 +163,14 @@ addLayer i@(Layer { lweights = lw, lbiases = lb, lweightsMom = lwm, lweightsVel 
         lwv'' = lwv `matAdd` lwv'
         lbv'' = lbv `matAdd` lbv'
     i { lweights = lw'', lbiases = lb'', lweightsMom = lwm'', lweightsVel = lwv'', lbiasesMom = lbm'', lbiasesVel = lbv''}
+
+getBlockNumOuts :: BLInfo -> Int
+getBlockNumOuts (BLAdam blinfo _) = do
+    let ((LayerInfo _ last _) : _) = P.reverse blinfo
+        numOuts = getLSpecNumOuts last
+    numOuts
+getBlockNumOuts (BLSGD blinfo _) = do
+    let ((LayerInfo _ last _) : _) = P.reverse blinfo
+        numOuts = getLSpecNumOuts last
+    numOuts
+        

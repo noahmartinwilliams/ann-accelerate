@@ -42,7 +42,7 @@ network2block (Network layers optim@(AdamOptim lr beta1 beta2) errFn) = do
         aints' = P.foldl (A.++) (use (fromList (Z:.1) [numLayers])) aints
         adoubles' = P.foldl (A.++) lr'' (beta1'' : beta2'' : adoubles)
         blinfo = P.zipWith3 LayerInfo bools lspecs numIns
-    (BLSGD blinfo errFn, A.lift (aints', adoubles')) 
+    (BLAdam blinfo errFn, A.lift (aints', adoubles')) 
 
 getNumIns :: [Layer] -> [Int]
 getNumIns [] = []
@@ -129,12 +129,12 @@ block2network (BLAdam ls errFn) accblock = do
         beta1 = A.the (A.reshape (constant Z) (A.take one (A.drop one accDs)))
         beta2 = A.the (A.reshape (constant Z) (A.take one (A.drop (constant 2) accDs)))
         accDs' = A.drop (constant 3) accDs
-        layers = intern ls accIs' accDs'
+        layers = intern' ls accIs' accDs'
     (Network layers (AdamOptim lr beta1 beta2) errFn) where
 
-        intern :: [LayerInfo] -> Acc (Vector Int) -> Acc (Vector Double) -> [Layer] 
-        intern [] _ _ = []
-        intern ((LayerInfo True lspec numIns) : rest) ints doubles = do
+        intern' :: [LayerInfo] -> Acc (Vector Int) -> Acc (Vector Double) -> [Layer] 
+        intern' [] _ _ = []
+        intern' ((LayerInfo True lspec numIns) : rest) ints doubles = do
             let numIns' = constant numIns
                 numTimes = A.the (A.reshape (constant Z) (A.take (constant 1) ints ))
                 ints' = A.drop (constant 1) ints
@@ -153,9 +153,9 @@ block2network (BLAdam ls errFn) accblock = do
                 biasesVel = A.reshape (constant (Z:.numIns:.1)) (A.take numIns' weightsVelR)
                 biasesVelR = A.drop numIns' weightsVelR
                 layer = InpLayer { vnumTimes = numTimes, vweights = weightsM, vbiases = biasesM, vbiasesMom = (AccMat biasesMom Outp One), vbiasesVel = (AccMat biasesVel Outp One), vweightsMom = (AccMat weightsMom Outp One), vweightsVel = (AccMat weightsVel Outp One), vlspec = lspec}
-            (layer : (intern rest ints' biasesVelR))
+            (layer : (intern' rest ints' biasesVelR))
 
-        intern ((LayerInfo False lspec numIns) : rest) ints doubles = do
+        intern' ((LayerInfo False lspec numIns) : rest) ints doubles = do
             let numOuts = getLSpecNumOuts lspec
                 numTimes = A.the (A.reshape (constant Z) (A.take (constant 1) ints ))
                 ints' = A.drop (constant 1) ints
@@ -165,18 +165,18 @@ block2network (BLAdam ls errFn) accblock = do
                 weightsR = A.drop numWeights doubles
                 biasesV = A.take numOuts' weightsR
                 biasesR = A.drop numOuts' weightsR
-                weightsM = AccMat (A.reshape (constant (Z:.numIns:.numOuts)) weightsV) Outp Inp
+                weightsM = AccMat (A.reshape (constant (Z:.numOuts:.numIns)) weightsV) Outp Inp
                 biasesM = AccMat (A.reshape (constant (Z:.numOuts:.1)) biasesV) Outp One
-                weightsMom = A.reshape (constant (Z:.numIns:.numOuts)) (A.take numWeights biasesR)
+                weightsMom = A.reshape (constant (Z:.numOuts:.numIns)) (A.take numWeights biasesR)
                 weightsMomR = A.drop numWeights biasesR
                 biasesMom = A.reshape (constant (Z:.numOuts:.1)) (A.take numOuts' weightsMomR)
                 biasesMomR = A.drop numOuts' weightsMomR
-                weightsVel = A.reshape (constant (Z:.numIns:.numOuts)) (A.take numWeights biasesMomR)
+                weightsVel = A.reshape (constant (Z:.numOuts:.numIns)) (A.take numWeights biasesMomR)
                 weightsVelR = A.drop numWeights biasesMomR
                 biasesVel = A.reshape (constant (Z:.numOuts:.1)) (A.take numOuts' weightsVelR)
                 biasesVelR = A.drop numOuts' weightsVelR
                 layer = Layer { lnumTimes = numTimes, lweights = weightsM, lbiases = biasesM, lbiasesMom = (AccMat biasesMom Outp One), lbiasesVel = (AccMat biasesVel Outp One), lweightsMom = (AccMat weightsMom Outp Inp), lweightsVel = (AccMat weightsVel Outp Inp), llspec = lspec, lnumInputs = numIns}
-            (layer : (intern rest ints' biasesVelR))
+            (layer : (intern' rest ints' biasesVelR))
 
 splitHypParams :: BLInfo -> AccBlock -> (Acc (Vector Int), Acc (Vector Double), Acc (Vector Double))
 splitHypParams (BLSGD _ _) accblock = do

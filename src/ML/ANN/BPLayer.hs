@@ -15,11 +15,11 @@ bpLayer (LLayer { llprevInput = prevInput, llayer = l@(Layer { lweights = w, lbi
     let wT = matTransp w
         x = (w `matMul` prevInput ) `matAdd` b
         deriv = (dactFuncs lspec x)
-        dw = (((x `matZipMul` deriv) `matZipMul` bp) `matMul` (matTransp prevInput))  
+        dw = (((deriv) `matZipMul` bp) `matMul` (matTransp prevInput))  
         w' = w `matSub` (lr `matScale` dw)
-        db = ((deriv `matZipMul` bp) `matZipMul` x)
+        db = ((deriv `matZipMul` bp) )
         b' = b `matSub` (lr `matScale` db)
-        (AccMat bp' Inp One) = wT `matMul` ((bp `matZipMul` deriv) `matZipMul` x)
+        (AccMat bp' Inp One) = wT `matMul` ((bp `matZipMul` deriv) )
     (l { lweights = w', lbiases = b'}, AccMat bp' Outp One)
 
 bpLayer (LLayer { llprevInput = prev, llayer = layer@(InpLayer { vweights = w, vbiases = b, vlspec = lspec })}) (SGDOptim lr) bp = do
@@ -27,9 +27,9 @@ bpLayer (LLayer { llprevInput = prev, llayer = layer@(InpLayer { vweights = w, v
         prev'' = AccMat prev' Outp One
         x = (w `matZipMul` prev'') `matAdd` b
         deriv = (dactFuncs lspec x)
-        w' = w `matSub` (lr `matScale` ((deriv `matZipMul` (bp `matZipMul` x)) `matZipMul` prev''))
-        b' = b `matSub` (lr `matScale` ((bp `matZipMul` deriv)) `matZipMul` x)
-        bp' = w `matZipMul` ((deriv `matZipMul` bp) `matZipMul` x)
+        w' = w `matSub` (lr `matScale` ((deriv `matZipMul` (bp )) `matZipMul` prev''))
+        b' = b `matSub` (lr `matScale` ((bp `matZipMul` deriv)) )
+        bp' = w `matZipMul` ((deriv `matZipMul` bp) )
     ( layer { vweights = w', vbiases = b' }, bp')
 
 bpLayer (LLayer { llprevInput = prevInput, llayer = l@(Layer { lweights = w, lbiases = b, llspec = lspec})}) (AdamOptim lr beta1 beta2) bp = do
@@ -46,8 +46,8 @@ bpLayer (LLayer { llprevInput = prevInput, llayer = l@(Layer { lweights = w, lbi
         x = (w `matMul` prevInput ) `matAdd` b
         deriv = (dactFuncs lspec x)
 
-        dw = ((((bp `matZipMul` deriv) `matZipMul` x) `matMul` (matTransp prevInput)) ) 
-        db = (bp `matZipMul` deriv) `matZipMul` x
+        dw = ((((bp `matZipMul` deriv) ) `matMul` (matTransp prevInput)) ) 
+        db = (bp `matZipMul` deriv) 
 
         wm' = (beta1 `matScale` wm) `matAdd` ((one - beta1) `matScale` dw)
         bm' = (beta1 `matScale` bm) `matAdd` ((one - beta1) `matScale` db)
@@ -64,7 +64,7 @@ bpLayer (LLayer { llprevInput = prevInput, llayer = l@(Layer { lweights = w, lbi
         w' = w `matSub` (lr `matScale` (wmhat `matZipDiv` (wvhat `matMap` (\y -> (sqrt y) + epsilon))))
         b' = b `matSub` (lr `matScale` (bmhat `matZipDiv` (bvhat `matMap` (\y -> (sqrt y) + epsilon))))
 
-        (AccMat bp' Inp One) = wT `matMul` ((bp `matZipMul` deriv) `matZipMul` x)
+        (AccMat bp' Inp One) = wT `matMul` ((bp `matZipMul` deriv) )
     (l { lweights = w', lbiases = b', lweightsMom = wm', lweightsVel = wv', lbiasesMom = bm', lbiasesVel = bv', lnumTimes = (t + (constant 1)) }, AccMat bp' Outp One)
 
 bpLayer (LLayer { llprevInput = (AccMat prev _ _), llayer = l@(InpLayer { vweights = w, vbiases = b, vlspec = lspec })}) (AdamOptim lr beta1 beta2) bp = do
@@ -79,8 +79,8 @@ bpLayer (LLayer { llprevInput = (AccMat prev _ _), llayer = l@(InpLayer { vweigh
         x = (w `matZipMul` prev' ) `matAdd` b
         deriv = (dactFuncs lspec x)
 
-        dw = ((x `matZipMul` deriv) `matZipMul` bp) `matZipMul` prev'
-        db = (deriv `matZipMul` bp) `matZipMul` x
+        dw = ((deriv) `matZipMul` bp) `matZipMul` prev'
+        db = (deriv `matZipMul` bp) 
         b1t = beta1 A.^ t
         b2t = beta2 A.^ t
         wm' = (beta1 `matScale` wm ) `matAdd` ((one - beta1) `matScale` dw)
@@ -95,7 +95,7 @@ bpLayer (LLayer { llprevInput = (AccMat prev _ _), llayer = l@(InpLayer { vweigh
         bvhat = (one / (one - b2t)) `matScale` bv'
         w' = w `matSub` (lr `matScale` (wmhat `matZipDiv` (wvhat `matMap` (\y -> (sqrt y) + epsilon))))
         b' = b `matSub` (lr `matScale` (bmhat `matZipDiv` (bvhat `matMap` (\y -> (sqrt y) + epsilon))))
-        (AccMat bp' Outp One) = w `matZipMul` ((bp `matZipMul` deriv) `matZipMul` x)
+        (AccMat bp' Outp One) = w `matZipMul` ((bp `matZipMul` deriv) )
     (l { vweights = w', vbiases = b', vweightsMom = wm', vweightsVel = wv', vbiasesMom = bm', vbiasesVel = bv', vnumTimes = (t + (constant 1)) }, AccMat bp' Outp One)
 
 incNumTimes :: AccBlock -> AccBlock
