@@ -58,8 +58,11 @@ go :: [Conf] -> [Int] -> SampSource -> IO ()
 go [] _ _ = return ()
 go (hc : rc) (hi : ri) sampSources@(h1, h2, h3, h4) = do
     let (blinfo, block, testfn, trainfn) = defStuff
-    runner' hc (St {stTestSamps = getSamps 1 (BS.drop 16 h3) (BS.drop 8 h4), stPhase = Start, stBLInfo = blinfo, stTrainSamps = getSamps (miniBatchSize hc) (BS.drop 16 h1) (BS.drop 8 h2), stBlock = block, stFilesToWrite = Data.Map.empty, stFilesToOpen = [], stFiles = Data.Map.empty, stFilesToClose = []}) trainfn testfn hi (numEpochs hc)
+        nums = randoms (mkStdGen hi) :: [Int]
+    runner' hc (St {stTrainBS = (BS.drop 16 h1, BS.drop 8 h2), stTestSamps = (getSamps 100 1 (BS.drop 16 h3 , BS.drop 8 h4)), stPhase = Start, stBLInfo = blinfo, stTrainSamps = (getSamps 100 (miniBatchSize hc) (BS.drop 16 h1, BS.drop 8 h2)), stBlock = block, stFilesToWrite = Data.Map.empty, stFilesToOpen = [], stFiles = Data.Map.empty, stFilesToClose = []}) trainfn testfn hi (numEpochs hc) nums
     go rc ri sampSources 
+
+
 
 runner :: Int -> TrainFn -> TestFn -> Mon (Bool, TrainFn, TestFn)
 runner num train test = do
@@ -82,15 +85,16 @@ runner num train test = do
         else
             return (False, train', test')
     
-runner' :: Conf -> St -> TrainFn -> TestFn -> Int -> Int -> IO ()
-runner' c st train test num epochNum = do
+runner' :: Conf -> St -> TrainFn -> TestFn -> Int -> Int -> [Int] -> IO ()
+runner' c st train test num epochNum (num1 : nums) = do
     let ((finished, train', test'), st') = runState (runReaderT (runner num train test) c) st
+        mbs = miniBatchSize c
     st'' <- doIO  st'
     if finished P.&& (epochNum P.== 0)
     then
         return ()
     else if finished 
     then
-        runner' c st'' train' test' num (epochNum - 1)
+        let st2 = st'' { stTrainSamps = getSamps num1 mbs (stTrainBS st'') } in runner' c st2 train' test' num (epochNum - 1) nums
     else
-        runner' c st'' train' test' num epochNum
+        runner' c st'' train' test' num epochNum (num1 : nums)

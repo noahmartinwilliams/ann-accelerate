@@ -22,7 +22,7 @@ instance ToJSON Conf where
 
 data Phase = Start | Train | Test1 | Test2 | Save | Save1 | Done deriving(P.Eq, Show)
 
-data St = St { stPhase :: Phase, stTrainSamps :: [(Matrix Double, Matrix Double)], stTestSamps :: [(Matrix Double, Matrix Double)], stBLInfo :: BLInfo, stBlock :: (Vector Int, Vector Double), stFilesToWrite :: Map String ByteString, stFilesToOpen :: [String], stFiles :: Map String Handle, stFilesToClose :: [String] }
+data St = St { stTrainBS :: (ByteString, ByteString), stPhase :: Phase, stTrainSamps :: [(Matrix Double, Matrix Double)], stTestSamps :: [(Matrix Double, Matrix Double)], stBLInfo :: BLInfo, stBlock :: (Vector Int, Vector Double), stFilesToWrite :: Map String ByteString, stFilesToOpen :: [String], stFiles :: Map String Handle, stFilesToClose :: [String] }
 
 type Mon = ReaderT Conf (State St) 
 

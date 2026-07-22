@@ -106,7 +106,7 @@ trainMiniBatch miniSize blinfo block sample = do
         divideMS = A.map (\x -> x / (constant (P.fromIntegral miniSize :: Double)))
         p'' = divideMS (A.sum p')
         block'' = A.lift (hi', hd' A.++ p'') :: AccBlock
-    A.lift (divideMS (A.sum errs), block'') where
+    A.lift ((A.sum errs), block'') where
 
         test :: AccNetState -> Acc (Scalar Bool)
         test bl = do
@@ -173,4 +173,3 @@ getBlockNumOuts (BLSGD blinfo _) = do
     let ((LayerInfo _ last _) : _) = P.reverse blinfo
         numOuts = getLSpecNumOuts last
     numOuts
-        
